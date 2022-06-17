@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/15 18:16:10 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/17 18:38:18 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	__visual_print_tab(char **tab)
 	int	i;
 
 	i = -1;
-	while (tab[++i])
-		printf("%s\n", tab[i]);
+	if (tab)
+		while (tab[++i])
+			printf("%s\n", tab[i]);
 }
 
 // int	main(int ac, char **av, char **envp)
