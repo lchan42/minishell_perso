@@ -6,17 +6,16 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:46:51 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/17 21:08:08 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/17 21:47:47 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/************************************************************************************************************************************************/
 /*********************** FROM LIBFT *****************************/
 static int	ft_strlen(char *str)
 {
-	int cnt;
+	int	cnt;
 
 	cnt = 0;
 	while (str[cnt])
@@ -39,7 +38,7 @@ int	ft_strchr_boolean(const char *s, int c)
 }
 /****************************************************************/
 
-static int __str_word_jump(char **str, const char *delim)
+static int	__str_word_jump(char **str, const char *delim)
 {
 	int		quote_flag;
 	char	*tmp;
@@ -82,7 +81,7 @@ static int	__set_null_bytes(char *str, const char *delim, char *str_end)
 	cnt = 0;
 	while (str != str_end)
 	{
-		if(__str_word_jump(&str, delim) == -1)
+		if (__str_word_jump(&str, delim) == -1)
 			return (-1);
 		if (ft_strchr_boolean(delim, *str) && ++cnt)
 			*str = '\0';
@@ -122,7 +121,7 @@ char	**__make_token(char *str, const char *delim)
 	if (cnt == -1)
 		return (NULL);
 	token_tab = (char **) malloc(sizeof(char *) * (cnt + 1));
-	if (token
+	if (token_tab)
 	{
 		i = -1;
 		while (++i < cnt)

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/17 18:38:18 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/17 21:29:39 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,16 @@ void	__visual_print_tab(char **tab)
 			printf("%s\n", tab[i]);
 }
 
-// int	main(int ac, char **av, char **envp)
-// {
-// 	char	*read;
-// 	char	*token;
-// 	char	*tab[100];
-
-// 		read = readline("test : ");
-// 		printf("%p, %s\n", read, read);
-
-// 			token = strtok(read, " ");
-// 			printf("%p, %s\n", token, token);
-// 			token = strtok(NULL, " ");
-// 			printf("%p, %s\n", token, token);
-// 			token = strtok(read, " ");
-// 			printf("%p, %s\n", token, token);
-
-// 		__visual_print_tab(tab);
-// 		free(read);
-// 	return (0);
-// }
-
 int main (int ac, char **av, char **envp)
 {
 	char *read;
 	char **token_tab;
+	(void) ac;
+	(void) av;
+	(void) envp;
 
  	read = readline("test : ");
 	token_tab = __make_token(read, " +-");
 	__visual_print_tab(token_tab);
-		free(read);
+	free(read);
 }
