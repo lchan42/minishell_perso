@@ -6,15 +6,15 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/15 17:49:05 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/24 19:35:55 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
-#include <stddef.h>
+# include "./libraries/libft/libft.h"
+# include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -72,5 +72,26 @@
 // tgoto,
 // tputs
 //void	__make_token (char *str, const char delim);
+
+
+typedef enum e_lexer_type_token
+{
+	TYPE_LEXER_WORD,
+	TYPE_LEXER_EXPAND,
+	TYPE_LEXER_OPERATOR
+}			t_lexer_type_token;
+
+typedef struct s_lexer_token
+{
+	int				index;
+	unsigned int	type;
+	char			*start;
+	char			*end;
+	size_t			length;
+
+}				t_lexer_token;
+
 char	**__make_token(char *str, const char *delim);
+void lexer_creat_lst(t_list **lexer_lst);
+void	lexer_reader(char **start, char **end);
 #endif

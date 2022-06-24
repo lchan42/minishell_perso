@@ -6,14 +6,15 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 17:46:51 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/17 21:47:47 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/24 19:31:26 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*********************** FROM LIBFT *****************************/
-static int	ft_strlen(char *str)
+
+/*static int	ft_strlen(char *str)
 {
 	int	cnt;
 
@@ -21,9 +22,20 @@ static int	ft_strlen(char *str)
 	while (str[cnt])
 		cnt++;
 	return (cnt);
-}
+}*/
+/*
+static int ft_strlen(char *str)
+{
+	char *tmp;
 
-int	ft_strchr_boolean(const char *s, int c)
+	tmp = str;
+	while (*str)
+		str++;
+	return (str - tmp);
+}
+*/
+
+int	ft_strchr_b(const char *s, int c)
 {
 	int	i;
 
@@ -45,9 +57,9 @@ static int	__str_word_jump(char **str, const char *delim)
 
 	quote_flag = 0;
 	tmp = *str;
-	while (ft_strchr_boolean(delim, *tmp))
+	while (ft_strchr_b(delim, *tmp))
 		tmp++;
-	while (*tmp && ft_strchr_boolean(delim, *tmp) == 0)
+	while (*tmp && ft_strchr_b(delim, *tmp) == 0)
 	{
 		if (*tmp == '"')
 			quote_flag = '"';
@@ -83,9 +95,9 @@ static int	__set_null_bytes(char *str, const char *delim, char *str_end)
 	{
 		if (__str_word_jump(&str, delim) == -1)
 			return (-1);
-		if (ft_strchr_boolean(delim, *str) && ++cnt)
+		if (ft_strchr_b(delim, *str) && ++cnt)
 			*str = '\0';
-		else if (str == str_end && !ft_strchr_boolean(delim, *(str - 1)))
+		else if (str == str_end && !ft_strchr_b(delim, *(str - 1)))
 				cnt++;
 		if (str != str_end)
 			str++;
@@ -101,7 +113,7 @@ static int	__set_null_bytes(char *str, const char *delim, char *str_end)
 
 static char	*__save_ptr(char *str, const char *delim, char *str_end)
 {
-	while (str != str_end && (*str == '\0' || ft_strchr_boolean(delim, *str)))
+	while (str != str_end && (*str == '\0' || ft_strchr_b(delim, *str)))
 		str++;
 	if (*str)
 		return (str);
