@@ -6,19 +6,26 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/24 19:36:39 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:42:05 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*reader_find_start(char *str, char *str_end)
+/***************************************************************************
+ * skip all spaces and return the position of the first non space character
+ */
+static char	*set_ptrs_start(char *str, char *str_end)
 {
 	while (str != str_end && ft_strchr_b(" ", *str))
 		str++;
 	return (str);
 }
 
+/************************
+ * find end case operator
+ * 		skip bits while is an operator
+ */
 static char *find_end_operator(char *end, char *str_end)
 {
 	while (end != str_end && ft_strchr_b(METACHAR, *end))
@@ -26,13 +33,20 @@ static char *find_end_operator(char *end, char *str_end)
 	return (end);
 }
 
+/***************************************************************************
+ * find end case word
+ * 		skip bits until a metacharacter ("|&()<> ") is encountered
+ * if a quote is encountered, skip bits until end of quote is encountered
+ * 		end of quote do not necessarly imply end of token
+ * 		returns NULL if no end of quote is encountered
+ */
 static char *find_end_word(char *end, char *str_end)
 {
 	int		quote_flag;
 
 	quote_flag = 0;
 	while (end != str_end &&
-		ft_strchr_b(METACHAR, *end) == 0 && ft_strchr_b(" ", *end) == 0)
+		ft_strchr_b(METACHAR, *end) == 0) //&& ft_strchr_b(" ", *end) == 0)
 	{
 		if (*end == '"')
 			quote_flag = '"';
@@ -50,21 +64,31 @@ static char *find_end_word(char *end, char *str_end)
 	return (end);
 }
 
-static char *reader_find_end(char *end, char *str_end)
+/***************************************************************************
+ * return the end of token according to the start address
+ */
+static char *set_ptrs_end(char *start, char *str_end)
 {
-	if (ft_strchr_b(METACHAR, *end))
-		end = find_end_operator(end, str_end);
+	char *end;
+
+	if (ft_strchr_b(METACHAR, *start))
+		end = find_end_operator(start, str_end);
 	else
-		end = find_end_word(end, str_end);
+		end = find_end_word(start, str_end);
 	return (end);
 }
 
-void	lexer_reader(char **start, char **end)
+/**
+ * @brief set the starting and ending address. this function is meant to be used in a while loop
+ *
+ * @param start
+ * @param end
+ */
+void	lexer_set_ptrs(char **start, char **end)
 {
 	char *str_end;
 
 	str_end = *start + ft_strlen(*start);
-	*start = reader_find_start(*start, str_end);
-	*end = reader_find_end(*start, str_end);
+	*start = set_ptrs_start(*start, str_end);
+	*end = set_ptrs_end(*start, str_end);
 }
-

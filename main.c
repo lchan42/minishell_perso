@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/24 19:38:16 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:43:08 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,27 @@ int main (int ac, char **av, char **envp)
  	read = readline("test : ");
 	start = read;
 	end = read;
-	lexer_reader(&start, &end);
-	printf("start = %s\n", start);
-	printf("end = %s\n", end);
-	start = end;
-		lexer_reader(&start, &end);
-	printf("start = %s\n", start);
-	printf("end = %s\n", end);
-	start = end;
-			lexer_reader(&start, &end);
-	printf("start = %s\n", start);
-	printf("end = %s\n", end);
+	while (*start)
+	{
+		lexer_set_ptrs(&start, &end);
+		write(1, start, end - start);
+		write(1, "\n", 1);
+		printf("start%p\n", start);
+		printf("start%p\n", end);
+		printf("%ld\n", end - start);
+		write(1, "\n", 1);
+		start = end;
+	}
+	// printf("start = %s\n", start);
+	// printf("end = %s\n", end);
+	// start = end;
+	// 	lexer_reader(&start, &end);
+	// printf("start = %s\n", start);
+	// printf("end = %s\n", end);
+	// start = end;
+	// 		lexer_reader(&start, &end);
+	// printf("start = %s\n", start);
+	// printf("end = %s\n", end);
 	free(read);
 	//free(token_tab);
 }

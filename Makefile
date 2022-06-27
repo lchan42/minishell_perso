@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/06/24 19:04:21 by lchan            ###   ########.fr        #
+#    Updated: 2022/06/27 19:42:59 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIB	= ./libraries/libft/libft.a
 
 SRCS	=	main.c\
 			ms_make_token.c\
-			lexer_reader.c\
+			lexer_set_ptrs.c\
 			lexer_nod_init.c
 
 

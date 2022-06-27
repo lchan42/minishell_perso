@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/24 19:35:55 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/27 15:39:10 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <readline/history.h>
 
 
-# define METACHAR "|&()<>" 		//dont need to interpreat';'
+# define METACHAR "|&()<> " 		//dont need to interpreat';'
 # define S_QUOTE "'"			//meta char in simple quote should be interpreted as normal char
 # define D_QUOTE "\""			//same as single, expect for $ sign;
 # define DOLLAR "$"				//if followed by a string, go in the env
@@ -73,7 +73,6 @@
 // tputs
 //void	__make_token (char *str, const char delim);
 
-
 typedef enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD,
@@ -83,7 +82,7 @@ typedef enum e_lexer_type_token
 
 typedef struct s_lexer_token
 {
-	int				index;
+	unsigned int	index;
 	unsigned int	type;
 	char			*start;
 	char			*end;
