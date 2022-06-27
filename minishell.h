@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/27 15:39:10 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:47:21 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ typedef struct s_lexer_token
 
 char	**__make_token(char *str, const char *delim);
 void lexer_creat_lst(t_list **lexer_lst);
-void	lexer_reader(char **start, char **end);
+void	lexer_set_ptrs(char **start, char **end);
 #endif
