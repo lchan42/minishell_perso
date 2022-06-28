@@ -26,7 +26,18 @@ static t_lexer_token	*lexer_nod_init(t_lexer_token *new_content)
 	return (new_content);
 }
 */
+void	lexer_free(t_list *lexer)
+{
+	t_list *tmp;
 
+	while (lexer)
+	{
+		tmp = lexer;
+		lexer = lexer->next;
+		free(tmp->content);
+		free(tmp);
+	}
+}
 
 static int lexer_lst_add_back(t_list **lexer_lst, char *start, char *end, unsigned index)
 {
@@ -41,9 +52,10 @@ static int lexer_lst_add_back(t_list **lexer_lst, char *start, char *end, unsign
 	new_content->end = end;
 	new_content->length = end - start;
 	ft_lstadd_back(lexer_lst, ft_lstnew(new_content));
+	return (0);
 }
 
-t_list	*lexer(char *str)
+t_list	*lexer_make(char *str)
 {
 	char			*start;
 	char			*end;
@@ -54,15 +66,17 @@ t_list	*lexer(char *str)
 	end = str;
 	i = 0;
 	lexer_head = NULL;
-	while (start)
+	while (*start)
 	{
-		lexer_set_ptrs(&start, &end);
-		if (lexer_lst_add_back(&lexer_head, start, end, i++) == -1)
+
+		if (lexer_set_ptrs(&start, &end) == -1
+		||lexer_lst_add_back(&lexer_head, start, end, i++) == -1)
 		{
 			if (lexer_head)
-				free_t_list(lexer_head);
+				lexer_free(lexer_head);
 			return (NULL);
 		}
+		start = end;
 	}
 	return (lexer_head);
 }

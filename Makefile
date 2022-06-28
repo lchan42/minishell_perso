@@ -17,7 +17,7 @@ LIB	= ./libraries/libft/libft.a
 SRCS	=	main.c\
 			ms_make_token.c\
 			lexer_set_ptrs.c\
-			lexer_nod_init.c
+			lexer_make.c
 
 
 SRCSBONUS =

@@ -90,7 +90,7 @@ typedef struct s_lexer_token
 
 }				t_lexer_token;
 
-char	**__make_token(char *str, const char *delim);
-void lexer_creat_lst(t_list **lexer_lst);
-void	lexer_set_ptrs(char **start, char **end);
+int		lexer_set_ptrs(char **start, char **end);
+t_list	*lexer_make(char *str);
+void	lexer_free(t_list *lexer);
 #endif

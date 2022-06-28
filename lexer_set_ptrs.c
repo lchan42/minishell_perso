@@ -79,16 +79,20 @@ static char *set_ptrs_end(char *start, char *str_end)
 }
 
 /**
- * @brief set the starting and ending address. this function is meant to be used in a while loop
+ * @brief set its parameters so they delimit the start and the end of a token. returns -1 in case of problem
  *
- * @param start
- * @param end
+ * @param start start of the token
+ * @param end end of the token
  */
-void	lexer_set_ptrs(char **start, char **end)
+int	lexer_set_ptrs(char **start, char **end)
 {
 	char *str_end;
 
 	str_end = *start + ft_strlen(*start);
 	*start = set_ptrs_start(*start, str_end);
 	*end = set_ptrs_end(*start, str_end);
+	if (*end == NULL)
+		return (-1);
+	return (0);
+
 }
