@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_nod_init.c                                   :+:      :+:    :+:   */
+/*   lexer_make.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/27 20:03:42 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/28 19:15:19 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-static t_lexer_token	*lexer_nod_init(t_lexer_token *new_content)
-{
-	new_content = malloc(sizeof(t_lexer_token));
-	if (!new_content)
-		return (NULL);
-	new_content->index = 0;
-	new_content->type = 0;
-	new_content->start = NULL;
-	new_content->end = NULL;
-	new_content->length = 0;
-	return (new_content);
-}
-*/
 void	lexer_free(t_list *lexer)
 {
 	t_list *tmp;
@@ -39,7 +25,7 @@ void	lexer_free(t_list *lexer)
 	}
 }
 
-static int lexer_lst_add_back(t_list **lexer_lst, char *start, char *end, unsigned index)
+static int lexer_add_nod(t_list **lexer_lst, char *start, char *end, unsigned index)
 {
 	t_lexer_token *new_content;
 
@@ -68,9 +54,8 @@ t_list	*lexer_make(char *str)
 	lexer_head = NULL;
 	while (*start)
 	{
-
 		if (lexer_set_ptrs(&start, &end) == -1
-		||lexer_lst_add_back(&lexer_head, start, end, i++) == -1)
+		|| lexer_add_nod(&lexer_head, start, end, i++) == -1)
 		{
 			if (lexer_head)
 				lexer_free(lexer_head);

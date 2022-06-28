@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_reader.c                                     :+:      :+:    :+:   */
+/*   lexer_set_ptrs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/27 19:42:05 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/28 19:18:37 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ static char	*set_ptrs_start(char *str, char *str_end)
  * find end case operator
  * 		skip bits while is an operator
  */
-static char *find_end_operator(char *end, char *str_end)
+static char *find_end_operator(char *start, char *str_end)
 {
+	char *end;
+
+	end = start;
 	while (end != str_end && ft_strchr_b(METACHAR, *end))
 		end++;
 	return (end);
@@ -46,7 +49,7 @@ static char *find_end_word(char *end, char *str_end)
 
 	quote_flag = 0;
 	while (end != str_end &&
-		ft_strchr_b(METACHAR, *end) == 0) //&& ft_strchr_b(" ", *end) == 0)
+		ft_strchr_b(METACHAR, *end) == 0 && ft_strchr_b(" ", *end) == 0)
 	{
 		if (*end == '"')
 			quote_flag = '"';

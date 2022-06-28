@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/27 19:47:21 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/28 19:14:20 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@
 # include <readline/history.h>
 
 
-# define METACHAR "|&()<> " 		//dont need to interpreat';'
-# define S_QUOTE "'"			//meta char in simple quote should be interpreted as normal char
-# define D_QUOTE "\""			//same as single, expect for $ sign;
+# define METACHAR "|&()<>" 		//dont need to interpreat';'
+# define AND_IF "&&"
+# define OR_IF "||"
+# define DLESS "<<"					//heredoc
+# define DGREAT ">>"				//redirect exit in append mode
+# define SQUOTE '\''			//meta char in simple quote should be interpreted as normal char
+# define DQUOTE '\"'			//same as single, expect for $ sign;
 # define DOLLAR "$"				//if followed by a string, go in the env
 
 //recode function strtok_r
@@ -76,14 +80,13 @@
 typedef enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD,
-	TYPE_LEXER_EXPAND,
 	TYPE_LEXER_OPERATOR
 }			t_lexer_type_token;
 
 typedef struct s_lexer_token
 {
 	unsigned int	index;
-	unsigned int	type;
+	int				type;
 	char			*start;
 	char			*end;
 	size_t			length;

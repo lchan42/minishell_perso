@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/27 19:43:08 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/28 19:21:06 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,30 @@ void	__visual_print_lexer(t_list *lst)
 void	lexer_analyser(t_list *lexer)
 {
 	if(!lexer)
+	{
+		printf("leaving lexer\n");
 		exit(1);
+	}
 }
 
+
+/*********************eventual question to ask:
+ * concerning odd quotes, do nothing ? or ask for completion ?
+ * lexer nods, Show I seperate words according to METACHAR or space?
+ */
+
+
+/**********************to do
+ * lexer analyser : checking the conformity of type operator
+ * 					attributing types
+ */
+
+/**********************
+ * interrogation: concerning the error control function
+ * before the construction of the t_list
+ * during the construction of the t_list
+ * after the construction of the t_list
+ */
 int main (int ac, char **av, char **envp)
 {
 	char *read;
@@ -53,44 +74,12 @@ int main (int ac, char **av, char **envp)
 	(void) envp;
 	t_list *lexer;
 
- 	read = get_next_line(0);
+ 	read = get_next_line(0);				//using gnl here rather than readline coz less leak
+	*(read + ft_strlen(read) - 1) = '\0';	//replacing the \n by \0
 	lexer = lexer_make(read);
 	lexer_analyser(lexer);
 	__visual_print_lexer(lexer);
 	lexer_free(lexer);
-	// while (*start)
-	// {
-	// 	lexer_set_ptrs(&start, &end);
-	// 	write(1, start, end - start);
-	// 	write(1, "\n", 1);
-	// 	printf("start%p\n", start);
-	// 	printf("start%p\n", end);
-	// 	printf("%ld\n", end - start);
-	// 	write(1, "\n", 1);
-	// 	start = end;
-	// }
-	// printf("start = %s\n", start);
-	// printf("end = %s\n", end);
-	// start = end;
-	// 	lexer_reader(&start, &end);
-	// printf("start = %s\n", start);
-	// printf("end = %s\n", end);
-	// start = end;
-	// 		lexer_reader(&start, &end);
-	// printf("start = %s\n", start);
-	// printf("end = %s\n", end);
+
 	free(read);
-	//free(token_tab);
 }
-
-/*
-t_list	*lexer(char *str)
-{
-	t_list	*head;
-	char	*str_end;
-
-	str_end = str + ft_strlen(str);
-	head = NULL;
-	lexer_reader(str, head, str_end);
-}*/
-// print *((t_lexer_token *)head->content)) in lldb.
