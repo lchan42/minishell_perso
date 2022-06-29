@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/28 19:14:20 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/29 17:21:05 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <signal.h>
-#include <string.h>
+# include <string.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -77,7 +77,14 @@
 // tputs
 //void	__make_token (char *str, const char delim);
 
-typedef enum e_lexer_type_token
+enum e_lexer_error
+{
+	SOLO_QUOTE,
+	UNEXPECTED_TOKEN,
+	UNACCEPTED_TOKEN,
+};
+
+enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD,
 	TYPE_LEXER_OPERATOR

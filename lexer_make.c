@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_make.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/28 19:15:19 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/29 16:56:18 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int lexer_add_nod(t_list **lexer_lst, char *start, char *end, unsigned in
 	new_content = ft_calloc(1, sizeof(t_lexer_token));
 	if (!new_content)
 		return (-1);
-	//new_content = lexer_nod_init(new_content);
 	new_content->index = index;
 	new_content->start = start;
 	new_content->end = end;

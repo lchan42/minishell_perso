@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
+#    By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/06/27 19:42:59 by lchan            ###   ########.fr        #
+#    Updated: 2022/06/29 16:56:18 by luc_chan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,8 @@ ${OBJS}:	${HEADER}
 $(NAME):	${OBJS}
 			${MAKE} -C ${LIBPATH} all
 			${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${LIB} -L${LIBPATH} -lreadline
+
+
 
 debug:		${OBJS}
 			${MAKE} -C ${LIBPATH} all
