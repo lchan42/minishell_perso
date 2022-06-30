@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_set_ptrs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/28 19:18:37 by lchan            ###   ########.fr       */
+/*   Updated: 2022/06/29 20:32:59 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char *find_end_operator(char *start, char *str_end)
 	char *end;
 
 	end = start;
-	while (end != str_end && ft_strchr_b(METACHAR, *end))
+	while (end != str_end && ft_strchr_b(METACHAR, *end)) //might have 
 		end++;
 	return (end);
 }
