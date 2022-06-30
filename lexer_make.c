@@ -6,7 +6,7 @@
 /*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/30 15:32:11 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/06/30 15:34:47 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_list	*lexer_make(char *str)
 	lexer_head = NULL;
 	tmp_nod.index = 0;
 	tmp_nod.start = str;
-	//tmp_nod.end = str;
+	//tmp_nod.end = str; it seems that I dont need to set it. kept in case error mgmt needs it.
 	while (*(tmp_nod.start))
 	{
 		if (lexer_set_ptrs(&tmp_nod.start, &tmp_nod.end))
