@@ -6,7 +6,7 @@
 /*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/29 20:32:59 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/06/30 14:51:35 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char *find_end_operator(char *start, char *str_end)
 	char *end;
 
 	end = start;
-	while (end != str_end && ft_strchr_b(METACHAR, *end)) //might have 
+	while (end != str_end && ft_strchr_b(METACHAR, *end)) //might have
 		end++;
 	return (end);
 }
@@ -82,7 +82,7 @@ static char *set_ptrs_end(char *start, char *str_end)
 }
 
 /**
- * @brief set its parameters so they delimit the start and the end of a token. returns -1 in case of problem
+ * @brief set the start and the end value of a token. returns non nul value in case a of solo quote
  *
  * @param start start of the token
  * @param end end of the token
@@ -95,7 +95,6 @@ int	lexer_set_ptrs(char **start, char **end)
 	*start = set_ptrs_start(*start, str_end);
 	*end = set_ptrs_end(*start, str_end);
 	if (*end == NULL)
-		return (-1);
+		return (ERR_SOLO_QUOTE);
 	return (0);
-
 }

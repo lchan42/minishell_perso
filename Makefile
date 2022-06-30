@@ -6,7 +6,7 @@
 #    By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/06/29 16:56:18 by luc_chan         ###   ########.fr        #
+#    Updated: 2022/06/30 15:27:44 by luc_chan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ LIB	= ./libraries/libft/libft.a
 SRCS	=	main.c\
 			ms_make_token.c\
 			lexer_set_ptrs.c\
-			lexer_make.c
+			lexer_make.c\
+			lexer_type_checker.c\
+			lexer_error.c
 
 
 SRCSBONUS =

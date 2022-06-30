@@ -6,12 +6,14 @@
 /*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:59:16 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/06/29 20:50:45 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/06/30 15:31:38 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 /**********
+ * FOR THE MOMENT, I CHANGED MY PLAN. THIS FILE MIGHT GIVE INSPIRATION FOR SOMETHING
+ *			BUT WONT BE USED FOR THE MOMENT.
  * error case:
  * multiple operator node are following each other
  * combinaison of meta char is invalid

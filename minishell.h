@@ -6,7 +6,7 @@
 /*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/29 17:21:05 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/06/30 15:28:11 by luc_chan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,11 @@
 
 enum e_lexer_error
 {
-	SOLO_QUOTE,
-	UNEXPECTED_TOKEN,
-	UNACCEPTED_TOKEN,
+	ERR_SOLO_QUOTE = 1,
+	ERR_TYPE_CHECKER,
+	ERR_UNEXPECTED_TOKEN = 5,
+	ERR_UNACCEPTED_TOKEN,
+	ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
 };
 
 enum e_lexer_type_token
@@ -103,4 +105,6 @@ typedef struct s_lexer_token
 int		lexer_set_ptrs(char **start, char **end);
 t_list	*lexer_make(char *str);
 void	lexer_free(t_list *lexer);
+void	lexer_error(t_list **lexer, int error_id);
+int		lexer_type_checker(t_list **lexer_head, t_lexer_token *tmp_nod);
 #endif
