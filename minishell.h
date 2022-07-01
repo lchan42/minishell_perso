@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/01 13:29:40 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/01 14:17:46 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 
 # define METACHAR "|&()<>" 		//dont need to interpreat';'
+# define LOG_META "|&"
+# define RED_META "<>"
 # define AND_IF "&&"
 # define OR_IF "||"
 # define DLESS "<<"					//heredoc
@@ -82,7 +84,7 @@ enum e_lexer_error
 	ERR_SOLO_QUOTE = 1,
 	ERR_TYPE_CHECKER,
 	ERR_UNEXPECTED_TOKEN = 5,
-	ERR_UNACCEPTED_TOKEN,
+	//ERR_UNACCEPTED_TOKEN,
 	ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
 };
 
@@ -90,9 +92,9 @@ enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD,
 	TYPE_LEXER_OPERATOR,
-	TYPE_LEXER_OPERATOR_LOG,
-	TYPE_LEXER_OPERATOR_RED,
-}; 
+	TYPE_LEXER_OPERATOR_LOGICAL,
+	TYPE_LEXER_OPERATOR_REDIRECT,
+};
 
 typedef struct s_lexer_token
 {

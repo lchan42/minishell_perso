@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/28 19:21:06 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/01 13:35:39 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	__visual_print_lexer(t_list *lst)
 		printf("end = %p\n", ((t_lexer_token *)lst->content)->end);
 		printf("length = %ld\n", ((t_lexer_token *)lst->content)->length);
 		write(1, "str = ", 7);
+		write(1, "[", 1);
 		write(1,  ((t_lexer_token *)lst->content)->start,
 		((t_lexer_token *)lst->content)->end -  ((t_lexer_token *)lst->content)->start);
+		write(1, "]", 1);
 		printf("\n\n");
 		lst = lst->next;
 	}
@@ -47,7 +49,6 @@ void	lexer_analyser(t_list *lexer)
 		exit(1);
 	}
 }
-
 
 /*********************eventual question to ask:
  * concerning odd quotes, do nothing ? or ask for completion ?
