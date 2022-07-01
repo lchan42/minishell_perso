@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/30 15:28:11 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:29:40 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,10 @@ enum e_lexer_error
 enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD,
-	TYPE_LEXER_OPERATOR
-}			t_lexer_type_token;
+	TYPE_LEXER_OPERATOR,
+	TYPE_LEXER_OPERATOR_LOG,
+	TYPE_LEXER_OPERATOR_RED,
+}; 
 
 typedef struct s_lexer_token
 {

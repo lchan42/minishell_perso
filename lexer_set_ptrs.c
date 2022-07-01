@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_set_ptrs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/06/30 14:51:35 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/07/01 13:26:14 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,20 @@ static char	*set_ptrs_start(char *str, char *str_end)
 
 /************************
  * find end case operator
- * 		skip bits while is an operator
+ * 		skip bits while is an operator under some condition
+ * 			the next meta has to be the same as the first one
+ * 			the skiping can not excess 2
  */
 static char *find_end_operator(char *start, char *str_end)
 {
-	char *end;
+	char	*end;
+	char*	first_meta;
 
 	end = start;
-	while (end != str_end && ft_strchr_b(METACHAR, *end)) //might have
-		end++;
+	first_meta = start;
+	while (end != str_end && ft_strchr_b(METACHAR, *end))
+		if (*++end != *first_meta || end - first_meta >= 2)
+			break ;
 	return (end);
 }
 
