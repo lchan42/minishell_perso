@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/06/30 15:28:50 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/07/01 16:02:57 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	lexer_free(t_list *lexer)
 	}
 }
 
-void	lexer_error(t_list **lexer, int error_id)
+void	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod)
 {
-	printf("an error has occured\n");
+	printf("an error has occured : %d\n", error_id);
 	return ;
 }

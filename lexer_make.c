@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/01 14:58:58 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/01 16:36:58 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,23 @@ static int	lexer_syntax_checker(t_lexer_token *last_content, t_lexer_token *tmp_
 
 	last = last_content->type;
 	tmp = tmp_nod->type;
-	if (last == tmp
+	if ((last_content->index == 0 || last_content->index == tmp_nod->index)
+	&& last != TYPE_LEXER_WORD)
+	{
+		if (last == TYPE_LEXER_OPERATOR_LOGICAL)
+		{
+			printf("supposed to have another loop\n");
+			return (-1);
+		}
+		else if (last == TYPE_LEXER_OPERATOR_REDIRECT)
+		{
+			printf("supposed to have a syntax error\n");
+			return (1);
+		}
+	}
+	else if (last == tmp
 	|| (last == TYPE_LEXER_OPERATOR_REDIRECT && tmp != TYPE_LEXER_WORD))
-		return (-1);
+			return (-1);
 	return (0);
 }
 
@@ -170,16 +184,19 @@ t_list	*lexer_make(char *str)
 	while (*(tmp_nod.start))
 	{
 		if (lexer_set_ptrs(&tmp_nod.start, &tmp_nod.end))
-			lexer_error(&lexer_head, ERR_SOLO_QUOTE);//can add a secound round in case the quotes are not ended ?
+			lexer_error(&lexer_head, ERR_SOLO_QUOTE, &tmp_nod);//can add a secound round in case the quotes are not ended ?
+		if (tmp_nod.start == tmp_nod.end)
+			break ;
 		lexer_give_type(&tmp_nod);
 		if (last_content && lexer_syntax_checker(last_content, &tmp_nod))
-			lexer_error(&lexer_head, ERR_UNEXPECTED_TOKEN);
+			lexer_error(&lexer_head, ERR_UNEXPECTED_TOKEN, &tmp_nod);
 		last_content = lexer_add_nod(&lexer_head, &tmp_nod);
 		if (!last_content)
-			lexer_error(&lexer_head, ERR_MALLOC_FAIL); // the only malloc spot is here, error has done by errno.
+			lexer_error(&lexer_head, ERR_MALLOC_FAIL, &tmp_nod); // the only malloc spot is here, error has done by errno.
 		tmp_nod.start = tmp_nod.end;
 		tmp_nod.index++;
 	}
+		lexer_syntax_checker(last_content, &tmp_nod);
 	return(lexer_head);
 }
 
