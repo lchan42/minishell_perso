@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/01 16:06:04 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/04 19:56:51 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ int main (int ac, char **av, char **envp)
 	__visual_print_lexer(lexer);
 	lexer_free(lexer);
 
-	free(read);
+	//free(read);
 }

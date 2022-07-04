@@ -6,14 +6,14 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:18:19 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/01 13:21:24 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/04 20:00:18 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /************
- * the goal of this function is to git the right type to the token.
+ * the goal of this function is to give the right type to the token.
  * 		it has to check if the operator is valid;
  * 			print error message syntax error near unexpected token `>>'
  * 		if the the end of readline is an operator

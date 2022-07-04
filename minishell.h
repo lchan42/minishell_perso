@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/01 16:01:57 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/04 18:59:37 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ enum e_lexer_error
 	ERR_SOLO_QUOTE = 1,
 	ERR_TYPE_CHECKER,
 	ERR_UNEXPECTED_TOKEN = 5,
+	ERR_SYNTAX,
 	//ERR_UNACCEPTED_TOKEN,
 	ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
 };
