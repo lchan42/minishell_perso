@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/04 20:00:48 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/04 20:58:10 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ t_list	*lexer_make(char *str)
 		tmp_nod.start = tmp_nod.end;
 		tmp_nod.index++;
 	}
-	lexer_error(&lexer_head, lexer_syntax_checker(last_nod, NULL), last_nod);
+	if (lexer_head);
+		lexer_error(&lexer_head, lexer_syntax_checker(last_nod, NULL), last_nod);
 	return(lexer_head);
 }

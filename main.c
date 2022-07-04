@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/04 19:56:51 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/04 20:46:27 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	__visual_print_lexer(t_list *lst)
 	}
 }
 
+/*
 void	lexer_analyser(t_list *lexer)
 {
 	if(!lexer)
@@ -49,7 +50,7 @@ void	lexer_analyser(t_list *lexer)
 		exit(1);
 	}
 }
-
+*/
 /*********************eventual question to ask:
  * concerning odd quotes, do nothing ? or ask for completion ?
  * lexer nods, Show I seperate words according to METACHAR or space?
@@ -75,12 +76,16 @@ int main (int ac, char **av, char **envp)
 	(void) envp;
 	t_list *lexer;
 
- 	read = get_next_line(0);				//using gnl here rather than readline coz less leak
-	*(read + ft_strlen(read) - 1) = '\0';	//replacing the \n by \0
-	lexer = lexer_make(read);
-	lexer_analyser(lexer);
+	lexer = NULL;
+	while (!lexer)
+	{
+		read = get_next_line(0);				//using gnl here rather than readline coz less leak
+		*(read + ft_strlen(read) - 1) = '\0';	//replacing the \n by \0
+		lexer = lexer_make(read);
+	}
+	//lexer_analyser(lexer);
 	__visual_print_lexer(lexer);
 	lexer_free(lexer);
 
-	//free(read);
+	//free(read)
 }
