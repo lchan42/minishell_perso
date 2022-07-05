@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/01 13:26:14 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/05 12:26:18 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char *set_ptrs_end(char *start, char *str_end)
 }
 
 /**
- * @brief set the start and the end value of a token. returns non nul value in case a of solo quote
+ * @brief set the start and the end value of a token. returns non NULL value in case a of unterminated quote
  *
  * @param start start of the token
  * @param end end of the token

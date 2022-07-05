@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/05 12:15:54 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/05 12:27:09 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ void	t_list_free(t_list **lexer)
 	}
 }
 
+void	lexer_reloop(char *str)
+{
+
+}
+
 int	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod)
 {
 	char *str;
@@ -63,6 +68,8 @@ int	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod)
 	else if (error_id == ERR_END_PIPE)
 	{
 		str = ((t_lexer_token *)(*lexer)->content)->start;
+		t_list_free(lexer);
+		printf("str = %s\n", str);
 		printf("reloop function");
 	}
 	else
