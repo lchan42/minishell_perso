@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/04 20:58:10 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/05 11:23:24 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,27 @@ static t_lexer_token *lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
 	return (new_token);
 }
 
-static void lexer_give_type(t_lexer_token *tmp_nod)
+// static void lexer_give_type(t_lexer_token *tmp_nod)
+// {
+// 	if (ft_strchr_b(METACHAR, *(tmp_nod->start)))
+// 	{
+// 		if (ft_strchr_b(LOG_META, *(tmp_nod->start)))
+// 			tmp_nod->type = TYPE_LEXER_OPERATOR_LOGICAL;
+// 		else
+// 			tmp_nod->type = TYPE_LEXER_OPERATOR_REDIRECT;
+// 	}
+// 		else
+// 			tmp_nod->type = TYPE_LEXER_WORD;
+// }
+
+/*********************
+ * give the right start and end and set the type.
+ * return : non 0 value if problem, 0 if ok.
+ */
+static int lexer_set_tmp_nod(t_lexer_token *tmp_nod)
 {
+	if (lexer_set_ptrs(&tmp_nod->start, &tmp_nod->end))
+		return (ERR_SOLO_QUOTE);
 	if (ft_strchr_b(METACHAR, *(tmp_nod->start)))
 	{
 		if (ft_strchr_b(LOG_META, *(tmp_nod->start)))
@@ -133,17 +152,18 @@ static void lexer_give_type(t_lexer_token *tmp_nod)
 		else
 			tmp_nod->type = TYPE_LEXER_OPERATOR_REDIRECT;
 	}
-		else
-			tmp_nod->type = TYPE_LEXER_WORD;
+	else
+		tmp_nod->type = TYPE_LEXER_WORD;
+	return (0);
 }
 
 /********************
  * Syntaxe error list
- *  * End
+ * End (final nod)
  * 		| --> reloop
  * 		> --> syntax error
- * Start
- * 		by a TYPE_LEXER_OPERATOR_LOGICAL
+ * Start (first nod)
+ * 		TYPE_LEXER_OPERATOR_LOGICAL -->syntax error
  * middle
  * 		| followed by another |
  * 		> followed by not a word
@@ -153,9 +173,9 @@ static int	lexer_syntax_checker(t_lexer_token *last_nod, t_lexer_token *tmp_nod)
 	if (!tmp_nod)
 	{
 		if (last_nod->type == TYPE_LEXER_OPERATOR_LOGICAL)
-			return (ERR_SYNTAX);
+			return (ERR_END_PIPE);
 		else if (last_nod->type == TYPE_LEXER_OPERATOR_REDIRECT)
-			return (ERR_SYNTAX);
+			return (ERR_SYNTAX_NL);
 	}
 	else if (tmp_nod->type != TYPE_LEXER_WORD)
 	{
@@ -183,6 +203,34 @@ static void lexer_make_init(t_list **lexer_head, t_lexer_token **last_nod,
 	tmp_nod->end = str;
 }
 
+
+// t_list	*lexer_make(char *str)
+// {
+// 	t_list			*lexer_head;
+// 	t_lexer_token	*last_nod;
+// 	t_lexer_token	tmp_nod;
+
+// 	lexer_make_init(&lexer_head, &last_nod, &tmp_nod, str);
+// 	while (*(tmp_nod.start))
+// 	{
+// 		if (lexer_set_ptrs(&tmp_nod.start, &tmp_nod.end))
+// 			lexer_error(&lexer_head, ERR_SOLO_QUOTE, &tmp_nod);
+// 		if (tmp_nod.start == tmp_nod.end)
+// 			break ;
+// 		lexer_give_type(&tmp_nod);
+// 		lexer_error(&lexer_head, lexer_syntax_checker(last_nod, &tmp_nod), &tmp_nod);
+// 		last_nod = lexer_add_nod(&lexer_head, &tmp_nod);
+// 		if (!last_nod)
+// 			lexer_error(&lexer_head, ERR_MALLOC_FAIL, &tmp_nod); // the only malloc spot is here, error has done by errno.
+// 		tmp_nod.start = tmp_nod.end;
+// 		tmp_nod.index++;
+// 	}
+// 	if (lexer_head);
+// 		lexer_error(&lexer_head, lexer_syntax_checker(last_nod, NULL), last_nod);
+// 	return(lexer_head);
+// }
+
+
 /**
  * @brief this funcion is
  *
@@ -208,19 +256,18 @@ t_list	*lexer_make(char *str)
 	lexer_make_init(&lexer_head, &last_nod, &tmp_nod, str);
 	while (*(tmp_nod.start))
 	{
-		if (lexer_set_ptrs(&tmp_nod.start, &tmp_nod.end))
-			lexer_error(&lexer_head, ERR_SOLO_QUOTE, &tmp_nod);
-		if (tmp_nod.start == tmp_nod.end)
+		if (lexer_error(&lexer_head, lexer_set_tmp_nod(&tmp_nod), &tmp_nod)
+		|| tmp_nod.start == tmp_nod.end)
 			break ;
-		lexer_give_type(&tmp_nod);
-		lexer_error(&lexer_head, lexer_syntax_checker(last_nod, &tmp_nod), &tmp_nod);
+		if (lexer_error(&lexer_head, lexer_syntax_checker(last_nod, &tmp_nod), &tmp_nod))
+			break ;
 		last_nod = lexer_add_nod(&lexer_head, &tmp_nod);
 		if (!last_nod)
 			lexer_error(&lexer_head, ERR_MALLOC_FAIL, &tmp_nod); // the only malloc spot is here, error has done by errno.
 		tmp_nod.start = tmp_nod.end;
 		tmp_nod.index++;
 	}
-	if (lexer_head);
+	if (lexer_head)
 		lexer_error(&lexer_head, lexer_syntax_checker(last_nod, NULL), last_nod);
 	return(lexer_head);
 }

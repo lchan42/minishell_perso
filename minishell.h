@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/04 21:11:15 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/05 12:13:25 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@
 enum e_lexer_error
 {
 	ERR_SOLO_QUOTE = 1,
+	ERR_END_PIPE,
 	ERR_SYNTAX,
 	ERR_SYNTAX_NL,
 	ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
@@ -107,7 +108,7 @@ typedef struct s_lexer_token
 
 int		lexer_set_ptrs(char **start, char **end);
 t_list	*lexer_make(char *str);
-void	lexer_free(t_list *lexer);
+void	lexer_free(t_list **lexer);
 int	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod);
 int		lexer_type_checker(t_list **lexer_head, t_lexer_token *tmp_nod);
 #endif

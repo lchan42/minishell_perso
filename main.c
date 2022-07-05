@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/04 20:46:27 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/05 12:12:11 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	lexer_analyser(t_list *lexer)
  * during the construction of the t_list
  * after the construction of the t_list
  */
+
 int main (int ac, char **av, char **envp)
 {
 	char *read;
@@ -85,7 +86,7 @@ int main (int ac, char **av, char **envp)
 	}
 	//lexer_analyser(lexer);
 	__visual_print_lexer(lexer);
-	lexer_free(lexer);
+	lexer_free(&lexer);
 
 	//free(read)
 }
