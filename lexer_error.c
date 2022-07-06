@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/06 11:43:12 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:51:56 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,18 @@ void	lexer_data_free(t_lexer_data *l_data)
 
 int	lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod)
 {
-	//char *str;
-
 	if (!error_id)
 		return (0);
 	else if (error_id == ERR_END_PIPE)
-	{
-		//printf("str = %s\n", str);
-		printf("reloop function");
 		lexer_loop(l_data);
-	}
 	else
 	{
-		printf("ATTENTION ERROR NBR : %d\n", error_id);
+		//printf("ATTENTION ERROR NBR : %d\n", error_id);
 		if (error_id == ERR_SOLO_QUOTE)
 			printf("minishell: our project does not accept unclosed quotation\n");
 		else if (error_id == ERR_SYNTAX)
 			printf("minishell: syntax error near unexpected token '%.*s'\n",
-			(int)tmp_nod->length, tmp_nod->start);
+			(int)(tmp_nod->length) , tmp_nod->start);
 		else if (error_id == ERR_SYNTAX_NL)
 			printf("minishell: syntax error near unexpected token `newline'\n");
 		lexer_data_free(l_data); ///// HIS LINE IS TEMPORARY HERE free should be done after the history ?

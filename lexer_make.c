@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/06 11:43:27 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 14:49:50 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static t_lexer_token *lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
 	new_token->index = tmp_nod->index;
 	new_token->start = tmp_nod->start;
 	new_token->end = tmp_nod->end;
-	new_token->length = tmp_nod->end - tmp_nod->start;
+	new_token->length = tmp_nod->length/*tmp_nod->end - tmp_nod->start*/;
 	new_token->type = tmp_nod->type;
 	ft_lstadd_back(lexer_lst, ft_lstnew(new_token));
 	return (new_token);
@@ -139,12 +139,14 @@ static t_lexer_token *lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
 
 /*********************
  * give the right start and end and set the type.
+ * set the length;
  * return : non 0 value if problem, 0 if ok.
  */
 static int lexer_set_tmp_nod(t_lexer_token *tmp_nod)
 {
 	if (lexer_set_ptrs(&tmp_nod->start, &tmp_nod->end))
 		return (ERR_SOLO_QUOTE);
+	tmp_nod->length = tmp_nod->end - tmp_nod->start;
 	if (ft_strchr_b(METACHAR, *(tmp_nod->start)))
 	{
 		if (ft_strchr_b(LOG_META, *(tmp_nod->start)))
