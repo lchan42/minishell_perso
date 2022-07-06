@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/01 12:50:07 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/05 18:45:28 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ LIB	= ./libraries/libft/libft.a
 SRCS	=	main.c\
 			lexer_set_ptrs.c\
 			lexer_make.c\
-			lexer_type_checker.c\
 			lexer_error.c
 
 

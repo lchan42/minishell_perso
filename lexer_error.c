@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/05 12:27:09 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 11:43:12 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	lexer_free(t_list **lexer)
 		free(tmp->content);
 		free(tmp);
 	}
+	*lexer = NULL;
 }
 
 void	t_list_free(t_list **lexer)
@@ -52,25 +53,26 @@ void	t_list_free(t_list **lexer)
 		free(tmp->content);
 		free(tmp);
 	}
+	*lexer = NULL;
 }
 
-void	lexer_reloop(char *str)
+void	lexer_data_free(t_lexer_data *l_data)
 {
-
+	t_list_free(&l_data->lexer);
+	t_list_free(&l_data->read_lst);
 }
 
-int	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod)
+int	lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod)
 {
-	char *str;
+	//char *str;
 
 	if (!error_id)
 		return (0);
 	else if (error_id == ERR_END_PIPE)
 	{
-		str = ((t_lexer_token *)(*lexer)->content)->start;
-		t_list_free(lexer);
-		printf("str = %s\n", str);
+		//printf("str = %s\n", str);
 		printf("reloop function");
+		lexer_loop(l_data);
 	}
 	else
 	{
@@ -78,11 +80,12 @@ int	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod)
 		if (error_id == ERR_SOLO_QUOTE)
 			printf("minishell: our project does not accept unclosed quotation\n");
 		else if (error_id == ERR_SYNTAX)
-			printf("minishell: syntax error near unexpected token '%.*s'\n", (int)tmp_nod->length, tmp_nod->start);
+			printf("minishell: syntax error near unexpected token '%.*s'\n",
+			(int)tmp_nod->length, tmp_nod->start);
 		else if (error_id == ERR_SYNTAX_NL)
 			printf("minishell: syntax error near unexpected token `newline'\n");
-		lexer_free(lexer);
-		//*lexer = NULL;
+		lexer_data_free(l_data); ///// HIS LINE IS TEMPORARY HERE free should be done after the history ?
 	}
+	//HAVE TO ADD HISTORIC FUNCTION HERE
 	return (error_id);
 }

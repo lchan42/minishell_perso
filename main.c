@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/05 12:12:11 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 13:02:04 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,101 @@ void	lexer_analyser(t_list *lexer)
  * after the construction of the t_list
  */
 
-int main (int ac, char **av, char **envp)
+
+// t_list *lexer_loop(char *read, t_list *lexer)
+// {
+// 	while(!read)
+// 	{
+// 		if (!read)
+// 		{
+// 			read = get_next_line(0);
+// 			*(read + ft_strlen(read) - 1) = '\0';
+// 		}
+// 		lexer = lexer_make(read);
+// 	}
+// 	return (lexer);
+// }
+
+// void	lexer_loop(t_list **read_lst, t_list **lexer)
+// {
+// 	char *read;
+// 	t_list *new_content;
+
+// 	read = NULL;
+// 	while (!read)
+// 		read = get_next_line(0);
+// 	*(read + ft_strlen(read) - 1) = '\0';
+// 	new_content = lexer_make(read);
+// 	ft_lstadd_back(read_lst, ft_lstnew(read));
+// 	ft_lstadd_back(lexer, new_content);
+// }
+
+// int main (int ac, char **av, char **envp)
+// {
+// 	//char *read;
+// 	(void) ac;
+// 	(void) av;
+// 	(void) envp;
+// 	t_list *lexer;
+// 	t_list *read_lst;
+
+// 	lexer = NULL;
+// 	read_lst = NULL;
+// 	while (!lexer)
+// 	{
+// 		lexer_loop(&read_lst, &lexer);
+// 		/*
+// 		read = get_next_line(0);				//using gnl here rather than readline coz less leak
+// 		*(read + ft_strlen(read) - 1) = '\0';	//replacing the \n by \0
+// 		lexer = lexer_make(read);*/
+// 	}
+// 	//lexer_analyser(lexer);
+// 	__visual_print_lexer(lexer);
+// 	lexer_free(&lexer);
+
+// 	//free(read)
+// }
+void	lexer_readline(char **read, char *prompt)
+{
+	while (!*read)
+	{
+		write(1, prompt, ft_strlen(prompt));
+		*read = get_next_line(0);
+		*(*read + ft_strlen(*read) - 1) = '\0';
+		if (**read == '\0')
+		{
+			free(*read);
+			*read = NULL;
+		}
+	}
+}
+
+void	lexer_loop(t_lexer_data *l_data)
 {
 	char *read;
+
+	read = NULL;
+	if (l_data->read_lst == NULL)
+		lexer_readline(&read, FIRST_PROMPT);
+	else
+		lexer_readline(&read, SECOND_PROMPT);
+
+	ft_lstadd_back(&l_data->read_lst, ft_lstnew(read));
+	lexer_make(l_data, read);
+}
+
+int main (int ac, char **av, char **envp)
+{
+	//char *read;
 	(void) ac;
 	(void) av;
 	(void) envp;
-	t_list *lexer;
+	t_lexer_data	l_data;
 
-	lexer = NULL;
-	while (!lexer)
-	{
-		read = get_next_line(0);				//using gnl here rather than readline coz less leak
-		*(read + ft_strlen(read) - 1) = '\0';	//replacing the \n by \0
-		lexer = lexer_make(read);
-	}
-	//lexer_analyser(lexer);
-	__visual_print_lexer(lexer);
-	lexer_free(&lexer);
-
-	//free(read)
+	l_data.lexer = NULL;
+	l_data.read_lst = NULL;
+	//while (!l_data.lexer)
+	lexer_loop(&l_data);
+	__visual_print_lexer(l_data.lexer);
+	lexer_data_free(&l_data);
 }

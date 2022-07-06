@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/06/24 18:47:26 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/05 18:21:14 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS	=	ft_atoi.c\
 			ft_strchr.c\
 			ft_strdup.c\
 			ft_striteri.c\
+			ft_strjoin_free.c\
 			ft_strjoin.c\
 			ft_strlcat.c\
 			ft_strlcpy.c\

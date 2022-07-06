@@ -6,14 +6,14 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:17:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/05/24 19:14:07 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 12:07:33 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 100
 # endif
 
 # include <stddef.h>
@@ -46,5 +46,4 @@ void	ft_rebuild_buff(t_gnl *nod);
 void	gnl_build_content(t_gnl **nod, int fd);
 char	*get_next_line(int fd);
 char	*get_next_line_pipex(int fd, char *limiter);
-
 #endif

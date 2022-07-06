@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/05 12:13:25 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 12:13:44 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-
+# define FIRST_PROMPT "fake_prompt: "
+# define SECOND_PROMPT "> "
 # define METACHAR "|&()<>" 		//dont need to interpreat';'
 # define LOG_META "|&"
 # define RED_META "<>"
@@ -90,7 +91,7 @@ enum e_lexer_error
 
 enum e_lexer_type_token
 {
-	TYPE_LEXER_WORD,
+	TYPE_LEXER_WORD = 1,
 	TYPE_LEXER_OPERATOR,
 	TYPE_LEXER_OPERATOR_LOGICAL,
 	TYPE_LEXER_OPERATOR_REDIRECT,
@@ -106,9 +107,20 @@ typedef struct s_lexer_token
 
 }				t_lexer_token;
 
+typedef struct s_lexer_data
+{
+	t_list *lexer;
+	t_list *read_lst;
+}			t_lexer_data;
+
 int		lexer_set_ptrs(char **start, char **end);
-t_list	*lexer_make(char *str);
+//t_list	*lexer_make(char *str);
+// t_list	*lexer_make(t_lexer_data *l_data, char *str);
+void	lexer_make(t_lexer_data *l_data, char *str);
 void	lexer_free(t_list **lexer);
-int	lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod);
+void	lexer_data_free(t_lexer_data *l_data);
+//int		lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod);
+int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
 int		lexer_type_checker(t_list **lexer_head, t_lexer_token *tmp_nod);
+void	lexer_loop(t_lexer_data *t_data);
 #endif

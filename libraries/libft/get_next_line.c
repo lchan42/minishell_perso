@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:13:55 by lchan             #+#    #+#             */
-/*   Updated: 2022/05/21 23:38:45 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 12:05:06 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,15 @@ void	gnl_build_content(t_gnl **nod, int fd)
 	}
 }
 
+/***********8
+ * his get_next_line has been modified the 06/06/24
+ * the content is never freed
+ * **/
 char	*get_next_line(int fd)
 {
 	static t_gnl	*head;
 	t_gnl			*nod;
+	char			*content;
 
 	if (fd <= -1 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -59,15 +64,16 @@ char	*get_next_line(int fd)
 	if (nod && nod->content)
 		nod->content = NULL;
 	gnl_build_content(&nod, nod->fd);
-	if (!nod->content && !nod->buff[0])
+	content = nod->content;
+	if (!nod->buff[0])
 	{
 		gnl_free_block(&head, nod);
 		if (nod == head)
 			head = NULL;
 		nod = NULL;
 	}
-	if (nod)
-		return (nod->content);
+	if (content)
+		return (content);
 	else
 		return (NULL);
 }

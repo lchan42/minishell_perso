@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 15:15:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/05/20 17:41:40 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/06 12:04:00 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ size_t	ft_strlen_opt_newline(char *str, int opt_newline)
 	return (index);
 }
 /**************************************************************
-- opt_line = 1 : give the position after newline in the buffer. 
+- opt_line = 1 : give the position after newline in the buffer.
 	Usefull for ft_strjoinfree and  buff_rebuild;
 - opt_line = 2 : is equivalent to a strchr for new_line
-- opt_newline = 0 : normal strlen; 
+- opt_newline = 0 : normal strlen;
 ***************************************************************/
 
 char	*ft_strjoinfree_content(t_gnl *nod)
@@ -86,8 +86,6 @@ void	gnl_free_block(t_gnl **head, t_gnl *nod)
 			tmp_link = tmp_link->next;
 		tmp_link->next = nod->next;
 	}
-	if (nod->content)
-		free(nod->content);
 	free(nod);
 	nod = NULL;
 }
@@ -96,7 +94,7 @@ void	gnl_free_block(t_gnl **head, t_gnl *nod)
 **************************************************************/
 
 t_gnl	*ft_struct_init(int fd)
-{	
+{
 	t_gnl	*tmp;
 	int		i;
 
