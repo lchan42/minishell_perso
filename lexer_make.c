@@ -6,107 +6,11 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/06 14:49:50 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/07 11:11:34 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
-/*
-static int lexer_add_nod(t_list **lexer_lst, char *start, char *end, unsigned index)
-{
-	t_lexer_token *new_content;
-
-	new_content = ft_calloc(1, sizeof(t_lexer_token));
-	if (!new_content)
-		return (-1);
-	new_content->index = index;
-	new_content->start = start;
-	new_content->end = end;
-	new_content->length = end - start;
-	ft_lstadd_back(lexer_lst, ft_lstnew(new_content));
-	return (0);
-}
-
-t_list	*lexer_make(char *str)
-{
-	char			*start;
-	char			*end;
-	unsigned int	i;
-	t_list			*lexer_head;
-
-	start = str;
-	end = str;
-	i = 0;
-	lexer_head = NULL;
-	while (*start)
-	{
-		if (lexer_set_ptrs(&start, &end) == -1
-		|| lexer_add_nod(&lexer_head, start, end, i++) == -1)
-		{
-			if (lexer_head)
-				lexer_free(lexer_head);
-			return (NULL);
-		}
-		start = end;
-	}
-	return (lexer_head);
-}
-*/
-// static int	lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
-// {
-// 	t_lexer_token	*new_token;
-
-// 	new_token = ft_calloc(1, sizeof(t_lexer_token));
-// 	if (!new_token)
-// 		return (-1);
-// 	new_token->index = tmp_nod->index;
-// 	new_token->start = tmp_nod->start;
-// 	new_token->end = tmp_nod->end;
-// 	new_token->length = tmp_nod->end - tmp_nod->start;
-// 	if (ft_strchr_b(METACHAR, *(new_token->start)))
-// 	{
-// 		if (ft_strchr_b(LOG_META, *(new_token->start)))
-// 			new_token->type = TYPE_LEXER_OPERATOR_LOGICAL;
-// 		else
-// 			new_token->type = TYPE_LEXER_OPERATOR_REDIRECT;
-// 	}
-// 	else
-// 		new_token->type = TYPE_LEXER_WORD;
-// 	ft_lstadd_back(lexer_lst, ft_lstnew(new_token));
-// 	return (0);
-// }
-
-// /**
-//  * @brief this funcion is
-//  *
-//  * @param str the user entry that is read by readline.
-//  * @return t_list* lexer. NULL is returned if an issue occurs.
-//  */
-// t_list	*lexer_make(char *str)
-// {
-// 	t_list			*lexer_head;
-// 	t_lexer_token	tmp_nod;
-
-// 	lexer_head = NULL;
-// 	tmp_nod.index = 0;
-// 	tmp_nod.start = str;
-// 	//tmp_nod.end = str; it seems that I dont need to set it. kept in case error mgmt needs it.
-// 	while (*(tmp_nod.start))
-// 	{
-// 		if (lexer_set_ptrs(&tmp_nod.start, &tmp_nod.end))
-// 			lexer_error(&lexer_head, ERR_SOLO_QUOTE);//can add a secound round in case the quotes are not ended ?
-// 		else if (lexer_type_checker(&lexer_head, &tmp_nod))
-// 			lexer_error(&lexer_head, ERR_TYPE_CHECKER);//were the
-// 		else if (lexer_add_nod(&lexer_head, &tmp_nod))
-// 			lexer_error(&lexer_head, ERR_MALLOC_FAIL);// the only malloc spot is here, error has done by errno.
-// 		tmp_nod.start = tmp_nod.end;
-// 		tmp_nod.index++;
-// 	}
-// 	return(lexer_head);
-// }
-
 
 static t_lexer_token *lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
 {
@@ -123,19 +27,6 @@ static t_lexer_token *lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
 	ft_lstadd_back(lexer_lst, ft_lstnew(new_token));
 	return (new_token);
 }
-
-// static void lexer_give_type(t_lexer_token *tmp_nod)
-// {
-// 	if (ft_strchr_b(METACHAR, *(tmp_nod->start)))
-// 	{
-// 		if (ft_strchr_b(LOG_META, *(tmp_nod->start)))
-// 			tmp_nod->type = TYPE_LEXER_OPERATOR_LOGICAL;
-// 		else
-// 			tmp_nod->type = TYPE_LEXER_OPERATOR_REDIRECT;
-// 	}
-// 		else
-// 			tmp_nod->type = TYPE_LEXER_WORD;
-// }
 
 /*********************
  * give the right start and end and set the type.
@@ -195,75 +86,34 @@ static int	lexer_syntax_checker(t_lexer_token *last_nod, t_lexer_token *tmp_nod)
 	return (0);
 }
 
-// static void lexer_make_init(t_list **lexer_head, t_lexer_token **last_nod,
-// 							t_lexer_token *tmp_nod, char *str)
-// {
-// 	*lexer_head = NULL;
-// 	*last_nod = NULL;
-// 	tmp_nod->index = 0;
-// 	tmp_nod->start = str;
-// 	tmp_nod->end = str;
-// }
-
-
-// t_list	*lexer_make(char *str)
-// {
-	// t_list			*lexer_head;
-	// t_lexer_token	*last_nod;
-	// t_lexer_token	tmp_nod;
-
-	// lexer_make_init(&lexer_head, &last_nod, &tmp_nod, str);
-	// while (*(tmp_nod.start))
-	// {
-	// 	if (lexer_error(&lexer_head, lexer_set_tmp_nod(&tmp_nod), &tmp_nod)
-	// 	|| tmp_nod.start == tmp_nod.end)
-	// 		break ;
-	// 	if (lexer_error(&lexer_head, lexer_syntax_checker(last_nod, &tmp_nod), &tmp_nod))
-	// 		break ;
-	// 	last_nod = lexer_add_nod(&lexer_head, &tmp_nod);
-	// 	if (!last_nod)
-	// 		lexer_error(&lexer_head, ERR_MALLOC_FAIL, &tmp_nod); // the only malloc spot is here, error has done by errno.
-	// 	tmp_nod.start = tmp_nod.end;
-	// 	tmp_nod.index++;
-	// }
-	// if (lexer_head)
-	// 	lexer_error(&lexer_head, lexer_syntax_checker(last_nod, NULL), last_nod);
-	// return(lexer_head);
-// }
-
-
 /**
- * @brief this funcion is
+ * @brief this funcion modifies l_data->lexer according to str. if str is valide it will creats token. if not, params remain unchanged
  *
- * @param str the user entry that is read by readline.
- * @return t_list* lexer. NULL is returned if an issue occurs.
+ * @param l_data contains t_list->lexer and t_list->read_lst
+ * @param str return of readline (user's entry).
  */
-/***************
+/************************* additional informations *****************************************
  * tmp_nod is used as a pattern to build malloc nods.
- * We compare the last malloc nod with tmp_nod. If syntaxe is ok we malloc again.
- * in order:
- * 		on tmp_nod : set the ptrs + controle of solo quote case
- *		tmp_nod.start == tmp_nod.end means user ended the str with a space  --> break ;
+ * We compare the last malloc nod with tmp_nod. If syntax is ok we malloc.
+ * in the while loop:
+ * 		tmp_nod : set the ptrs + controle of solo quote case
+ *		tmp_nod.start == tmp_nod.end means used ended the str with spaces --> break;
  *		set the type of the token on tmp_nod
- *		check for syntaxe error error
-
+ *		check for syntaxe errors
+ * after the while loop we have 2 cases:
+ * 		last_nod exist == str has none space char --> can analyse the syntax
+ * 		last_nod do not exit but we have a lexer address == user entered only space or nothing during reloop--> ask new entry
+ *	if user entered only space, l_data and str will remain unchanged
  * **/
-
-static void lexer_make_init(t_lexer_token **last_nod,
-							t_lexer_token *tmp_nod, char *str)
-{
-	*last_nod = NULL;
-	tmp_nod->index = 0;
-	tmp_nod->start = str;
-	tmp_nod->end = str;
-}
-
 void	lexer_make(t_lexer_data *l_data, char *str)
 {
 	t_lexer_token	*last_nod;
 	t_lexer_token	tmp_nod;
 
-	lexer_make_init(&last_nod, &tmp_nod, str);
+	last_nod = NULL;
+	tmp_nod.index = 0;
+	tmp_nod.start = str;
+	tmp_nod.end = str;
 	while (*(tmp_nod.start))
 	{
 		if (lexer_error(l_data, lexer_set_tmp_nod(&tmp_nod), &tmp_nod)
@@ -277,7 +127,8 @@ void	lexer_make(t_lexer_data *l_data, char *str)
 		tmp_nod.start = tmp_nod.end;
 		tmp_nod.index++;
 	}
-	if (l_data->lexer)
+	if (last_nod)
 		lexer_error(l_data, lexer_syntax_checker(last_nod, NULL), last_nod);
-	//return(lexer_head);
+	else if (l_data->lexer)
+		lexer_loop(l_data);
 }

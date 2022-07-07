@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/06 15:00:17 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/07 10:49:52 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	__visual_print_tab(char **tab)
 
 void	__visual_print_lexer(t_list *lst)
 {
+	if (!lst)
+		printf("lst address = %p\n", lst);
 	while (lst)
 	{
 		printf("index = %d\n", ((t_lexer_token *)lst->content)->index);
@@ -38,7 +40,21 @@ void	__visual_print_lexer(t_list *lst)
 		write(1, "]", 1);
 		printf("\n\n");
 		lst = lst->next;
+
 	}
+}
+
+void	__visual_print_read_lst(t_list *read)
+{
+	printf("read str = [");
+	while (read)
+	{
+		printf("%s", (char *)read->content);
+		if (read->next)
+			printf(" ");
+		read = read->next;
+	}
+	printf("]\n");
 }
 
 /*
@@ -161,8 +177,9 @@ int main (int ac, char **av, char **envp)
 
 	l_data.lexer = NULL;
 	l_data.read_lst = NULL;
-	while (!l_data.lexer)
-		lexer_loop(&l_data);
+	//while (!l_data.lexer)
+	lexer_loop(&l_data);
 	__visual_print_lexer(l_data.lexer);
+	__visual_print_read_lst(l_data.read_lst);
 	lexer_data_free(&l_data);
 }

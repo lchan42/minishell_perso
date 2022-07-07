@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/06 14:51:56 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/07 11:45:36 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ void	t_list_free(t_list **lexer)
 
 void	lexer_data_free(t_lexer_data *l_data)
 {
-	t_list_free(&l_data->lexer);
+	if (l_data->lexer)
+		t_list_free(&l_data->lexer);
+	if (l_data->read_lst)
 	t_list_free(&l_data->read_lst);
 }
 
@@ -78,7 +80,8 @@ int	lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod)
 			(int)(tmp_nod->length) , tmp_nod->start);
 		else if (error_id == ERR_SYNTAX_NL)
 			printf("minishell: syntax error near unexpected token `newline'\n");
-		lexer_data_free(l_data); ///// HIS LINE IS TEMPORARY HERE free should be done after the history ?
+		t_list_free(&l_data->lexer);
+		//lexer_data_free(l_data); ///// HIS LINE IS TEMPORARY HERE free should be done after the history ?
 	}
 	//HAVE TO ADD HISTORIC FUNCTION HERE
 	return (error_id);
