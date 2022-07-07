@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/07 11:11:34 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/07 14:10:38 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	lexer_make(t_lexer_data *l_data, char *str)
 		tmp_nod.start = tmp_nod.end;
 		tmp_nod.index++;
 	}
-	if (last_nod)
+	if (l_data->lexer && last_nod)
 		lexer_error(l_data, lexer_syntax_checker(last_nod, NULL), last_nod);
 	else if (l_data->lexer)
 		lexer_loop(l_data);

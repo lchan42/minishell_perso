@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/07 11:45:36 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/07 14:11:35 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	lexer_data_free(t_lexer_data *l_data)
 	if (l_data->lexer)
 		t_list_free(&l_data->lexer);
 	if (l_data->read_lst)
-	t_list_free(&l_data->read_lst);
+		t_list_free(&l_data->read_lst);
 }
 
 int	lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod)
