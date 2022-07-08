@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:12:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/08 14:55:52 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/08 17:29:19 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char		*ft_strrchr(const char *s, int c);
 
 // <stdlib.h>
 int			ft_atoi(const char *str);
-long int	ft_atol(const char *str);
 void		*ft_calloc(size_t count, size_t size);
 
 // <ctype.h>
@@ -60,9 +59,6 @@ int			ft_toupper(int c);
 // part II
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
-char		*ft_strjoin_free(char *s1, char *s2);
-char		*ft_strjoin_free_s1(char *s1, char *s2);
-char		*ft_strjoin_free_s2(char *s1, char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
@@ -85,9 +81,15 @@ void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 //own
+long int	ft_atol(const char *str);
 int			ft_find_last_c_occurence(char *path, char c);
 int			ft_strchr_b(const char *s, int c);
 void		ft_puterror_exit(char *str);
 void		ft_free(void *malloc_content);
-void		ft_free_setnull(void **malloc_elem);
+void		ft_free_char(char **malloc_elem);
+void		ft_free_stdarg(int n, ...);
+char		*ft_strjoin_free(char **s1, char **s2);
+char		*ft_strjoin_free_s1(char **s1, char **s2);
+char		*ft_strjoin_free_s2(char **s1, char **s2);
+char		*ft_strjoin_free_sep(char **s1, char **s2, char sep);
 #endif

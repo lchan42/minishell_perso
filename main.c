@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/08 11:10:06 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/08 19:52:11 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,85 +67,11 @@ void	lexer_analyser(t_list *lexer)
 	}
 }
 */
-/*********************eventual question to ask:
- * concerning odd quotes, do nothing ? or ask for completion ?
- * lexer nods, Show I seperate words according to METACHAR or space?
- */
-
-
-/**********************to do
- * lexer analyser : checking the conformity of type operator
- * 					attributing types
- */
-
-/**********************
- * interrogation: concerning the error control function
- * before the construction of the t_list
- * during the construction of the t_list
- * after the construction of the t_list
- */
-
-
-// t_list *lexer_loop(char *read, t_list *lexer)
-// {
-// 	while(!read)
-// 	{
-// 		if (!read)
-// 		{
-// 			read = get_next_line(0);
-// 			*(read + ft_strlen(read) - 1) = '\0';
-// 		}
-// 		lexer = lexer_make(read);
-// 	}
-// 	return (lexer);
-// }
-
-// void	lexer_loop(t_list **read_lst, t_list **lexer)
-// {
-// 	char *read;
-// 	t_list *new_content;
-
-// 	read = NULL;
-// 	while (!read)
-// 		read = get_next_line(0);
-// 	*(read + ft_strlen(read) - 1) = '\0';
-// 	new_content = lexer_make(read);
-// 	ft_lstadd_back(read_lst, ft_lstnew(read));
-// 	ft_lstadd_back(lexer, new_content);
-// }
-
-// int main (int ac, char **av, char **envp)
-// {
-// 	//char *read;
-// 	(void) ac;
-// 	(void) av;
-// 	(void) envp;
-// 	t_list *lexer;
-// 	t_list *read_lst;
-
-// 	lexer = NULL;
-// 	read_lst = NULL;
-// 	while (!lexer)
-// 	{
-// 		lexer_loop(&read_lst, &lexer);
-// 		/*
-// 		read = get_next_line(0);				//using gnl here rather than readline coz less leak
-// 		*(read + ft_strlen(read) - 1) = '\0';	//replacing the \n by \0
-// 		lexer = lexer_make(read);*/
-// 	}
-// 	//lexer_analyser(lexer);
-// 	__visual_print_lexer(lexer);
-// 	lexer_free(&lexer);
-
-// 	//free(read)
-// }
 void	lexer_readline(char **read, char *prompt)
 {
 	while (!*read)
 	{
-		write(1, prompt, ft_strlen(prompt));
-		*read = get_next_line(0);
-		*(*read + ft_strlen(*read) - 1) = '\0';
+		*read = readline(prompt);
 		if (**read == '\0')
 		{
 			free(*read);
@@ -162,7 +88,7 @@ void	lexer_loop(t_lexer_data *l_data)
 	if (l_data->read_lst == NULL)
 		lexer_readline(&read, FIRST_PROMPT);
 	else
-		lexer_readline(&read, SECOND_PROMPT);
+		lexer_readline(&read, LEXER_PROMPT);
 	ft_lstadd_back(&l_data->read_lst, ft_lstnew(read));
 	lexer_make(l_data, read);
 }
@@ -185,6 +111,7 @@ void	lexer_add_history(t_list *read_lst)
 	//	free(full_str);
 }
 */
+
 int main (int ac, char **av, char **envp)
 {
 	//char *read;
@@ -200,5 +127,8 @@ int main (int ac, char **av, char **envp)
 	//lexer_add_history(l_data.read_lst);
 	__visual_print_lexer(l_data.lexer);
 	__visual_print_read_lst(l_data.read_lst);
+	if (l_data.read_lst)
+		lexer_add_history(l_data.read_lst);
 	lexer_data_free(&l_data);
 }
+

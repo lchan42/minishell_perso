@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/06 16:26:27 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/08 19:41:50 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define FIRST_PROMPT "fake_prompt: "
-# define SECOND_PROMPT "> "
+# define FIRST_PROMPT "test_prompt : "
+# define LEXER_PROMPT "> "
 # define METACHAR "|&()<>" 		//dont need to interpreat';'
 # define LOG_META "|&"
 # define RED_META "<>"
@@ -123,4 +123,5 @@ void	lexer_data_free(t_lexer_data *l_data);
 int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
 int		lexer_type_checker(t_list **lexer_head, t_lexer_token *tmp_nod);
 void	lexer_loop(t_lexer_data *t_data);
+void	lexer_add_history(t_list *read_lst);
 #endif
