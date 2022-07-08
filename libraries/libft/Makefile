@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/05 18:21:14 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/08 14:35:53 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS	=	ft_atoi.c\
 			ft_strchr.c\
 			ft_strdup.c\
 			ft_striteri.c\
-			ft_strjoin_free.c\
 			ft_strjoin.c\
 			ft_strlcat.c\
 			ft_strlcpy.c\
@@ -59,7 +58,8 @@ SRCS	=	ft_atoi.c\
 			ft_find_last_c_occurence.c\
 			ft_puterror_exit.c\
 			get_next_line.c\
-			get_next_line_utils.c
+			get_next_line_utils.c\
+			ft_free.c
 
 NAME		= libft.a
 

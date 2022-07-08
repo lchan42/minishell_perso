@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/05 12:26:18 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/08 15:06:54 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static char	*set_ptrs_start(char *str, char *str_end)
  * 			the next meta has to be the same as the first one
  * 			the skiping can not excess 2
  */
-static char *find_end_operator(char *start, char *str_end)
+static char	*find_end_operator(char *start, char *str_end)
 {
 	char	*end;
-	char*	first_meta;
+	char	*first_meta;
 
 	end = start;
 	first_meta = start;
@@ -48,13 +48,13 @@ static char *find_end_operator(char *start, char *str_end)
  * 		end of quote do not necessarly imply end of token
  * 		returns NULL if no end of quote is encountered
  */
-static char *find_end_word(char *end, char *str_end)
+static char	*find_end_word(char *end, char *str_end)
 {
 	int		quote_flag;
 
 	quote_flag = 0;
-	while (end != str_end &&
-		ft_strchr_b(METACHAR, *end) == 0 && ft_strchr_b(" ", *end) == 0)
+	while (end != str_end
+		&& ft_strchr_b(METACHAR, *end) == 0 && ft_strchr_b(" ", *end) == 0)
 	{
 		if (*end == '"')
 			quote_flag = '"';
@@ -75,9 +75,9 @@ static char *find_end_word(char *end, char *str_end)
 /***************************************************************************
  * return the end of token according to the start address
  */
-static char *set_ptrs_end(char *start, char *str_end)
+static char	*set_ptrs_end(char *start, char *str_end)
 {
-	char *end;
+	char	*end;
 
 	if (ft_strchr_b(METACHAR, *start))
 		end = find_end_operator(start, str_end);
@@ -87,10 +87,11 @@ static char *set_ptrs_end(char *start, char *str_end)
 }
 
 /**
- * @brief set the start and the end value of a token. returns non NULL value in case a of unterminated quote
+ * @brief set the start and the end value of a token.
  *
  * @param start start of the token
  * @param end end of the token
+ * @return int returns non NULL value in case a of unterminated quote
  */
 int	lexer_set_ptrs(char **start, char **end)
 {

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:12:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/05 18:24:53 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/08 14:55:52 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_list
 
 // <string.h>
 size_t		ft_strlen(const char *s);
+size_t		ft_strlen_p(const char *s);
 void		ft_bzero(void *s, size_t n);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s1);
@@ -60,6 +61,8 @@ int			ft_toupper(int c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strjoin_free(char *s1, char *s2);
+char		*ft_strjoin_free_s1(char *s1, char *s2);
+char		*ft_strjoin_free_s2(char *s1, char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
@@ -85,4 +88,6 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int			ft_find_last_c_occurence(char *path, char c);
 int			ft_strchr_b(const char *s, int c);
 void		ft_puterror_exit(char *str);
+void		ft_free(void *malloc_content);
+void		ft_free_setnull(void **malloc_elem);
 #endif
