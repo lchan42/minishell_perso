@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/08 19:46:08 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/09 18:13:40 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,12 @@
 LIBPATH = ./libraries/libft
 LIB	= ./libraries/libft/libft.a
 
-SRCS	=	main.c\
+SRCS	=	lexer_main.c\
 			lexer_set_ptrs.c\
 			lexer_make.c\
 			lexer_error.c\
-			lexer_add_history.c
+			lexer_add_history.c\
+			lexer_visual.c
 
 
 SRCSBONUS =
@@ -36,7 +37,7 @@ CC			= gcc
 MAKE		= make
 RM			= rm -f
 CFLAGS		= -Wall  -Wextra -g3
-DEBUGFLAGS	= -g3 #-fsanitize=address
+DEBUGFLAGS	= -g3 -fsanitize=address
 
 
 all:		${NAME}
@@ -51,7 +52,7 @@ $(NAME):	${OBJS}
 
 debug:		${OBJS}
 			${MAKE} -C ${LIBPATH} all
-			${CC} ${DEBUGFLAGS} -o ${NAME} ${OBJS} ${LIB} -L${LIBPATH}
+			${CC} ${DEBUGFLAGS} -o ${NAME} ${OBJS} ${LIB} -L${LIBPATH} -lreadline
 
 g3:			${OBJS}
 			${MAKE} -C ${LIBPATH} all

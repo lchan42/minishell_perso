@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/07 14:10:38 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/09 17:08:04 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_lexer_token *lexer_add_nod (t_list **lexer_lst, t_lexer_token *tmp_nod)
 	new_token->index = tmp_nod->index;
 	new_token->start = tmp_nod->start;
 	new_token->end = tmp_nod->end;
-	new_token->length = tmp_nod->length/*tmp_nod->end - tmp_nod->start*/;
+	new_token->length = tmp_nod->length;
 	new_token->type = tmp_nod->type;
 	ft_lstadd_back(lexer_lst, ft_lstnew(new_token));
 	return (new_token);
@@ -51,13 +51,13 @@ static int lexer_set_tmp_nod(t_lexer_token *tmp_nod)
 }
 
 /********************
- * Syntaxe error list
+ * Syntaxe error. Doing different things according to the nod position.
  * End (final nod)
  * 		| --> reloop
  * 		> --> syntax error
  * Start (first nod)
  * 		TYPE_LEXER_OPERATOR_LOGICAL -->syntax error
- * middle
+ * middle (intermediate nod)
  * 		| followed by another |
  * 		> followed by not a word
  * **/

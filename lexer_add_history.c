@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 19:07:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/08 19:47:32 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/09 18:59:27 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,12 @@ static char *lexer_t_list_join(t_list *read_lst, char sep)
 	{
 		ptr_reader = (char *)read_lst->content;
 		while (*ptr_reader)
-		{
 			*(joined++) = *(ptr_reader++);
-			//*joined = *ptr_reader;
-			//joined++;
-			//ptr_reader++;
-		}
 		if (nbr_space--)
 			*(joined++) = sep;
 		read_lst = read_lst->next;
 	}
+	*(joined) = '\0';
 	return (joined - len);
 }
 
@@ -62,6 +58,6 @@ void	lexer_add_history(t_list *read_lst)
 
 	joined = lexer_t_list_join(read_lst, ' ');
 	add_history(joined);
-	printf("joined in lexer_add_histoy : %s\n", joined);
+	//printf("joined in lexer_add_histoy : %s\n", joined);
 	free(joined);
 }
