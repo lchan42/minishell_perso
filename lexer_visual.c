@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/09 17:01:19 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 12:55:32 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void	__visual_print_lexer(t_list *lst)
 	}
 }
 
-void	__visual_print_read_lst(t_list *read)
+void	__visual_print_read_lst(t_list *usr_entry)
 {
-	printf("read str = [");
-	while (read)
+	printf("usr_entry str = [");
+	while (usr_entry)
 	{
-		printf("%s", (char *)read->content);
-		if (read->next)
+		printf("%s", (char *)usr_entry->content);
+		if (usr_entry->next)
 			printf(" ");
-		read = read->next;
+		usr_entry = usr_entry->next;
 	}
 	printf("]\n");
 }

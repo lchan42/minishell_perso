@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/09 17:00:55 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 12:57:15 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,30 @@ void	lexer_analyser(t_list *lexer)
 	}
 }
 */
-void	lexer_readline(char **read, char *prompt)
+void	lexer_readline(char **usr_entry, char *prompt)
 {
-	while (!*read)
+	while (!*usr_entry)
 	{
-		*read = readline(prompt);
-		if (**read == '\0')
+		*usr_entry = readline(prompt);
+		if (**usr_entry == '\0')
 		{
-			free(*read);
-			*read = NULL;
+			free(*usr_entry);
+			*usr_entry = NULL;
 		}
 	}
 }
 
 void	lexer_loop(t_lexer_data *l_data)
 {
-	char *read;
+	char *usr_entry;
 
-	read = NULL;
+	usr_entry = NULL;
 	if (l_data->read_lst == NULL)
-		lexer_readline(&read, FIRST_PROMPT);
+		lexer_readline(&usr_entry, FIRST_PROMPT);
 	else
-		lexer_readline(&read, LEXER_PROMPT);
-	ft_lstadd_back(&l_data->read_lst, ft_lstnew(read));
-	lexer_make(l_data, read);
+		lexer_readline(&usr_entry, LEXER_PROMPT);
+	ft_lstadd_back(&l_data->read_lst, ft_lstnew(usr_entry));
+	lexer_make(l_data, usr_entry);
 }
 
 /*
@@ -71,7 +71,7 @@ void	lexer_add_history(t_list *read_lst)
 
 int main (int ac, char **av, char **envp)
 {
-	//char *read;
+	//char *usr_entry;
 	(void) ac;
 	(void) av;
 	(void) envp;

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/09 17:25:35 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 12:55:17 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ enum e_lexer_type_token
 	TYPE_LEXER_OPERATOR,
 	TYPE_LEXER_OPERATOR_LOGICAL,
 	TYPE_LEXER_OPERATOR_REDIRECT,
+	TYPE_LEXER_SYNTAX_ERR
 };
+
+
 
 typedef struct s_lexer_token
 {
@@ -113,6 +116,37 @@ typedef struct s_lexer_data
 	t_list *read_lst;
 }			t_lexer_data;
 
+typedef struct s_here_doc_data
+{
+	t_list	*heredoc;
+	int		*here_doc_pipe; //gonna be close after the first child.
+}t_here_doc_data;
+
+typedef struct s_data
+{
+	t_here_doc_data	*here_doc_data;
+	t_lexer_data	*lexer;
+}t_data;
+
+/*typedef struct s_data //////////////////his is the main structure. it's going to be in stack;
+{
+	// t_ast				*list_cmd;
+	// t_error_state		errors;
+	// t_list				*list_env_token;
+	// t_list				*lexer_fake_token_list;
+	t_lexer_data		*lexer_data;
+	t_here_doc			*here_doc_data;
+	// t_list				*garbage_collector;
+	// t_program_params	main;
+	// char				*program_folder;
+	// char				current_folder[4096];
+	// char				*builtin_folder;
+	// char				*prompt_display;
+	// int					status_last_cmd;
+	// char				*string_type[TYPE_MAX];
+}				t_data;
+*/
+
 int		lexer_set_ptrs(char **start, char **end);
 void	lexer_make(t_lexer_data *l_data, char *str);
 void	lexer_free(t_list **lexer);
@@ -129,6 +163,6 @@ void	lexer_add_history(t_list *read_lst);
 /************* visual functions ****************/
 void	__visual_print_tab(char **tab);
 void	__visual_print_lexer(t_list *lst);
-void	__visual_print_read_lst(t_list *read);
+void	__visual_print_read_lst(t_list *usr_entry);
 
 #endif
