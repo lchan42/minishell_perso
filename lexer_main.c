@@ -6,37 +6,37 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/12 12:57:15 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 20:19:00 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lexer_readline(char **usr_entry, char *prompt)
+void	lexer_readline(char **usr_input, char *prompt)
 {
-	while (!*usr_entry)
+	while (!*usr_input)
 	{
-		*usr_entry = readline(prompt);
-		if (**usr_entry == '\0')
+		*usr_input = readline(prompt);
+		if (**usr_input == '\0')
 		{
-			free(*usr_entry);
-			*usr_entry = NULL;
+			free(*usr_input);
+			*usr_input = NULL;
 		}
 	}
 }
 
 void	lexer_loop(t_lexer_data *l_data)
 {
-	char *usr_entry;
+	char *usr_input;
 
-	usr_entry = NULL;
-	lexer_readline(&usr_entry, LEXER_PROMPT);
-	ft_lstadd_back(&l_data->read_lst, ft_lstnew(usr_entry));
+	usr_input = NULL;
+	lexer_readline(&usr_input, LEXER_PROMPT);
+	ft_lstadd_back(&l_data->read_lst, ft_lstnew(usr_input));
 	lexer_add_history(l_data->read_lst);
-	lexer_make(l_data, usr_entry);
+	lexer_make(l_data, usr_input);
 }
 
-t_lexer_data	*l_data_init(char	*usr_entry)
+t_lexer_data	*l_data_init(char	*usr_input)
 {
 	t_lexer_data	*l_data;
 
@@ -46,36 +46,36 @@ t_lexer_data	*l_data_init(char	*usr_entry)
 	{
 		l_data->lexer = NULL;
 		l_data->read_lst = NULL;
-		ft_lstadd_back(&l_data->read_lst, ft_lstnew(usr_entry));
+		ft_lstadd_back(&l_data->read_lst, ft_lstnew(usr_input));
 
 	}
 	return (l_data);
 }
 
-t_lexer_data	*lexer(char *usr_entry)
+t_lexer_data	*lexer(char *usr_input)
 {
 	t_lexer_data	*l_data;
 
-	l_data = l_data_init(usr_entry);
+	l_data = l_data_init(usr_input);
 	if (l_data)
-		lexer_make(l_data, usr_entry);
+		lexer_make(l_data, usr_input);
 	return (l_data);
 }
 
 /******************FUNCTION THAT ARE NOT SUPPOSED TO BE IN THE LEXER_MAIN**********************/
 char	*ft_readline_add_history(char *prompt)
 {
-	char	*usr_entry;
+	char	*usr_input;
 
-	usr_entry = NULL;
-	while (!usr_entry)
+	usr_input = NULL;
+	while (!usr_input)
 	{
-		usr_entry = readline(prompt);
-		if (!*usr_entry)
-			ft_free_char(&usr_entry);
+		usr_input = readline(prompt);
+		if (!*usr_input)
+			ft_free_char(&usr_input);
 	}
-	add_history(usr_entry);
-	return (usr_entry);
+	add_history(usr_input);
+	return (usr_input);
 }
 
 int	main (int ac, char **av, char **envp) //simulation of what should minishell main look like
@@ -83,12 +83,13 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 	(void) ac;
 	(void) av;
 	(void) envp;
-	char			*usr_entry;
+	char			*usr_input;
 	t_lexer_data	*l_data;
+	//initminishell
 	while (1)
 	{
-		usr_entry = ft_readline_add_history(FIRST_PROMPT);
-		l_data = lexer(usr_entry);
+		usr_input = ft_readline_add_history(FIRST_PROMPT);
+		l_data = lexer(usr_input);
 		//parser
 		//expander
 		//executor
@@ -118,7 +119,9 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 
 //lexer : here to check if token is operator or words. also check syntax error.
 
-//if here doc, nextword = limiteur
+
+/*******here_doc********/
+//if here doc, nextword = limiteur. --> if $USER, the limiter is "$USER" not the expended version. 
 
 
 //parser : gives a more precise type to words. the first word encountered is a type cmd, other are args.

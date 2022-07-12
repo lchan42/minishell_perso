@@ -6,26 +6,12 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/09 18:36:28 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 16:09:51 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	lexer_free(t_list *lexer)
-// {
-// 	t_list *tmp;
-
-// 	if (lexer)
-// 		free (((t_lexer_token *)(lexer->content))->start);
-// 	while (lexer)
-// 	{
-// 		tmp = lexer;
-// 		lexer = lexer->next;
-// 		free(tmp->content);
-// 		free(tmp);
-// 	}
-// }
 void	lexer_free(t_list **lexer)
 {
 	t_list *tmp;
@@ -85,7 +71,7 @@ int	lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod)
 			(int)(tmp_nod->length) , tmp_nod->start);
 		else if (error_id == ERR_SYNTAX_NL)
 			printf("minishell: syntax error near unexpected token `newline'\n");
-		t_list_free(&l_data->lexer);
+		//t_list_free(&l_data->lexer);
 		//lexer_data_free(l_data); ///// HIS LINE IS TEMPORARY HERE free should be done after the history ?
 	}
 	//HAVE TO ADD HISTORIC FUNCTION HERE

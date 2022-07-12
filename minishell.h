@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/12 12:55:17 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 19:23:09 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 # define FIRST_PROMPT "test_prompt : "
 # define LEXER_PROMPT "> "
-# define METACHAR "|&()<>" 		//dont need to interpreat';'
+# define METACHAR "|<>" 		//dont need to interpreat';'
 # define LOG_META "|&"
 # define RED_META "<>"
 # define AND_IF "&&"
@@ -95,6 +95,7 @@ enum e_lexer_type_token
 	TYPE_LEXER_OPERATOR,
 	TYPE_LEXER_OPERATOR_LOGICAL,
 	TYPE_LEXER_OPERATOR_REDIRECT,
+	
 	TYPE_LEXER_SYNTAX_ERR
 };
 
@@ -163,6 +164,6 @@ void	lexer_add_history(t_list *read_lst);
 /************* visual functions ****************/
 void	__visual_print_tab(char **tab);
 void	__visual_print_lexer(t_list *lst);
-void	__visual_print_read_lst(t_list *usr_entry);
+void	__visual_print_read_lst(t_list *usr_input);
 
 #endif

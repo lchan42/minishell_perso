@@ -28,35 +28,35 @@
 // 	}
 // }
 
-// int main ()
+int main ()
+{
+	char *read;
+	char *read_full;
+
+	read = NULL;
+	read_full = NULL;
+
+	while (1)
+	{
+		read_full = readline ("minishell prompt: ");
+		add_history (read_full);
+		if (*(read_full + strlen(read_full) - 1) == '|')
+		{
+			rl_on_new_line();
+			read = readline(">: ");
+			rl_replace_line("", 0);
+			rl_redisplay();
+			read_full = ft_strjoin_free(read_full, read);
+		}
+		free(read_full);
+	}
+
+ }
+
+// int	main ()
 // {
-// 	char *read;
-// 	char *read_full;
+// 	int	fd;
 
-// 	read = NULL;
-// 	read_full = NULL;
-
-// 	while (1)
-// 	{
-// 		read_full = readline ("minishell prompt: ");
-// 		add_history (read_full);
-// 		if (*(read_full + strlen(read_full) - 1) == '|')
-// 		{
-// 			rl_on_new_line();
-// 			read = readline(">: ");
-// 			rl_replace_line("", 0);
-// 			rl_redisplay();
-// 			read_full = ft_strjoin_free(readfull, read);
-// 		}
-// 		free(read_full);
-// 	}
+// 	fd = open("test", O_CREAT | O_EXCL | O_TRUNC);
 
 // }
-
-int	main ()
-{
-	int	fd;
-
-	fd = open("test", O_CREAT | O_EXCL | O_TRUNC);
-	
-}
