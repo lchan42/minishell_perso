@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:12:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/08 17:29:19 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 12:49:11 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct s_llist
+{
+	void			*content;
+	struct s_llist	*prev;
+	struct s_llist	*next;
+}				t_llist;
 
 // <string.h>
 size_t		ft_strlen(const char *s);
@@ -79,6 +86,17 @@ void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+//bidirectional lst
+t_llist		*ft_llstnew(void *content);
+void		ft_llstadd_front(t_llist **alst, t_llist *new);
+int			ft_llstsize(t_llist *lst);
+t_llist		*ft_llstlast(t_llist *lst);
+void		ft_llstadd_back(t_llist **alst, t_llist *new);
+void		ft_llstdelone(t_llist *lst, void (*del)(void *));
+void		ft_llstclear(t_llist **lst, void (*del)(void *));
+void		ft_llstiter(t_llist *lst, void (*f)(void *));
+t_llist		*ft_llstmap(t_llist *lst, void *(*f)(void *), void (*del)(void *));
 
 //own
 long int	ft_atol(const char *str);

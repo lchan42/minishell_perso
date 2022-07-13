@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/12 20:19:00 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/12 20:23:21 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 }
 
 /*****lexer*****/
+//to fix: the reloop is done after the heredoc.
 //open of heredoc has to be done in lexer. -->internal getnextline with no tmp file. redirect cant be done after via a pipe.
 //decide what to do if malloc error.
 //decide what to do with single & --> considered as word ?
@@ -121,7 +122,7 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 
 
 /*******here_doc********/
-//if here doc, nextword = limiteur. --> if $USER, the limiter is "$USER" not the expended version. 
+//if here doc, nextword = limiteur. --> if $USER, the limiter is "$USER" not the expended version.
 
 
 //parser : gives a more precise type to words. the first word encountered is a type cmd, other are args.

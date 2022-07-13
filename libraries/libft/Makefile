@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/08 14:35:53 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/13 12:47:57 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,15 @@ SRCS	=	ft_atoi.c\
 			ft_lstclear.c\
 			ft_lstiter.c\
 			ft_lstmap.c\
+			ft_llstnew.c\
+			ft_llstadd_front.c\
+			ft_llstsize.c\
+			ft_llstlast.c\
+			ft_llstadd_back.c\
+			ft_llstdelone.c\
+			ft_llstclear.c\
+			ft_llstiter.c\
+			ft_llstmap.c\
 			ft_find_last_c_occurence.c\
 			ft_puterror_exit.c\
 			get_next_line.c\
