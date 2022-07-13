@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_analyser.c                                   :+:      :+:    :+:   */
+/*   z_test_lexer_analyser.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luc_chan <luc_chan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 16:59:16 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/06/30 15:31:38 by luc_chan         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:54:48 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int  is_word_or_operator(char *start, int len)
  * return value : the type that has been set
  * 		usefull to check if we have
  */
-static int	lexer_set_type(t_list *lexer)
+static int	lexer_set_type(t_llist *lexer)
 {
 	if (ft_strchr_b(METACHAR, ((t_lexer_token *)(lexer->content))->start))
 		((t_lexer_token *)lexer->content)->type = TYPE_LEXER_OPERATOR;
@@ -47,7 +47,7 @@ static int	lexer_set_type(t_list *lexer)
 	return (((t_lexer_token *)lexer->content)->type);
 }
 
-int lexer_analyser(t_list *lexer)
+int lexer_analyser(t_llist *lexer)
 {
 	int ret_type;
 

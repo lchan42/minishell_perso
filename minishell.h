@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/12 19:23:09 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 19:44:26 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@
 # define METACHAR "|<>" 		//dont need to interpreat';'
 # define LOG_META "|&"
 # define RED_META "<>"
-# define AND_IF "&&"
-# define OR_IF "||"
-# define DLESS "<<"					//heredoc
+
+# define AND_IF "&&"				// if left true, do right
+# define OR_IF "||"					// if left faulse do right
+# define LESS "<"`					//in redirection
+# define GREAT ">"					//out redirection
+# define DLESS "<<"					//redirection heredoc
 # define DGREAT ">>"				//redirect exit in append mode
 # define SQUOTE '\''			//meta char in simple quote should be interpreted as normal char
 # define DQUOTE '\"'			//same as single, expect for $ sign;
@@ -92,14 +95,12 @@ enum e_lexer_error
 enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD = 1,
+	TYPE_LEXER_WORD_EXPAND,
 	TYPE_LEXER_OPERATOR,
 	TYPE_LEXER_OPERATOR_LOGICAL,
 	TYPE_LEXER_OPERATOR_REDIRECT,
-	
 	TYPE_LEXER_SYNTAX_ERR
 };
-
-
 
 typedef struct s_lexer_token
 {
@@ -108,18 +109,34 @@ typedef struct s_lexer_token
 	char			*start;
 	char			*end;
 	size_t			length;
-
 }				t_lexer_token;
 
 typedef struct s_lexer_data
 {
-	t_list *lexer;
-	t_list *read_lst;
+	t_llist *lexer;
+	t_llist *read_lst;
 }			t_lexer_data;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 typedef struct s_here_doc_data
 {
-	t_list	*heredoc;
+	t_llist	*heredoc;
 	int		*here_doc_pipe; //gonna be close after the first child.
 }t_here_doc_data;
 
@@ -133,11 +150,11 @@ typedef struct s_data
 {
 	// t_ast				*list_cmd;
 	// t_error_state		errors;
-	// t_list				*list_env_token;
-	// t_list				*lexer_fake_token_list;
+	// t_llist				*list_env_token;
+	// t_llist				*lexer_fake_token_list;
 	t_lexer_data		*lexer_data;
 	t_here_doc			*here_doc_data;
-	// t_list				*garbage_collector;
+	// t_llist				*garbage_collector;
 	// t_program_params	main;
 	// char				*program_folder;
 	// char				current_folder[4096];
@@ -150,20 +167,22 @@ typedef struct s_data
 
 int		lexer_set_ptrs(char **start, char **end);
 void	lexer_make(t_lexer_data *l_data, char *str);
-void	lexer_free(t_list **lexer);
+void	lexer_free(t_llist **lexer);
 void	lexer_data_free(t_lexer_data *l_data);
-int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
-int		lexer_type_checker(t_list **lexer_head, t_lexer_token *tmp_nod);
+//int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
+int	lexer_error(int error_id, t_lexer_token *current);
+int		lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 void	lexer_loop(t_lexer_data *t_data); ////////////////////
 //void	lexer_reloop(t_lexer_data *l_data);
 
-void	lexer_add_history(t_list *read_lst);
+void	lexer_add_history(t_llist *read_lst);
 
 
 
 /************* visual functions ****************/
 void	__visual_print_tab(char **tab);
-void	__visual_print_lexer(t_list *lst);
-void	__visual_print_read_lst(t_list *usr_input);
+void	__visual_print_lexer(t_llist *lst);
+void	__visual_print_read_lst(t_llist *usr_input);
+void	__reverse_visual_print_lexer(t_llist *lst);
 
 #endif

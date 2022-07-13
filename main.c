@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/12 13:05:32 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 12:56:26 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 
 /*
-void	lexer_analyser(t_list *lexer)
+void	lexer_analyser(t_llist *lexer)
 {
 	if(!lexer)
 	{
@@ -46,12 +46,12 @@ void	lexer_loop(t_lexer_data *l_data)
 		lexer_readline(&usr_input, FIRST_PROMPT);
 	else
 		lexer_readline(&usr_input, LEXER_PROMPT);
-	ft_lstadd_back(&l_data->read_lst, ft_lstnew(usr_input));
+	ft_llstadd_back(&l_data->read_lst, ft_llstnew(usr_input));
 	lexer_make(l_data, usr_input);
 }
 
 /*
-void	lexer_add_history(t_list *read_lst)
+void	lexer_add_history(t_llist *read_lst)
 {
 	char	*full_str;
 

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/12 17:39:41 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 13:39:07 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	__visual_print_tab(char **tab)
 			printf("%d : %s\n",i , tab[i]);
 }
 
-void	__visual_print_lexer(t_list *lst)
+void	__visual_print_lexer(t_llist *lst)
 {
 	if (!lst)
 		printf("lst address = %p\n", lst);
@@ -44,7 +44,31 @@ void	__visual_print_lexer(t_list *lst)
 	}
 }
 
-void	__visual_print_read_lst(t_list *usr_input)
+void	__reverse_visual_print_lexer(t_llist *lst)
+{
+	if (!lst)
+		printf("lst address = %p\n", lst);
+	while (lst->next)
+		lst = lst->next;
+	while (lst)
+	{
+//		printf("index = %d\n", ((t_lexer_token *)lst->content)->index);
+		printf("type = %d\n", ((t_lexer_token *)lst->content)->type);
+//		printf("start = %p\n", ((t_lexer_token *)lst->content)->start);
+//		printf("end = %p\n", ((t_lexer_token *)lst->content)->end);
+//		printf("length = %ld\n", ((t_lexer_token *)lst->content)->length);
+		write(1, "str = ", 7);
+		write(1, "[", 1);
+		write(1,  ((t_lexer_token *)lst->content)->start,
+		((t_lexer_token *)lst->content)->end -  ((t_lexer_token *)lst->content)->start);
+		write(1, "]", 1);
+		printf("\n\n");
+		lst = lst->prev;
+
+	}
+}
+
+void	__visual_print_read_lst(t_llist *usr_input)
 {
 	printf("usr_input str = [");
 	while (usr_input)

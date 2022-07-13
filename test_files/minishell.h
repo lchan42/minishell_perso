@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/06 16:26:27 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 12:54:48 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,18 @@ typedef struct s_lexer_token
 
 typedef struct s_lexer_data
 {
-	t_list *lexer;
-	t_list *read_lst;
+	t_llist *lexer;
+	t_llist *read_lst;
 }			t_lexer_data;
 
 int		lexer_set_ptrs(char **start, char **end);
-//t_list	*lexer_make(char *str);
-// t_list	*lexer_make(t_lexer_data *l_data, char *str);
+//t_llist	*lexer_make(char *str);
+// t_llist	*lexer_make(t_lexer_data *l_data, char *str);
 void	lexer_make(t_lexer_data *l_data, char *str);
-void	lexer_free(t_list **lexer);
+void	lexer_free(t_llist **lexer);
 void	lexer_data_free(t_lexer_data *l_data);
-//int		lexer_error(t_list **lexer, int error_id, t_lexer_token *tmp_nod);
+//int		lexer_error(t_llist **lexer, int error_id, t_lexer_token *tmp_nod);
 int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
-int		lexer_type_checker(t_list **lexer_head, t_lexer_token *tmp_nod);
+int		lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 void	lexer_loop(t_lexer_data *t_data);
 #endif

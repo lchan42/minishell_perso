@@ -6,13 +6,13 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 19:07:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/09 18:59:27 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 12:54:48 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int lexer_t_list_strlen(t_list *read_lst, int *nbr_space)
+static int lexer_t_llist_strlen(t_llist *read_lst, int *nbr_space)
 {
 	int	joined_len;
 	int	separator;
@@ -30,14 +30,14 @@ static int lexer_t_list_strlen(t_list *read_lst, int *nbr_space)
 	return (joined_len + separator);
 }
 
-static char *lexer_t_list_join(t_list *read_lst, char sep)
+static char *lexer_t_llist_join(t_llist *read_lst, char sep)
 {
 	int		len;
 	int		nbr_space;
 	char	*joined;
 	char	*ptr_reader;
 
-	len = lexer_t_list_strlen(read_lst, &nbr_space);
+	len = lexer_t_llist_strlen(read_lst, &nbr_space);
 	joined = malloc(sizeof(char) * len + 1);
 	while (read_lst)
 	{
@@ -52,11 +52,11 @@ static char *lexer_t_list_join(t_list *read_lst, char sep)
 	return (joined - len);
 }
 
-void	lexer_add_history(t_list *read_lst)
+void	lexer_add_history(t_llist *read_lst)
 {
 	char	*joined;
 
-	joined = lexer_t_list_join(read_lst, ' ');
+	joined = lexer_t_llist_join(read_lst, ' ');
 	add_history(joined);
 	//printf("joined in lexer_add_histoy : %s\n", joined);
 	free(joined);

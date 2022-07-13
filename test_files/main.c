@@ -6,10 +6,10 @@
 // {
 // 	char	*read_full;
 // 	char	*prompt;
-// 	t_list	*history_list;
+// 	t_llist	*history_list;
 
 // 	prompt = NULL;
-// 	history_list = (t_list *)0;
+// 	history_list = (t_llist *)0;
 // 	read_full = ft_strdup("");
 // 	while (1)
 // 	{
