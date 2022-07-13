@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 19:58:35 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/13 20:27:52 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,6 +340,25 @@ static t_lexer_token	*lexer_add_nod (t_llist **lexer_lst, char *str)
 	ft_llstadd_back(lexer_lst, ft_llstnew(new_token));
 	return (new_token);
 }
+
+// static t_lexer_token	*lexer_add_nod (t_llist **lexer_lst, char **str)
+// {
+// 	t_lexer_token	tmp_nod;
+// 	t_lexer_token	*new_token;
+
+// 	tmp_nod.start = *str;
+// 	tmp_nod.end = *str;
+// 	if (lexer_set_nod(&tmp_nod))
+// 	{
+
+// 	}
+// 	*str = tmp_nodend;
+// 	new_token = ft_calloc(1, sizeof(t_lexer_token));
+// 	if (!new_token)
+// 		return (NULL);
+// 	ft_llstadd_back(lexer_lst, ft_llstnew(new_token));
+// 	return (new_token);
+// }
 
 int	lexer_error(int error_id, t_lexer_token *current)
 {
