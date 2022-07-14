@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 20:27:52 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/14 11:57:23 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -404,4 +404,16 @@ void *ft_malloc(t_list **gb_head, int size)
 	ft_lst_addback(gb_head, new_malloc);
 	return(new_malloc);
 }
+*/
+
+
+/*parsing:
+if word :
+	check builting : if first word is builtin,
+	check expand
+
+if redictection:
+	check
+	check heredoc, attribute heredoc
+
 */

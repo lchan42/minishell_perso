@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 19:44:26 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/14 12:35:24 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ enum e_lexer_error
 enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD = 1,
-	TYPE_LEXER_WORD_EXPAND,
-	TYPE_LEXER_OPERATOR,
+	//TYPE_LEXER_WORD_EXPAND,
+	//TYPE_LEXER_OPERATOR,
 	TYPE_LEXER_OPERATOR_LOGICAL,
 	TYPE_LEXER_OPERATOR_REDIRECT,
 	TYPE_LEXER_SYNTAX_ERR
@@ -125,15 +125,48 @@ typedef struct s_lexer_data
 
 
 
+/******************* A VALIDER AVEC SASHA ***********************/
+
+enum e_redirection
+{
+	REDIR_LESS,
+	REDIR_DLESS,
+	REDIR_GREAT,
+	REDIR_DGREAT,
+};
+
+typedef struct s_parser_redirect
+{
+	int		type;				//enum redirection
+	char	*file;				//the char * of the redirection
+	int		redirect_fd;		//for the open
+}	t_parser_redirect;
+
+enum e_words
+{
+	WORD_CMD,					//the first word found(that is not part of here doc)
+	WORD_ARG,					//other type word found
+	WORD_EXPAND_CMD,
+	WORD_EXPAND_ARG,
+};
+
+typedef struct s_parser_word
+{
+	int			type;			//type of the expand
+	t_list		*expand;		//position of the expand ?
+	t_list		*expand_env_adr;//position of the expand in the env ? NULL if non ?
+}	t_parser_word;
+
+
+typedef struct s_parser
+{
+	t_list	*simple_cmd_lst; 	//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
+	int		*order_for_execve;	//if bonus and priorities ?
+}	t_parser;
 
 
 
-
-
-
-
-
-
+/***************************BROUILLON utile ?? ****************************/
 typedef struct s_here_doc_data
 {
 	t_llist	*heredoc;
