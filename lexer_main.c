@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 15:03:30 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 20:01:10 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,27 @@ void	lexer_loop(t_lexer_data *lexer_data)
 	lexer_make(lexer_data, usr_input);
 }*/
 
+/*
+void	msh_init_cpy_envp(int	size, char **envp)
+{
 
-void	msh_init_data(t_data *msh_data)
+}
+
+void	msh_init_data(t_msh_data *msh_data, char **envp)
 {
 	msh_data->user_input = NULL;
-	msh_data->
+	msh_data->env_size = 0;
+	msh_data->env = envp;
+	msh_data->lexer_data = NULL;
 }
 
-char	**msh_init (t_data *msh_data, char **envp)
+char	**msh_init (t_msh_data *msh_data, char **envp)
 {
+	msh_init_data(msh_data);
+	msh_init_cpy_envp(&msh_data->env_size, &msh_data->env);
 	//set all value to null;
 }
-
+*/
 /******************FUNCTION THAT ARE NOT SUPPOSED TO BE IN THE LEXER_MAIN**********************/
 char	*ft_readline_add_history(char *prompt)
 {
@@ -102,8 +111,8 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 //	t_lexer_data	*lexer_data;
 
 	//initminishell
-	while (1)
-	{
+//	while (1)
+//	{
 		msh_data.user_input = ft_readline_add_history(FIRST_PROMPT);
 		msh_data.lexer_data = lexer(msh_data.user_input);
 		//parser
@@ -117,7 +126,7 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 		}
 		else
 			printf("lexer_data has been freed\n");
-	}
+//	}
 }
 
 /*****lexer*****/

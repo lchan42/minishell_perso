@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 15:03:13 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 15:20:49 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_here_doc_data
 typedef struct s_data
 {
 	char			*user_input;
+	int				env_size;
 	char			**env;
 	t_lexer_data	*lexer_data;
 
