@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/14 11:57:23 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:23:47 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,27 +269,6 @@
 
 static int	lexer_syntax_checker(t_lexer_token *current_nod, t_lexer_token *previous_nod)
 {
-	/*if (!tmp_nod)
-	{
-		if (last_nod->type == TYPE_LEXER_OPERATOR_LOGICAL)
-			return (ERR_END_PIPE);
-		else if (last_nod->type == TYPE_LEXER_OPERATOR_REDIRECT)
-			return (ERR_SYNTAX_NL);
-	}
-		// if (tmp_nod->type != TYPE_LEXER_WORD)
-	// {
-	// 	if (tmp_nod->index == 0 && tmp_nod->type == TYPE_LEXER_OPERATOR_LOGICAL)
-	// 		return (ERR_SYNTAX);
-	// 	else if (last_nod && last_nod->type != TYPE_LEXER_WORD)
-	// 	{
-	// 		if ((last_nod->type == TYPE_LEXER_OPERATOR_LOGICAL
-	// 		&& last_nod->type == tmp_nod->type)
-	// 		|| (last_nod->type == TYPE_LEXER_OPERATOR_REDIRECT
-	// 		&& tmp_nod->type != TYPE_LEXER_WORD))
-	// 			return (ERR_SYNTAX);
-	// 	}
-	// }*/
-
 	if (!previous_nod && current_nod->type == TYPE_LEXER_OPERATOR_LOGICAL)
 	{
 		current_nod->type = TYPE_LEXER_SYNTAX_ERR;
@@ -327,7 +306,7 @@ static int	lexer_set_nod(t_lexer_token *tmp_nod)
 	return (0);
 }
 
-static t_lexer_token	*lexer_add_nod (t_llist **lexer_lst, char *str)
+static t_lexer_token	*lexer_add_nod (t_lexer_data **l_data /*t_llist **lexer_lst*/, char *str)
 {
 	t_lexer_token	*new_token;
 
@@ -336,8 +315,20 @@ static t_lexer_token	*lexer_add_nod (t_llist **lexer_lst, char *str)
 		return (NULL);
 	new_token->start = str;
 	new_token->end = str;
-	lexer_set_nod(new_token);
-	ft_llstadd_back(lexer_lst, ft_llstnew(new_token));
+	if (!lexer_set_nod(new_token))
+		ft_llstadd_back(&((*l_data)->lexer), ft_llstnew(new_token));
+	else
+	{
+		if (new_token->end == NULL)
+		{
+			lexer_error(ERR_SOLO_QUOTE, NULL);
+			lexer_data_free(l_data);
+			/*lexer_data_free(*l_data);
+			*l_data = NULL;*/
+		}
+		free(new_token);
+		new_token = NULL;
+	}
 	return (new_token);
 }
 
@@ -366,8 +357,8 @@ int	lexer_error(int error_id, t_lexer_token *current)
 		return (0);
 	else
 	{
-		// if (error_id == ERR_SOLO_QUOTE)
-		// 	printf("minishell: our project does not accept unclosed quotation\n");
+		if (error_id == ERR_SOLO_QUOTE)
+		 	printf("minishell: our project does not accept unclosed quotation\n");
 		if (error_id == ERR_SYNTAX)
 			printf("minishell: syntax error near unexpected token '%.*s'\n",
 			(int)(current->length) , current->start);
@@ -376,7 +367,26 @@ int	lexer_error(int error_id, t_lexer_token *current)
 	}
 	return (error_id);
 }
+void	lexer_make(t_lexer_data **l_data, char *str)
+{
+	t_lexer_token	*previous_nod;
+	t_lexer_token	*current_nod;
 
+	previous_nod = NULL;
+	current_nod = NULL;
+	while (1)
+	{
+		current_nod = (lexer_add_nod(l_data, str));
+		if (!current_nod)
+			return ;
+		if (lexer_error(lexer_syntax_checker(current_nod, previous_nod), current_nod))
+			return ;
+		previous_nod = current_nod;
+		str = previous_nod->end;
+	}
+}
+
+/* Original  before trying to fix the last nod case [cat cat       ]
 void	lexer_make(t_lexer_data *l_data, char *str)
 {
 	t_lexer_token	*previous_nod;
@@ -395,6 +405,7 @@ void	lexer_make(t_lexer_data *l_data, char *str)
 		str = previous_nod->end;
 	}
 }
+*/
 /*
 void *ft_malloc(t_list **gb_head, int size)
 {
@@ -406,8 +417,33 @@ void *ft_malloc(t_list **gb_head, int size)
 }
 */
 
+/*************************
+ * minishell so far:
+ * lexer
+ * 		break our entry into words and operator type. uses a t_llist that will have to be freed
+ * Parser
+ * 		prepare the filed so the fork/execve emperor can do its job easily
+ * 			--> creat a t_list of simple command
+ * 			--> each simple command in another lst. each nod will have a type. (redirection, cmd, arg, operator)
+ * expand
+ * 			-->changing the content of words token
+ * redirection
+ * 			-->in this part we have to open and close the files that are being redirected.
+ * 					if we have several redirection of the same STD
+ * 			-->after any redirection is performed, the nod of the redirection will be destroyed.
+ * 				at the end any simple command will only contain words token
+ * 			--> 2nd read :
+ * execusion
+ * 			--> sending the
+*/
 
-/*parsing:
+
+
+/*************************
+ * questions :
+ *
+ * */
+/****************************parsing:*****************************
 if word :
 	check builting : if first word is builtin,
 	check expand
@@ -415,5 +451,14 @@ if word :
 if redictection:
 	check
 	check heredoc, attribute heredoc
-
+	some test about redirection :
+		<<a <<b >created1 <<c
+			in this test heredoc 1 2 3 are created before created1 file.
+			conclusion	--> parsing is creating heredoc only.
+						--> creation of other file are done in redirection part
+		<<a <<b     >created1 <unexistingfile >created2 <<c
+			this test prove the conclusion above
+			heredoc 1 2 3 are asked, then created1 is O_CREAT but the redirection stops at open("unexistingfile")
+			message = "bash: unexistingfile: No such file or directory"
+	--> parsing is associating redirection with there respective files. If the redirection in an here_doc, the heredoc creation happens.
 */

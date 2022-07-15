@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/14 12:35:24 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:25:04 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@
 enum e_lexer_error
 {
 	ERR_SOLO_QUOTE = 1,
-	ERR_END_PIPE,
+	//ERR_END_PIPE,
 	ERR_SYNTAX,
 	ERR_SYNTAX_NL,
-	ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
+	//ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
 };
 
 enum e_lexer_type_token
@@ -135,12 +135,12 @@ enum e_redirection
 	REDIR_DGREAT,
 };
 
-typedef struct s_parser_redirect
+typedef struct s_redirect_token
 {
 	int		type;				//enum redirection
 	char	*file;				//the char * of the redirection
 	int		redirect_fd;		//for the open
-}	t_parser_redirect;
+}	t_redirect_token;
 
 enum e_words
 {
@@ -150,21 +150,31 @@ enum e_words
 	WORD_EXPAND_ARG,
 };
 
-typedef struct s_parser_word
+typedef struct s_word_token
 {
 	int			type;			//type of the expand
 	t_list		*expand;		//position of the expand ?
 	t_list		*expand_env_adr;//position of the expand in the env ? NULL if non ?
-}	t_parser_word;
-
+}	t_word_token;
 
 typedef struct s_parser
 {
-	t_list	*simple_cmd_lst; 	//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
-	int		*order_for_execve;	//if bonus and priorities ?
+	int		nbr_splcmd;
+	t_list	*splcmd_lst; 	//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
+	int		*execve_order;	//if bonus and priorities ?
 }	t_parser;
 
+//example <<a cat >outfile | grep '$USER' | cat > outfile
 
+//lexer (<<a cat >outfile -e)
+//		([redirect]-[word]-[word]-[word]-[redirect]-[word])
+//parser splcmd_lst nod 1 =
+//		([redirect]-[cmd]-[redirect]-[arg])
+//		(redirection a ete join au word suivant)
+
+//parser splcmd_
+
+//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
 
 /***************************BROUILLON utile ?? ****************************/
 typedef struct s_here_doc_data
@@ -199,17 +209,21 @@ typedef struct s_data
 */
 
 int		lexer_set_ptrs(char **start, char **end);
-void	lexer_make(t_lexer_data *l_data, char *str);
-void	lexer_free(t_llist **lexer);
-void	lexer_data_free(t_lexer_data *l_data);
+void	lexer_make(t_lexer_data **l_data, char *str);
 //int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
-int	lexer_error(int error_id, t_lexer_token *current);
+int		lexer_error(int error_id, t_lexer_token *current);
 int		lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 void	lexer_loop(t_lexer_data *t_data); ////////////////////
 //void	lexer_reloop(t_lexer_data *l_data);
 
 void	lexer_add_history(t_llist *read_lst);
 
+
+
+void	lexer_free(t_llist **lexer);
+void	t_llist_free(t_llist **lexer);
+//void	lexer_data_free(t_lexer_data *l_data);
+void	lexer_data_free(t_lexer_data **l_data);
 
 
 /************* visual functions ****************/

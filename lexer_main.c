@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 17:25:54 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:25:24 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	lexer_readline(char **usr_input, char *prompt)
 		}
 	}
 }
-
+/*
 void	lexer_loop(t_lexer_data *l_data)
 {
 	char *usr_input;
@@ -34,20 +34,18 @@ void	lexer_loop(t_lexer_data *l_data)
 	ft_llstadd_back(&l_data->read_lst, ft_llstnew(usr_input));
 	lexer_add_history(l_data->read_lst);
 	lexer_make(l_data, usr_input);
-}
+}*/
 
 t_lexer_data	*l_data_init(char	*usr_input)
 {
 	t_lexer_data	*l_data;
 
-	//l_data = NULL;
 	l_data = malloc(sizeof(t_lexer_data));
 	if (l_data)
 	{
 		l_data->lexer = NULL;
 		l_data->read_lst = NULL;
 		ft_llstadd_back(&l_data->read_lst, ft_llstnew(usr_input));
-
 	}
 	return (l_data);
 }
@@ -58,7 +56,14 @@ t_lexer_data	*lexer(char *usr_input)
 
 	l_data = l_data_init(usr_input);
 	if (l_data)
-		lexer_make(l_data, usr_input);
+	{
+		lexer_make(&l_data, usr_input);
+		/*if (!l_data->lexer)
+		{
+			//lexer_data_free(l_data);
+			l_data = NULL;
+		}*/
+	}
 	return (l_data);
 }
 
@@ -96,8 +101,8 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 	t_lexer_data	*l_data;
 
 	//initminishell
-	while (1)
-	{
+	//while (1)
+	//{
 		usr_input = ft_readline_add_history(FIRST_PROMPT);
 		l_data = lexer(usr_input);
 		//parser
@@ -107,10 +112,11 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 		{
 			__visual_print_lexer(l_data->lexer);
 			__visual_print_read_lst(l_data->read_lst);
-			//__reverse_visual_print_lexer(l_data->lexer);
-			lexer_data_free(l_data);
+			lexer_data_free(&l_data);
 		}
-	}
+		else
+			printf("l_data has been freed\n");
+	//}
 }
 
 /*****lexer*****/

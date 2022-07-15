@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 20:14:18 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/14 15:25:51 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*find_end_word(char *end, char *str_end)
 			if (*end == quote_flag)
 				quote_flag = 0;
 			else if (*end == '\0')
-				return (end);
+				return (NULL); //return error if unterminated quote and *end = '\0'
 		}
 		end++;
 	}
@@ -100,7 +100,7 @@ int	lexer_set_ptrs(char **start, char **end)
 	str_end = *start + ft_strlen(*start);
 	*start = set_ptrs_start(*start, str_end);
 	*end = set_ptrs_end(*start, str_end);
-	if (*end == *start)
+	if (!*end || *end == *start)
 		return (1);
 	return (0);
 }
