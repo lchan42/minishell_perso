@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:57:12 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 13:58:31 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ void	__visual_print_tab(char **tab)
 			printf("%d : %s\n",i , tab[i]);
 }
 
+void	__visial_print_type(int type)
+{
+	const char	*type_str [] = {
+	[TYPE_LEXER_WORD] = "word",
+	[TYPE_LEXER_OPERATOR_LOGICAL] = "op logical",
+	[TYPE_LEXER_OPERATOR_REDIRECT] = "op redirect",
+	[TYPE_LEXER_SYNTAX_ERR] = "syntax error"
+	};
+
+	printf("type = %s (%d)\n", type_str[type], type);
+}
+
+
 void	__visual_print_lexer(t_llist *lst)
 {
 	if (!lst)
@@ -29,7 +42,8 @@ void	__visual_print_lexer(t_llist *lst)
 	while (lst)
 	{
 //		printf("index = %d\n", ((t_lexer_token *)lst->content)->index);
-		printf("type = %d\n", ((t_lexer_token *)lst->content)->type);
+		//printf("type = %d (%s)\n", ((t_lexer_token *)lst->content)->type);
+		__visial_print_type(((t_lexer_token *)lst->content)->type);
 //		printf("start = %p\n", ((t_lexer_token *)lst->content)->start);
 //		printf("end = %p\n", ((t_lexer_token *)lst->content)->end);
 //		printf("length = %ld\n", ((t_lexer_token *)lst->content)->length);
@@ -43,6 +57,22 @@ void	__visual_print_lexer(t_llist *lst)
 	}
 }
 
+
+void	__visual_print_read_lst(t_llist *usr_input)
+{
+	printf("usr_input str = [");
+	while (usr_input)
+	{
+		printf("%s", (char *)usr_input->content);
+		if (usr_input->next)
+			printf(" ");
+		usr_input = usr_input->next;
+	}
+	printf("]\n");
+}
+
+
+/*
 void	__reverse_visual_print_lexer(t_llist *lst)
 {
 	if (!lst)
@@ -65,16 +95,4 @@ void	__reverse_visual_print_lexer(t_llist *lst)
 		lst = lst->prev;
 	}
 }
-
-void	__visual_print_read_lst(t_llist *usr_input)
-{
-	printf("usr_input str = [");
-	while (usr_input)
-	{
-		printf("%s", (char *)usr_input->content);
-		if (usr_input->next)
-			printf(" ");
-		usr_input = usr_input->next;
-	}
-	printf("]\n");
-}
+*/

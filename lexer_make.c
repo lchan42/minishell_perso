@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:52:54 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 13:44:08 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ int	lexer_error(int error_id, t_lexer_token *current)
 		if (error_id == ERR_SYNTAX)
 			printf("minishell: syntax error near unexpected token '%.*s'\n",
 			(int)(current->length) , current->start);
-		else if (error_id == ERR_SYNTAX_NL)
-			printf("minishell: syntax error near unexpected token `newline'\n");
+		//else if (error_id == ERR_SYNTAX_NL)
+		//	printf("minishell: syntax error near unexpected token `newline'\n");
 	}
 	return (error_id);
 }

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:51:13 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 15:03:30 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,16 @@ void	lexer_loop(t_lexer_data *lexer_data)
 }*/
 
 
+void	msh_init_data(t_data *msh_data)
+{
+	msh_data->user_input = NULL;
+	msh_data->
+}
 
-
+char	**msh_init (t_data *msh_data, char **envp)
+{
+	//set all value to null;
+}
 
 /******************FUNCTION THAT ARE NOT SUPPOSED TO BE IN THE LEXER_MAIN**********************/
 char	*ft_readline_add_history(char *prompt)
@@ -89,26 +97,27 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 	(void) ac;
 	(void) av;
 	(void) envp;
-	char			*usr_input;
-	t_lexer_data	*lexer_data;
+	t_data			msh_data;
+//	char			*usr_input;
+//	t_lexer_data	*lexer_data;
 
 	//initminishell
-	//while (1)
-	//{
-		usr_input = ft_readline_add_history(FIRST_PROMPT);
-		lexer_data = lexer(usr_input);
+	while (1)
+	{
+		msh_data.user_input = ft_readline_add_history(FIRST_PROMPT);
+		msh_data.lexer_data = lexer(msh_data.user_input);
 		//parser
 		//expander
 		//executor
-		if (lexer_data)
+		if (msh_data.lexer_data)
 		{
-			__visual_print_lexer(lexer_data->lexer);
-			__visual_print_read_lst(lexer_data->read_lst);
-			lexer_data_free(&lexer_data);
+			__visual_print_lexer(msh_data.lexer_data->lexer);
+			__visual_print_read_lst(msh_data.lexer_data->read_lst);
+			lexer_data_free(&msh_data.lexer_data);
 		}
 		else
 			printf("lexer_data has been freed\n");
-	//}
+	}
 }
 
 /*****lexer*****/
@@ -156,6 +165,7 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
  * 			--> each simple command in another lst. each nod will have a type. (redirection, cmd, arg, operator)
  * expand
  * 			-->changing the content of words token
+ * 			-->quote removal
  * redirection
  * 			-->in this part we have to open and close the files that are being redirected.
  * 					if we have several redirection of the same STD

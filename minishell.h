@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:57:22 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 15:03:13 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ enum e_lexer_error
 	ERR_SET_PTR = 1,
 	ERR_SOLO_QUOTE,
 	ERR_SYNTAX,
-	ERR_SYNTAX_NL,
+	//ERR_SYNTAX_NL,
 };
 
 enum e_lexer_type_token
@@ -119,60 +119,6 @@ typedef struct s_lexer_data
 
 
 
-
-
-
-/******************* A VALIDER AVEC SASHA ***********************/
-
-enum e_redirection
-{
-	REDIR_LESS,
-	REDIR_DLESS,
-	REDIR_GREAT,
-	REDIR_DGREAT,
-};
-
-typedef struct s_redirect_token
-{
-	int		type;				//enum redirection
-	char	*file;				//the char * of the redirection
-	int		redirect_fd;		//for the open
-}	t_redirect_token;
-
-enum e_words
-{
-	WORD_CMD,					//the first word found(that is not part of here doc)
-	WORD_ARG,					//other type word found
-	WORD_EXPAND_CMD,
-	WORD_EXPAND_ARG,
-};
-
-typedef struct s_word_token
-{
-	int			type;			//type of the expand
-	t_list		*expand;		//position of the expand ?
-	t_list		*expand_env_adr;//position of the expand in the env ? NULL if non ?
-}	t_word_token;
-
-typedef struct s_parser
-{
-	int		nbr_splcmd;
-	t_list	*splcmd_lst; 	//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
-	int		*execve_order;	//if bonus and priorities ?
-}	t_parser;
-
-//example <<a cat >outfile | grep '$USER' | cat > outfile
-
-//lexer (<<a cat >outfile -e)
-//		([redirect]-[word]-[word]-[word]-[redirect]-[word])
-//parser splcmd_lst nod 1 =
-//		([redirect]-[cmd]-[redirect]-[arg])
-//		(redirection a ete join au word suivant)
-
-//parser splcmd_
-
-//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
-
 /***************************BROUILLON utile ?? ****************************/
 typedef struct s_here_doc_data
 {
@@ -182,8 +128,10 @@ typedef struct s_here_doc_data
 
 typedef struct s_data
 {
-	t_here_doc_data	*here_doc_data;
-	t_lexer_data	*lexer;
+	char			*user_input;
+	char			**env;
+	t_lexer_data	*lexer_data;
+
 }t_data;
 
 /*typedef struct s_data //////////////////his is the main structure. it's going to be in stack;
@@ -227,3 +175,67 @@ void	__visual_print_read_lst(t_llist *usr_input);
 void	__reverse_visual_print_lexer(t_llist *lst);
 
 #endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+/******************* A VALIDER AVEC SASHA ***********************/
+
+enum e_redirection
+{
+	REDIR_LESS,
+	REDIR_DLESS,
+	REDIR_GREAT,
+	REDIR_DGREAT,
+};
+
+typedef struct s_redirect_token
+{
+	int		type;				//enum redirection
+	char	*file;				//the char * of the redirection
+	int		redirect_fd;		//for the open
+}	t_redirect_token;
+
+enum e_words
+{
+	WORD_CMD,					//the first word found(that is not part of here doc)
+	WORD_ARG,					//other type word found
+	WORD_EXPAND_CMD,
+	WORD_EXPAND_ARG,
+};
+
+typedef struct s_word_token
+{
+	int			type;
+	char		**info;		//type of the expand
+	t_list		*expand;		//position of the expand ?
+	t_list		*expand_env_adr;//position of the expand in the env ? NULL if non ?
+}	t_word_token;
+
+typedef struct s_parser
+{
+	int		nbr_splcmd;
+	t_list	*splcmd_lst; 	//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
+	int		*execve_order;	//if bonus and priorities ?
+}	t_parser;
+
+//example <<a cat >outfile | grep '$USER' | cat > outfile
+
+//lexer (<<a cat >outfile -e)
+//		([redirect]-[word]-[word]-[word]-[redirect]-[word])
+//parser splcmd_lst nod 1 =
+//		([redirect]-[cmd]-[redirect]-[arg])
+//		(redirection a ete join au word suivant)
+
+//parser splcmd_
+
+//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
