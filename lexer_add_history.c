@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 19:07:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 12:54:48 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:51:30 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,5 @@ void	lexer_add_history(t_llist *read_lst)
 
 	joined = lexer_t_llist_join(read_lst, ' ');
 	add_history(joined);
-	//printf("joined in lexer_add_histoy : %s\n", joined);
 	free(joined);
 }

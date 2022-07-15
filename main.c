@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 12:56:26 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:30:30 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ void	lexer_readline(char **usr_input, char *prompt)
 	}
 }
 
-void	lexer_loop(t_lexer_data *l_data)
+void	lexer_loop(t_lexer_data *lexer_data)
 {
 	char *usr_input;
 
 	usr_input = NULL;
-	if (l_data->read_lst == NULL)
+	if (lexer_data->read_lst == NULL)
 		lexer_readline(&usr_input, FIRST_PROMPT);
 	else
 		lexer_readline(&usr_input, LEXER_PROMPT);
-	ft_llstadd_back(&l_data->read_lst, ft_llstnew(usr_input));
-	lexer_make(l_data, usr_input);
+	ft_llstadd_back(&lexer_data->read_lst, ft_llstnew(usr_input));
+	lexer_make(lexer_data, usr_input);
 }
 
 /*
@@ -75,17 +75,17 @@ int main (int ac, char **av, char **envp)
 	(void) ac;
 	(void) av;
 	(void) envp;
-	t_lexer_data	l_data;
+	t_lexer_data	lexer_data;
 
-	l_data.lexer = NULL;
-	l_data.read_lst = NULL;
-	//while (!l_data.lexer)
-	lexer_loop(&l_data);
-	//lexer_add_history(l_data.read_lst);
-	__visual_print_lexer(l_data.lexer);
-	__visual_print_read_lst(l_data.read_lst);
-	if (l_data.read_lst)
-		lexer_add_history(l_data.read_lst);
-	lexer_data_free(&l_data);
+	lexer_data.lexer = NULL;
+	lexer_data.read_lst = NULL;
+	//while (!lexer_data.lexer)
+	lexer_loop(&lexer_data);
+	//lexer_add_history(lexer_data.read_lst);
+	__visual_print_lexer(lexer_data.lexer);
+	__visual_print_read_lst(lexer_data.read_lst);
+	if (lexer_data.read_lst)
+		lexer_add_history(lexer_data.read_lst);
+	lexer_data_free(&lexer_data);
 }
 

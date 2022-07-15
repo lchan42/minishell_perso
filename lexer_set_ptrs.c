@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/14 15:25:51 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:55:28 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*find_end_word(char *end, char *str_end)
 			if (*end == quote_flag)
 				quote_flag = 0;
 			else if (*end == '\0')
-				return (NULL); //return error if unterminated quote and *end = '\0'
+				return (NULL);
 		}
 		end++;
 	}
@@ -90,8 +90,8 @@ static char	*set_ptrs_end(char *start, char *str_end)
  * @brief set the start and the end value of a token.
  *
  * @param start start of the token
- * @param end end of the token
- * @return int returns non NULL value in case a of unterminated quote
+ * @param end end of the token. if NULL, means unterminated quote has been found
+ * @return int returns none NULL value in case a of unterminated quote
  */
 int	lexer_set_ptrs(char **start, char **end)
 {
@@ -101,6 +101,6 @@ int	lexer_set_ptrs(char **start, char **end)
 	*start = set_ptrs_start(*start, str_end);
 	*end = set_ptrs_end(*start, str_end);
 	if (!*end || *end == *start)
-		return (1);
+		return (ERR_SET_PTR);
 	return (0);
 }

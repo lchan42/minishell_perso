@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:25:04 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:57:22 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,15 @@
 
 enum e_lexer_error
 {
-	ERR_SOLO_QUOTE = 1,
-	//ERR_END_PIPE,
+	ERR_SET_PTR = 1,
+	ERR_SOLO_QUOTE,
 	ERR_SYNTAX,
 	ERR_SYNTAX_NL,
-	//ERR_MALLOC_FAIL				//is error is not due to the user. It should shut down the whole process.
 };
 
 enum e_lexer_type_token
 {
 	TYPE_LEXER_WORD = 1,
-	//TYPE_LEXER_WORD_EXPAND,
-	//TYPE_LEXER_OPERATOR,
 	TYPE_LEXER_OPERATOR_LOGICAL,
 	TYPE_LEXER_OPERATOR_REDIRECT,
 	TYPE_LEXER_SYNTAX_ERR
@@ -209,12 +206,10 @@ typedef struct s_data
 */
 
 int		lexer_set_ptrs(char **start, char **end);
-void	lexer_make(t_lexer_data **l_data, char *str);
-//int		lexer_error(t_lexer_data *l_data, int error_id, t_lexer_token *tmp_nod);
+void	lexer_make(t_lexer_data **lexer_data, char *str);
 int		lexer_error(int error_id, t_lexer_token *current);
 int		lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
-void	lexer_loop(t_lexer_data *t_data); ////////////////////
-//void	lexer_reloop(t_lexer_data *l_data);
+
 
 void	lexer_add_history(t_llist *read_lst);
 
@@ -222,8 +217,7 @@ void	lexer_add_history(t_llist *read_lst);
 
 void	lexer_free(t_llist **lexer);
 void	t_llist_free(t_llist **lexer);
-//void	lexer_data_free(t_lexer_data *l_data);
-void	lexer_data_free(t_lexer_data **l_data);
+void	lexer_data_free(t_lexer_data **lexer_data);
 
 
 /************* visual functions ****************/

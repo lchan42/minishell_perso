@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/15 12:27:02 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:30:30 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	t_llist_free(t_llist **lexer)
 	*lexer = NULL;
 }
 
-void	lexer_data_free(t_lexer_data **l_data)
+void	lexer_data_free(t_lexer_data **lexer_data)
 {
-	if (*l_data)
+	if (*lexer_data)
 	{
-		if ((*l_data)->lexer)
-			t_llist_free((&(*l_data)->lexer));
-		if ((*l_data)->read_lst)
-			t_llist_free((&(*l_data)->read_lst));
-		free(*l_data);
-		*l_data = NULL;
+		if ((*lexer_data)->lexer)
+			t_llist_free((&(*lexer_data)->lexer));
+		if ((*lexer_data)->read_lst)
+			t_llist_free((&(*lexer_data)->read_lst));
+		free(*lexer_data);
+		*lexer_data = NULL;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 13:39:07 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:57:12 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	__visual_print_lexer(t_llist *lst)
 		write(1, "]", 1);
 		printf("\n\n");
 		lst = lst->next;
-
 	}
 }
 
@@ -64,7 +63,6 @@ void	__reverse_visual_print_lexer(t_llist *lst)
 		write(1, "]", 1);
 		printf("\n\n");
 		lst = lst->prev;
-
 	}
 }
 

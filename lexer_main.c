@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:25:24 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/15 12:51:13 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,45 @@ void	lexer_readline(char **usr_input, char *prompt)
 		}
 	}
 }
+
+t_lexer_data	*lexer_data_init(char	*usr_input)
+{
+	t_lexer_data	*lexer_data;
+
+	lexer_data = malloc(sizeof(t_lexer_data));
+	if (lexer_data)
+	{
+		lexer_data->lexer = NULL;
+		lexer_data->read_lst = NULL;
+		ft_llstadd_back(&lexer_data->read_lst, ft_llstnew(usr_input));
+	}
+	return (lexer_data);
+}
+
+t_lexer_data	*lexer(char *usr_input)
+{
+	t_lexer_data	*lexer_data;
+
+	lexer_data = lexer_data_init(usr_input);
+	if (lexer_data)
+		lexer_make(&lexer_data, usr_input);
+	return (lexer_data);
+}
+
+
+
+
 /*
-void	lexer_loop(t_lexer_data *l_data)
+void	lexer_loop(t_lexer_data *lexer_data)
 {
 	char *usr_input;
 
 	usr_input = NULL;
 	lexer_readline(&usr_input, LEXER_PROMPT);
-	ft_llstadd_back(&l_data->read_lst, ft_llstnew(usr_input));
-	lexer_add_history(l_data->read_lst);
-	lexer_make(l_data, usr_input);
+	ft_llstadd_back(&lexer_data->read_lst, ft_llstnew(usr_input));
+	lexer_add_history(lexer_data->read_lst);
+	lexer_make(lexer_data, usr_input);
 }*/
-
-t_lexer_data	*l_data_init(char	*usr_input)
-{
-	t_lexer_data	*l_data;
-
-	l_data = malloc(sizeof(t_lexer_data));
-	if (l_data)
-	{
-		l_data->lexer = NULL;
-		l_data->read_lst = NULL;
-		ft_llstadd_back(&l_data->read_lst, ft_llstnew(usr_input));
-	}
-	return (l_data);
-}
-
-t_lexer_data	*lexer(char *usr_input)
-{
-	t_lexer_data	*l_data;
-
-	l_data = l_data_init(usr_input);
-	if (l_data)
-	{
-		lexer_make(&l_data, usr_input);
-		/*if (!l_data->lexer)
-		{
-			//lexer_data_free(l_data);
-			l_data = NULL;
-		}*/
-	}
-	return (l_data);
-}
-
-
-
-
-
 
 
 
@@ -98,24 +90,24 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 	(void) av;
 	(void) envp;
 	char			*usr_input;
-	t_lexer_data	*l_data;
+	t_lexer_data	*lexer_data;
 
 	//initminishell
 	//while (1)
 	//{
 		usr_input = ft_readline_add_history(FIRST_PROMPT);
-		l_data = lexer(usr_input);
+		lexer_data = lexer(usr_input);
 		//parser
 		//expander
 		//executor
-		if (l_data)
+		if (lexer_data)
 		{
-			__visual_print_lexer(l_data->lexer);
-			__visual_print_read_lst(l_data->read_lst);
-			lexer_data_free(&l_data);
+			__visual_print_lexer(lexer_data->lexer);
+			__visual_print_read_lst(lexer_data->read_lst);
+			lexer_data_free(&lexer_data);
 		}
 		else
-			printf("l_data has been freed\n");
+			printf("lexer_data has been freed\n");
 	//}
 }
 
@@ -143,3 +135,59 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 
 
 //parser : gives a more precise type to words. the first word encountered is a type cmd, other are args.
+
+
+
+
+
+
+
+
+
+
+
+/*************************
+ * minishell so far:
+ * lexer
+ * 		break our entry into words and operator type. uses a t_llist that will have to be freed
+ * Parser
+ * 		prepare the filed so the fork/execve emperor can do its job easily
+ * 			--> creat a t_list of simple command
+ * 			--> each simple command in another lst. each nod will have a type. (redirection, cmd, arg, operator)
+ * expand
+ * 			-->changing the content of words token
+ * redirection
+ * 			-->in this part we have to open and close the files that are being redirected.
+ * 					if we have several redirection of the same STD
+ * 			-->after any redirection is performed, the nod of the redirection will be destroyed.
+ * 				at the end any simple command will only contain words token
+ * 			--> 2nd read :
+ * execusion
+ * 			--> sending the
+*/
+
+
+
+/*************************
+ * questions :
+ *
+ * */
+/****************************parsing:*****************************
+if word :
+	check builting : if first word is builtin,
+	check expand
+
+if redictection:
+	check
+	check heredoc, attribute heredoc
+	some test about redirection :
+		<<a <<b >created1 <<c
+			in this test heredoc 1 2 3 are created before created1 file.
+			conclusion	--> parsing is creating heredoc only.
+						--> creation of other file are done in redirection part
+		<<a <<b     >created1 <unexistingfile >created2 <<c
+			this test prove the conclusion above
+			heredoc 1 2 3 are asked, then created1 is O_CREAT but the redirection stops at open("unexistingfile")
+			message = "bash: unexistingfile: No such file or directory"
+	--> parsing is associating redirection with there respective files. If the redirection in an here_doc, the heredoc creation happens.
+*/
