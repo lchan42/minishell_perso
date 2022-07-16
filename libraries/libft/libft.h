@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:12:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/13 12:49:11 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 14:36:57 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_llist
 
 // <string.h>
 size_t		ft_strlen(const char *s);
-size_t		ft_strlen_p(const char *s);
 void		ft_bzero(void *s, size_t n);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strdup(const char *s1);
@@ -99,12 +98,16 @@ void		ft_llstiter(t_llist *lst, void (*f)(void *));
 t_llist		*ft_llstmap(t_llist *lst, void *(*f)(void *), void (*del)(void *));
 
 //own
+size_t		ft_strlen_p(const char *s);
+int			ft_strtablen(char **tab);
+char		**ft_tabdup(char **tab);
 long int	ft_atol(const char *str);
 int			ft_find_last_c_occurence(char *path, char c);
 int			ft_strchr_b(const char *s, int c);
 void		ft_puterror_exit(char *str);
 void		ft_free(void *malloc_content);
 void		ft_free_char(char **malloc_elem);
+void		ft_free_strtab(char **tab);
 void		ft_free_stdarg(int n, ...);
 char		*ft_strjoin_free(char **s1, char **s2);
 char		*ft_strjoin_free_s1(char **s1, char **s2);

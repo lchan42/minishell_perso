@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:14:27 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/14 15:16:56 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 14:06:26 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ void	ft_free_char(char **malloc_elem)
 		free(*malloc_elem);
 		*malloc_elem = NULL;
 	}
+}
+
+void	ft_free_strtab(char **tab)
+{
+	char	**tmp;
+
+	tmp = tab;
+	while (*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(tab);
 }
 
 void	ft_free_stdarg(int n, ...)
