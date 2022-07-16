@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 16:49:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/16 14:37:12 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 18:25:41 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**ft_tabdup(char **tab)
 
 	if (!tab)
 		return (NULL);
-	len = ft_tablen(tab);
+	len = ft_strtablen(tab);
 	new_tab = malloc((len + 1) * (sizeof(char **)));
 	if (!new_tab)
 		return (NULL);

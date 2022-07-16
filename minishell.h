@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/16 17:19:57 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 18:22:04 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ enum	e_parser_io_type
 	PIPE_OUT
 };
 
-enum	e_parser_io_type
+enum	e_parser_cmd_type
 {
 	BUILTIN,
 	BUILTOUT
@@ -156,9 +156,10 @@ typedef struct s_cmd
 
 typedef struct s_splcmd
 {
-	t_io	*in;
-	t_io	*out;
-	t_cmd	*cmd;
+	t_io			*in;
+	t_io			*out;
+	t_cmd			*cmd;
+	struct s_splcmd	*next;
 }	t_splcmd;
 
 
@@ -211,6 +212,10 @@ void	lexer_free(t_llist **lexer);
 void	t_llist_free(t_llist **lexer);
 void	lexer_data_free(t_lexer_data **lexer_data);
 
+
+
+/*************** parser *********************/
+t_splcmd	*__parser(t_llist *lexer);
 
 /************* visual functions ****************/
 void	__visual_print_tab(char **tab);

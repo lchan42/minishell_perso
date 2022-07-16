@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 20:01:10 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 18:29:22 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,13 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 		msh_data.user_input = ft_readline_add_history(FIRST_PROMPT);
 		msh_data.lexer_data = lexer(msh_data.user_input);
 		//parser
+		__parser(msh_data.lexer_data->lexer);
 		//expander
 		//executor
 		if (msh_data.lexer_data)
 		{
-			__visual_print_lexer(msh_data.lexer_data->lexer);
-			__visual_print_read_lst(msh_data.lexer_data->read_lst);
+			//__visual_print_lexer(msh_data.lexer_data->lexer);
+			//__visual_print_read_lst(msh_data.lexer_data->read_lst);
 			lexer_data_free(&msh_data.lexer_data);
 		}
 		else
