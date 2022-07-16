@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 15:20:49 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 17:19:57 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,16 @@
 
 # define AND_IF "&&"				// if left true, do right
 # define OR_IF "||"					// if left faulse do right
+
+
+/*
 # define LESS "<"`					//in redirection
 # define GREAT ">"					//out redirection
 # define DLESS "<<"					//redirection heredoc
 # define DGREAT ">>"				//redirect exit in append mode
+*/
+
+
 # define SQUOTE '\''			//meta char in simple quote should be interpreted as normal char
 # define DQUOTE '\"'			//same as single, expect for $ sign;
 # define DOLLAR "$"				//if followed by a string, go in the env
@@ -116,7 +122,44 @@ typedef struct s_lexer_data
 
 
 
+/**********************************parsing struct*****************************************/
+enum	e_parser_io_type
+{
+	LESS,
+	DLESS,
+	GREAT,
+	DGREAT,
+	PIPE_IN,
+	PIPE_OUT
+};
 
+enum	e_parser_io_type
+{
+	BUILTIN,
+	BUILTOUT
+};
+
+typedef struct s_io
+{
+	int		type; // less or dless for in or great dgreat for output
+	char	*arg; //file name or lim (heredoc) max file name linux = 255 but if heredoc, no limits
+	int		fd; //0 by default (in) or 1 by default for (out)
+	t_list	*stock; //heredoc buffer (if in) AND lst of file name that have to be open in redirect part
+}				t_io;
+
+typedef struct s_cmd
+{
+	int		type; //builtin or not
+	int		size; //len of cmd_words (number of lines)
+	char	**cmd_words; //contains 0 path (path + cmd ex: /usr/bin/cat) followed by one arg per line
+}				t_cmd;
+
+typedef struct s_splcmd
+{
+	t_io	*in;
+	t_io	*out;
+	t_cmd	*cmd;
+}	t_splcmd;
 
 
 /***************************BROUILLON utile ?? ****************************/
