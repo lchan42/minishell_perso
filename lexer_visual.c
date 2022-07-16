@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 13:58:31 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 19:52:49 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,3 +96,17 @@ void	__reverse_visual_print_lexer(t_llist *lst)
 	}
 }
 */
+
+/******************PARSER VISUAL***************************/
+
+
+void	__visual_print_splcmd(t_splcmd *head)
+{
+	int  i = 1;
+	while (head)
+	{
+		printf("bloc [%d]\tin_addr --> [%p] out_addr --> [%p] cmd_addr --> [%p]\n\n", i++, \
+		head->in, head->out, head->cmd);
+		head = head->next;
+	}
+}

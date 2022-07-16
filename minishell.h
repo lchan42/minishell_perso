@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/16 18:22:04 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/16 20:13:42 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,13 @@ void	__visual_print_tab(char **tab);
 void	__visual_print_lexer(t_llist *lst);
 void	__visual_print_read_lst(t_llist *usr_input);
 void	__reverse_visual_print_lexer(t_llist *lst);
+void	__visual_print_splcmd(t_splcmd *head);
 
 #endif
 
 
 
-
+//test1 | test2 | test 4 | test
 
 
 
