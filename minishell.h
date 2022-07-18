@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/18 17:25:24 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/18 20:10:16 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,11 @@ void	__visual_print_splcmd(t_splcmd *head);
 //<<LIMIT test1 | test2 | test 4 | test
 
 
+//<<LIMIT <<a <<b test1 >LIMIT2 | <a <c test2 | test 4 >>g | test >>s
 
 
+//<<LIMIT <<a <<b test1 >OUT1 | <a <c test2 >OUT2
+// for lldb	//print ((t_lexer_token *)(lexer->content))->start
 
 
 

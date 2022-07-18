@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:12:02 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/18 15:23:37 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/18 19:46:54 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    __free_parse(t_splcmd **head)
 			if (runner->in)
 				__free_io(&(runner->in));  // add ft_free_in to free what is inside in_struct
 			if (runner->out)
-				free(runner->out); // add ft_free_out to free what is inside out_struct
+				__free_io(&(runner->out)); // add ft_free_out to free what is inside out_struct
 			if (runner->cmd)
 				free(runner->cmd); // add ft_free_cmd to free what is inside cmd_struct
 			runner = runner->next;
