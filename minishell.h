@@ -125,10 +125,10 @@ typedef struct s_lexer_data
 /**********************************parsing struct*****************************************/
 enum	e_parser_io_type
 {
-	LESS,
-	DLESS,
-	GREAT,
-	DGREAT,
+	IN_D = 1, // basic infile redirect
+	HERE_D, // here_doc
+	OUT_D, // basic outfile redirect
+	OUT_D_APP, // append redirect mode
 	PIPE_IN,
 	PIPE_OUT
 };
@@ -144,7 +144,7 @@ typedef struct s_io
 	int		type; // less or dless for in or great dgreat for output
 	char	*arg; //file name or lim (heredoc) max file name linux = 255 but if heredoc, no limits
 	int		fd; //0 by default (in) or 1 by default for (out)
-	t_list	*stock; //heredoc buffer (if in) AND lst of file name that have to be open in redirect part
+	t_list	*stock; //heredoc buffer (if in) AND lst of file name that have to be open (if out)
 }				t_io;
 
 typedef struct s_cmd
@@ -289,3 +289,4 @@ typedef struct s_parser
 //parser splcmd_
 
 //[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
+

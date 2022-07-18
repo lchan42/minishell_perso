@@ -12,6 +12,71 @@
 
 #include "minishell.h"
 
+static int __get_redir_type(t_lexer_token *redir)
+{
+	if (*(redir->start) == '<')
+	{
+		if (redir->length == 2)
+			return (HERE_D);
+		else
+			return (IN_D);	
+	}
+	else
+	{
+		if (redir->length == 2)
+			return (OUT_D);
+		else
+			return (OUT_D_APP);		
+	}
+}
+
+static char *__get_arg(t_lexer_token *word, int type)
+{
+	char *arg;
+	char *tmp;
+
+	arg = ft_calloc(sizeof(char), (word->length + 1));
+	tmp = word->start;
+	if (type != HERE_D && word->length > 255)
+		return (0); // add error return message "filename too long"
+	while (tmp != word->end)
+		*(arg++) = *(tmp++);
+	*(arg)= '\0';
+	return (arg - (word->length + 1));
+}
+
+static int	__pars_input_token(t_io **in, t_llist *redir, t_llist *word)
+{
+	if (word)
+	{
+		(*in)->type = __get_redir_type((t_lexer_token *)(redir->content));
+		(*in)->arg = __get_arg((t_lexer_token *)(word->content), (*in)->type);
+		return (1);
+	}
+	else
+		return (0); // add error message "unexpected token"
+}
+
+static void __init_in(t_io **in, t_llist *lexer)
+{
+	if (!(*in))
+		*in = ft_calloc(1, sizeof(t_io));
+	while (lexer)
+	{
+		if (((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_REDIRECT)
+		{
+			if (__pars_input_token(in, lexer, lexer->next))
+				lexer = lexer->next;
+			else
+			{
+				printf("ERROR EXPECTED\n");
+				return ;
+			}
+		}
+		lexer = lexer->next;
+	}
+}
+
 static t_llist	*__lexer_mover(t_llist *lexer, int type)
 {
 	if  (((t_lexer_token *)lexer)
@@ -71,7 +136,7 @@ t_splcmd	*__parser(t_llist *lexer)
 	while (lexer)
 	{
 		runner = __init_splcmd_node(&head, runner);
-		//__init_in();
+		__init_in(&(runner->in), lexer);
 		__visual_print_lexer(lexer);
 		lexer = __lexer_mover(lexer, TYPE_LEXER_OPERATOR_LOGICAL);
 	}
