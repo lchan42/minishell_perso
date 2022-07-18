@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/16 20:13:42 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/18 15:46:33 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,9 @@ enum	e_parser_io_type
 {
 	IN_D = 1, // basic infile redirect
 	HERE_D, // here_doc
+	PIPE_IN,
 	OUT_D, // basic outfile redirect
 	OUT_D_APP, // append redirect mode
-	PIPE_IN,
 	PIPE_OUT
 };
 
@@ -206,8 +206,6 @@ int		lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 
 void	lexer_add_history(t_llist *read_lst);
 
-
-
 void	lexer_free(t_llist **lexer);
 void	t_llist_free(t_llist **lexer);
 void	lexer_data_free(t_lexer_data **lexer_data);
@@ -216,6 +214,10 @@ void	lexer_data_free(t_lexer_data **lexer_data);
 
 /*************** parser *********************/
 t_splcmd	*__parser(t_llist *lexer);
+void __init_in(t_io **in, t_llist *lexer);
+
+			/**free**/
+void __free_parse(t_splcmd **head);
 
 /************* visual functions ****************/
 void	__visual_print_tab(char **tab);
@@ -230,7 +232,7 @@ void	__visual_print_splcmd(t_splcmd *head);
 
 //test1 | test2 | test 4 | test
 
-
+//<<LIMIT test1 | test2 | test 4 | test
 
 
 

@@ -105,8 +105,9 @@ void	__visual_print_splcmd(t_splcmd *head)
 	int  i = 1;
 	while (head)
 	{
-		printf("bloc [%d]\tin_addr --> [%p] out_addr --> [%p] cmd_addr --> [%p]\n\n", i++, \
+		printf("bloc [%d]\tin_addr --> [%p] out_addr --> [%p] cmd_addr --> [%p]\n", i++, \
 		head->in, head->out, head->cmd);
+		printf("\t\tin_type --> [%d]\n\t\tin_arg --> [%s]\n\n", head->in->type, head->in->arg);
 		head = head->next;
 	}
 }
