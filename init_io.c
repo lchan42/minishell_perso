@@ -6,17 +6,20 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/18 15:58:49 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:25:45 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-t_list *__get_stock(t_list **stock, int type, char *arg)
+/*t_list *__get_stock(t_list **stock, int type, char *arg)
 {
-	if (type == HERE_D)
-}
+	t_list *(*stock_mgmt[4])(int, t_list stock);
+
+
+}*/
+//
 
 static int __get_redir_type(t_lexer_token *redir)
 {
@@ -61,19 +64,21 @@ static int	__pars_io_token(t_io **io, t_llist *redir, t_llist *word)
 		//if ((*io)->arg)
 		// 	free((*io)->arg);
 		(*io)->arg = __get_arg((t_lexer_token *)(word->content), (*io)->type);
-		(*io)->fd = (*io->type > 3);
-		(*io)->stock = __get_stock(&((*io)->stock), (*io)->type, (*io)->arg);
+		(*io)->fd = ((*io)->type > 3);
+		//(*io)->stock = __get_stock(&((*io)->stock), (*io)->type, (*io)->arg);
 
 		return (1);
 	}
 	else
 		return (0); // add error message "unexpected token"
 }
-
-void __init_in(t_io **in, t_llist *lexer)
+void __init_io(t_io **in, t_io **out, t_llist *lexer)
 {
 	if (!(*in))
 		*in = ft_calloc(1, sizeof(t_io));
+	//if (lexer->prev
+	//&& (((t_lexer_token *)lexer->prev->content)->type == TYPE_LEXER_OPERATOR_LOGICAL))
+	//	__pars_io_pipe(in, PIPE_IN);
 	while (lexer)
 	{
 		if (((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_REDIRECT)
@@ -86,6 +91,8 @@ void __init_in(t_io **in, t_llist *lexer)
 				return ;
 			}
 		}
+		if (((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_LOGICAL)
+			break;
 		lexer = lexer->next;
 	}
 }

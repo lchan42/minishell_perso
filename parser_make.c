@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/18 15:34:43 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:24:44 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 // 		if (redir->length == 2)
 // 			return (HERE_D);
 // 		else
-// 			return (IN_D);	
+// 			return (IN_D);
 // 	}
 // 	else
 // 	{
 // 		if (redir->length == 2)
 // 			return (OUT_D);
 // 		else
-// 			return (OUT_D_APP);		
+// 			return (OUT_D_APP);
 // 	}
 // }
 
@@ -123,7 +123,8 @@ t_splcmd	*__parser(t_llist *lexer)
 	while (lexer)
 	{
 		runner = __init_splcmd_node(&head, runner);
-		__init_in(&(runner->in), lexer);
+		__init_io(&(runner->in), &(runner->out), lexer);
+		//__init_cmd(&(runner->in), lexer);
 		//__visual_print_lexer(lexer);
 		lexer = __lexer_mover(lexer, TYPE_LEXER_OPERATOR_LOGICAL);
 	}

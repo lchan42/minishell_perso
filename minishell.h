@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/18 15:46:33 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/18 17:25:24 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,9 @@ void	lexer_data_free(t_lexer_data **lexer_data);
 
 /*************** parser *********************/
 t_splcmd	*__parser(t_llist *lexer);
-void __init_in(t_io **in, t_llist *lexer);
+//void __init_in(t_io **in, t_llist *lexer);
+void __init_io(t_io **in, t_io **out, t_llist *lexer);
+
 
 			/**free**/
 void __free_parse(t_splcmd **head);
