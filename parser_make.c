@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_make.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/18 20:04:07 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/19 11:28:38 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ static t_splcmd *__init_splcmd_node(t_splcmd **head, t_splcmd *runner)
 		runner->next = new_node;
 	return (new_node);
 }
-
-
 
 t_splcmd	*__parser(t_llist *lexer)
 {

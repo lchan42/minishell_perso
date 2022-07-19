@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/18 20:10:16 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/19 13:26:44 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define BUFFER_S 10000
 # define FIRST_PROMPT "test_prompt : "
 # define LEXER_PROMPT "> "
 # define METACHAR "|<>" 		//dont need to interpreat';'
@@ -145,6 +146,7 @@ typedef struct s_io
 	char	*arg; //file name or lim (heredoc) max file name linux = 255 but if heredoc, no limits
 	int		fd; //0 by default (in) or 1 by default for (out)
 	t_list	*stock; //heredoc buffer (if in) AND lst of file name that have to be open (if out)
+	t_list	*here_buffer;
 }				t_io;
 
 typedef struct s_cmd
@@ -156,9 +158,9 @@ typedef struct s_cmd
 
 typedef struct s_splcmd
 {
-	t_io			*in;
-	t_io			*out;
-	t_cmd			*cmd;
+	t_io			in;
+	t_io			out;
+	t_cmd			cmd;
 	struct s_splcmd	*next;
 }	t_splcmd;
 
@@ -215,10 +217,12 @@ void	lexer_data_free(t_lexer_data **lexer_data);
 /*************** parser *********************/
 t_splcmd	*__parser(t_llist *lexer);
 //void __init_in(t_io **in, t_llist *lexer);
-void __init_io(t_io **in, t_io **out, t_llist *lexer);
+//void __init_io(t_io **in, t_io **out, t_llist *lexer);
+void __init_io(t_io *in, t_io *out, t_llist *lexer);
 
 
 			/**free**/
+void	__t_list_free(t_list **lst);
 void __free_parse(t_splcmd **head);
 
 /************* visual functions ****************/
