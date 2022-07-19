@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/19 16:24:28 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 17:22:38 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	save_here_d(t_io *io)
 		write(1, "> ", 2);
 		read_ret = read(0, buf, BUFFER_S);
 		buf[read_ret] = '\0';
-		if (!(ft_strncmp(buf, limit, ft_strlen(limit))))
+		if (!(ft_strncmp(buf, limit, read_ret - 1)))
 			break ;
 		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup(buf)));
 	}
@@ -182,5 +182,4 @@ int __init_io(t_io *in, t_io *out, t_llist *lexer)
 	return (0);
 }
 
-//test >>1 <<2 | >>3 <<4 test5
-//<infile1 <infile2 <infile3 <<1 >outfile1 >outfile2 > outfile3| >>3 <<2 test5
+

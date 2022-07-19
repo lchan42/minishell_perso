@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 16:37:23 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 17:12:00 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_splcmd	*__parser(t_llist *lexer)
 		if (__init_io(&(runner->in), &(runner->out), lexer) == -1)
 		{
 			__free_parse(&head);
-			lexer_free(&lexer);
 			break ;
 		}
 		lexer = __lexer_mover(lexer, TYPE_LEXER_OPERATOR_LOGICAL);

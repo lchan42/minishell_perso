@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 16:19:22 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 17:22:27 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,28 +121,31 @@ void	__visual_print_splcmd(t_splcmd *head)
 	int  i = 1;
 	while (head)
 	{
-		t_list *tmp_in_st = head->in.stock, *tmp_out_st = head->out.stock;
+		t_list *tmp_in_st = head->in.stock, *tmp_out_st = head->out.stock, *tmp_here_d = head->in.here_buffer;
 		printf("\t\t\t****************splcmd [%d]****************\n 		in_addr --> [%p] out_addr --> [%p] cmd_addr --> [%p]\n", i++, \
 		&(head->in), &(head->out), &(head->cmd));
-
-		// printf("\t\tin_type --> %-15d | out_type --> %-15d\n
-		// in_arg  --> %-15s | out_arg  -->%-15s\n\n",
-		// head->in.type, head->out.type,
-		// head->in.arg, head->out.arg);
 		__visial_parser_print_type(head->in.type);
 		printf("\t \t");
 		__visial_parser_print_type(head->out.type);
 
 		printf("\n\n		-----IN_STOCK -->\n");
+		printf("\t\t");
 		for (int i = 0;(tmp_in_st);i++)
 		{
-			printf("\t\targ[%d] --> %s  |  ", i, (char *)(tmp_in_st->content));
+			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_in_st->content));
 			tmp_in_st = tmp_in_st->next;
 		}
+		printf("\n\t\t");
+		for (int i = 0;(tmp_here_d);i++)
+		{
+			printf("here_d[%d] --> %s  |  ", i, (char *)(tmp_here_d->content));
+			tmp_here_d = tmp_here_d->next;
+		}
 		printf("\n\n		----OUT_STOCK -->\n");
+		printf("\t\t");
 		for (int i = 0;(tmp_out_st);i++)
 		{
-			printf("\t\targ[%d] --> %s  |  ", i, (char *)(tmp_out_st->content));
+			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_out_st->content));
 			tmp_out_st = tmp_out_st->next;
 		}
 		puts("\n\n\n");

@@ -6,7 +6,7 @@
 #    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/19 11:37:47 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/19 17:17:48 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,12 @@ SRCS	=	lexer_main.c\
 			parser_make.c\
 			parser_free.c\
 			parser_init_io.c\
+			minishell_main.c\
 			minishell_visual.c
 
 SRCSBONUS =
 
-NAME		= lexer
+NAME		= minishell
 HEADER		= minishell.h
 
 OBJS		= ${SRCS:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 16:36:11 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 17:32:46 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,13 +181,13 @@ typedef struct s_data
 	t_splcmd		*parser;
 }t_data;
 
-int		lexer_set_ptrs(char **start, char **end);
-void	lexer_make(t_lexer_data **lexer_data, char *str);
-int		lexer_error(int error_id, t_lexer_token *current);
-int		lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
+int				lexer_set_ptrs(char **start, char **end);
+void			lexer_make(t_lexer_data **lexer_data, char *str);
+int				lexer_error(int error_id, t_lexer_token *current);
+int				lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 
-
-void	lexer_add_history(t_llist *read_lst);
+//void			lexer_add_history(t_llist *read_lst);
+t_lexer_data	*lexer(char *usr_input);
 
 void	lexer_free(t_llist **lexer);
 void	t_llist_free(t_llist **lexer);
@@ -227,7 +227,8 @@ void	__visual_print_splcmd(t_splcmd *head);
 
 //<<LIMIT <<a <<b test1 >OUT1 | <a <c test2 >OUT2
 // for lldb	//print ((t_lexer_token *)(lexer->content))->start
-
+//test >>1 <<2 | >>3 <<4 test5
+//<infile1 <infile2 <infile3 >outfile1 >outfile2 > outfile3| >>3 <<2 test5
 
 
 /******************* A VALIDER AVEC SASHA ***********************/
