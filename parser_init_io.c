@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/19 13:27:49 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 16:24:28 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	save_here_d(t_io *io)
 		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup(buf)));
 	}
 	free(io->arg);
+	io->arg = NULL;
 }
 
 void	__init_stock_mgmt(void(*stock_mgmt[7])(t_io *io))
@@ -137,7 +138,7 @@ static int	__pars_io_token(t_io *io, t_llist *redir, t_llist *word)
 	else
 	{
 		printf("Minishell: syntax error near unexpected token `newline'\n");
-		return (0); // add error message "unexpected token"
+		return (-1); // add error message "unexpected token"
 	}
 }
 
@@ -153,7 +154,7 @@ static int __pars_io_pipe(t_io *i_o, t_lexer_token *token, int pipe_io)
 		return (0);
 }
 
-void __init_io(t_io *in, t_io *out, t_llist *lexer)
+int __init_io(t_io *in, t_io *out, t_llist *lexer)
 {
 	int res;
 
@@ -170,12 +171,16 @@ void __init_io(t_io *in, t_io *out, t_llist *lexer)
 		else if (((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_REDIRECT \
 		&& *(((t_lexer_token *)lexer->content)->start) == '>')
 			res = __pars_io_token(out, lexer, lexer->next);
-		if (res)
+		if (res == 1)
 			lexer = lexer->next;
+		else if (res == -1)
+			return (-1);
 		if (__pars_io_pipe(out, ((t_lexer_token *)lexer->content), PIPE_OUT))
 			break ;
 		lexer = lexer->next;
 	}
+	return (0);
 }
 
 //test >>1 <<2 | >>3 <<4 test5
+//<infile1 <infile2 <infile3 <<1 >outfile1 >outfile2 > outfile3| >>3 <<2 test5

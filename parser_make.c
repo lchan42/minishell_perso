@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 11:28:38 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 16:37:23 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,16 @@ t_splcmd	*__parser(t_llist *lexer)
 	while (lexer)
 	{
 		runner = __init_splcmd_node(&head, runner);
-		__init_io(&(runner->in), &(runner->out), lexer);
-		//__init_cmd(&(runner->in), lexer);
-		//__visual_print_lexer(lexer);
+		if (__init_io(&(runner->in), &(runner->out), lexer) == -1)
+		{
+			__free_parse(&head);
+			lexer_free(&lexer);
+			break ;
+		}
 		lexer = __lexer_mover(lexer, TYPE_LEXER_OPERATOR_LOGICAL);
 	}
-	__visual_print_splcmd(head);
-	__free_parse(&head);
+	// if (head)
+	// 	__visual_print_splcmd(head);
 	return (head);
 }
 

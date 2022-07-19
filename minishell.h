@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 13:26:44 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/19 16:36:11 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,27 +178,8 @@ typedef struct s_data
 	int				env_size;
 	char			**env;
 	t_lexer_data	*lexer_data;
-
+	t_splcmd		*parser;
 }t_data;
-
-/*typedef struct s_data //////////////////his is the main structure. it's going to be in stack;
-{
-	// t_ast				*list_cmd;
-	// t_error_state		errors;
-	// t_llist				*list_env_token;
-	// t_llist				*lexer_fake_token_list;
-	t_lexer_data		*lexer_data;
-	t_here_doc			*here_doc_data;
-	// t_llist				*garbage_collector;
-	// t_program_params	main;
-	// char				*program_folder;
-	// char				current_folder[4096];
-	// char				*builtin_folder;
-	// char				*prompt_display;
-	// int					status_last_cmd;
-	// char				*string_type[TYPE_MAX];
-}				t_data;
-*/
 
 int		lexer_set_ptrs(char **start, char **end);
 void	lexer_make(t_lexer_data **lexer_data, char *str);
@@ -218,7 +199,7 @@ void	lexer_data_free(t_lexer_data **lexer_data);
 t_splcmd	*__parser(t_llist *lexer);
 //void __init_in(t_io **in, t_llist *lexer);
 //void __init_io(t_io **in, t_io **out, t_llist *lexer);
-void __init_io(t_io *in, t_io *out, t_llist *lexer);
+int __init_io(t_io *in, t_io *out, t_llist *lexer);
 
 
 			/**free**/
