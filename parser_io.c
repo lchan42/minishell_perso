@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/20 15:57:04 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:22:28 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int __init_io(t_io *in, t_io *out, t_llist *lexer)
 			res = __pars_io_token(out, lexer, lexer->next);
 		if (res == 1)
 			lexer = lexer->next;
-		else if (res == -1)
+		else if (res == -1 || ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_SYNTAX_ERR)
 			return (-1);
 		if (__pars_io_pipe(out, ((t_lexer_token *)lexer->content), PIPE_OUT))
 			break ;

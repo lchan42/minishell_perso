@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 15:20:30 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:26:18 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	__lexer_end_pipe_check(t_llist **lexer)
 	t_llist	*tmp;
 
 	tmp = ft_llstlast(*lexer);
-	if (!tmp)
+	if (!tmp || *lexer == tmp)
 		return;
 	if (((t_lexer_token *)tmp->content)->type == TYPE_LEXER_OPERATOR_LOGICAL)
 	{
@@ -79,7 +79,8 @@ t_llist	*lexer(char *usr_input)
 	//lexer_data = lexer_init(usr_input);
 	lexer = NULL;
 	lexer_make(&lexer, usr_input);
-	__lexer_end_pipe_check(&lexer);
+	if (lexer)
+		__lexer_end_pipe_check(&lexer);
 	return (lexer);
 }
 
