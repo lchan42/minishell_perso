@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 14:17:49 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:16:18 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,13 @@ typedef struct s_lexer_token
 	size_t			length;
 }				t_lexer_token;
 
+/*
 typedef struct s_lexer_data
 {
 	t_llist *lexer;
 	t_llist *read_lst;
 }			t_lexer_data;
-
+*/
 
 
 /**********************************parsing struct*****************************************/
@@ -166,33 +167,49 @@ typedef struct s_splcmd
 }	t_splcmd;
 
 
-/***************************BROUILLON utile ?? ****************************/
-typedef struct s_here_doc_data
-{
-	t_llist	*heredoc;
-	int		*here_doc_pipe; //gonna be close after the first child.
-}t_here_doc_data;
 
+
+
+
+
+
+
+
+
+/***************************BROUILLON utile ?? ****************************/
 typedef struct s_data
 {
 	char			*user_input;
 	int				env_size;
 	char			**env;
-	t_lexer_data	*lexer_data;
+	t_llist			*lexer;
 	t_splcmd		*parser;
 }t_data;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 int				lexer_set_ptrs(char **start, char **end);
-void			lexer_make(t_lexer_data **lexer_data, char *str);
+void			lexer_make(t_llist **lexer, char *str);
 int				lexer_error(int error_id, t_lexer_token *current);
 int				lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 
 //void			lexer_add_history(t_llist *read_lst);
-t_lexer_data	*lexer(char *usr_input);
+t_llist	*lexer(char *usr_input);
 
 void	lexer_free(t_llist **lexer);
 void	t_llist_free(t_llist **lexer);
-void	lexer_data_free(t_lexer_data **lexer_data);
+//void	lexer_data_free(t_llist **lexer);
 
 
 
@@ -230,57 +247,3 @@ void	__visual_print_splcmd(t_splcmd *head);
 // for lldb	//print ((t_lexer_token *)(lexer->content))->start
 //test >>1 <<2 | >>3 <<4 test5
 //<infile1 <infile2 <infile3 >outfile1 >outfile2 > outfile3| >>3 <<2 test5
-
-
-/******************* A VALIDER AVEC SASHA ***********************/
-
-enum e_redirection
-{
-	REDIR_LESS,
-	REDIR_DLESS,
-	REDIR_GREAT,
-	REDIR_DGREAT,
-};
-
-typedef struct s_redirect_token
-{
-	int		type;				//enum redirection
-	char	*file;				//the char * of the redirection
-	int		redirect_fd;		//for the open
-}	t_redirect_token;
-
-enum e_words
-{
-	WORD_CMD,					//the first word found(that is not part of here doc)
-	WORD_ARG,					//other type word found
-	WORD_EXPAND_CMD,
-	WORD_EXPAND_ARG,
-};
-
-typedef struct s_word_token
-{
-	int			type;
-	char		**info;		//type of the expand
-	t_list		*expand;		//position of the expand ?
-	t_list		*expand_env_adr;//position of the expand in the env ? NULL if non ?
-}	t_word_token;
-
-typedef struct s_parser
-{
-	int		nbr_splcmd;
-	t_list	*splcmd_lst; 	//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
-	int		*execve_order;	//if bonus and priorities ?
-}	t_parser;
-
-//example <<a cat >outfile | grep '$USER' | cat > outfile
-
-//lexer (<<a cat >outfile -e)
-//		([redirect]-[word]-[word]-[word]-[redirect]-[word])
-//parser splcmd_lst nod 1 =
-//		([redirect]-[cmd]-[redirect]-[arg])
-//		(redirection a ete join au word suivant)
-
-//parser splcmd_
-
-//[simple cmd1]-[|]-[simple cmd2]-[|]-[simple cmd3]
-

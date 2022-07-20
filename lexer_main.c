@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 14:46:23 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:20:30 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,26 @@ void	__lexer_end_pipe_check(t_llist **lexer)
 		printf("minishell: syntax error near unexpected token '%.*s'\n",
 		(int)(((t_lexer_token *)tmp->content)->length),
 		((t_lexer_token *)tmp->content)->start);
-		t_llist_free(lexer);
+		lexer_free(lexer);
 	}
 }
 
+// static t_lexer_data	*lexer_data_init(char	*usr_input)
+// {
+// 	t_lexer_data	*lexer_data;
 
-static t_lexer_data	*lexer_data_init(char	*usr_input)
+// 	lexer_data = malloc(sizeof(t_lexer_data));
+// 	if (lexer_data)
+// 	{
+// 		lexer_data->lexer = NULL;
+// 		lexer_data->read_lst = NULL;
+// 		ft_llstadd_back(&lexer_data->read_lst, ft_llstnew(usr_input));
+// 	}
+// 	return (lexer_data);
+// }
+
+/*
+static t_llist	*lexer_init(char	*usr_input)
 {
 	t_lexer_data	*lexer_data;
 
@@ -56,20 +70,31 @@ static t_lexer_data	*lexer_data_init(char	*usr_input)
 		ft_llstadd_back(&lexer_data->read_lst, ft_llstnew(usr_input));
 	}
 	return (lexer_data);
-}
+}*/
 
-t_lexer_data	*lexer(char *usr_input)
+t_llist	*lexer(char *usr_input)
 {
-	t_lexer_data	*lexer_data;
+	t_llist	*lexer;
 
-	lexer_data = lexer_data_init(usr_input);
-	if (lexer_data)
-	{
-		lexer_make(&lexer_data, usr_input);
-		__lexer_end_pipe_check(&lexer_data->lexer);
-	}
-	return (lexer_data);
+	//lexer_data = lexer_init(usr_input);
+	lexer = NULL;
+	lexer_make(&lexer, usr_input);
+	__lexer_end_pipe_check(&lexer);
+	return (lexer);
 }
+
+// t_lexer_data	*lexer(char *usr_input)
+// {
+// 	t_lexer_data	*lexer_data;
+
+// 	lexer_data = lexer_data_init(usr_input);
+// 	if (lexer_data)
+// 	{
+// 		lexer_make(&lexer_data, usr_input);
+// 		__lexer_end_pipe_check(&lexer_data->lexer);
+// 	}
+// 	return (lexer_data);
+// }
 
 
 /*

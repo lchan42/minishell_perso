@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 14:29:27 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:19:06 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	lexer_set_nod(t_lexer_token *tmp_nod)
 	return (0);
 }
 
-static t_lexer_token	*lexer_add_nod (t_lexer_data **lexer_data, char *str)
+static t_lexer_token	*lexer_add_nod (t_llist **lexer, char *str)
 {
 	t_lexer_token	*new_token;
 
@@ -61,13 +61,13 @@ static t_lexer_token	*lexer_add_nod (t_lexer_data **lexer_data, char *str)
 	new_token->start = str;
 	new_token->end = str;
 	if (!lexer_set_nod(new_token))
-		ft_llstadd_back(&((*lexer_data)->lexer), ft_llstnew(new_token));
+		ft_llstadd_back(lexer, ft_llstnew(new_token));
 	else
 	{
 		if (new_token->end == NULL)
 		{
 			lexer_error(ERR_SOLO_QUOTE, NULL);
-			lexer_data_free(lexer_data);
+			lexer_free(lexer);
 		}
 		free(new_token);
 		new_token = NULL;
@@ -92,7 +92,7 @@ int	lexer_error(int error_id, t_lexer_token *current)
 	return (error_id);
 }
 
-void	lexer_make(t_lexer_data **lexer_data, char *str)
+void	lexer_make(t_llist **lexer, char *str)
 {
 	t_lexer_token	*previous_nod;
 	t_lexer_token	*current_nod;
@@ -101,7 +101,7 @@ void	lexer_make(t_lexer_data **lexer_data, char *str)
 	current_nod = NULL;
 	while (1)
 	{
-		current_nod = (lexer_add_nod(lexer_data, str));
+		current_nod = (lexer_add_nod(lexer, str));
 		if (!current_nod)
 			return ;
 		if (lexer_error(lexer_syntax_checker(current_nod, previous_nod), current_nod))

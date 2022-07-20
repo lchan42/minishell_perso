@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_free_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/19 16:25:50 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/20 15:16:22 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	t_llist_free(t_llist **lexer)
 	*lexer = NULL;
 }
 
-void	lexer_data_free(t_lexer_data **lexer_data)
+/*void	lexer_data_free(t_lexer_data **lexer_data)
 {
 	if (*lexer_data)
 	{
@@ -53,4 +53,4 @@ void	lexer_data_free(t_lexer_data **lexer_data)
 		free(*lexer_data);
 		*lexer_data = NULL;
 	}
-}
+}*/
