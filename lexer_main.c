@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 18:26:44 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 17:16:11 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:46:23 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@ static void	lexer_readline(char **usr_input, char *prompt)
 	}
 }
 */
+
+void	__lexer_end_pipe_check(t_llist **lexer)
+{
+	t_llist	*tmp;
+
+	tmp = ft_llstlast(*lexer);
+	if (!tmp)
+		return;
+	if (((t_lexer_token *)tmp->content)->type == TYPE_LEXER_OPERATOR_LOGICAL)
+	{
+		printf("minishell: syntax error near unexpected token '%.*s'\n",
+		(int)(((t_lexer_token *)tmp->content)->length),
+		((t_lexer_token *)tmp->content)->start);
+		t_llist_free(lexer);
+	}
+}
+
+
 static t_lexer_data	*lexer_data_init(char	*usr_input)
 {
 	t_lexer_data	*lexer_data;
@@ -46,11 +64,12 @@ t_lexer_data	*lexer(char *usr_input)
 
 	lexer_data = lexer_data_init(usr_input);
 	if (lexer_data)
+	{
 		lexer_make(&lexer_data, usr_input);
+		__lexer_end_pipe_check(&lexer_data->lexer);
+	}
 	return (lexer_data);
 }
-
-
 
 
 /*

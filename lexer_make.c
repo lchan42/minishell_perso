@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_make.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 17:29:15 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/20 14:29:27 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	lexer_syntax_checker(t_lexer_token *current_nod, t_lexer_token *previous_nod)
 {
-	if (!previous_nod && current_nod->type == TYPE_LEXER_OPERATOR_LOGICAL)
+	if ((!previous_nod && current_nod->type == TYPE_LEXER_OPERATOR_LOGICAL))
 	{
 		current_nod->type = TYPE_LEXER_SYNTAX_ERR;
 		return (ERR_SYNTAX);

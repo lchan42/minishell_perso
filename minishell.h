@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 11:31:29 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 14:17:49 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ enum e_lexer_error
 	ERR_SET_PTR = 1,
 	ERR_SOLO_QUOTE,
 	ERR_SYNTAX,
-	//ERR_SYNTAX_NL,
+	ERR_SYNTAX_PIPE,
 };
 
 enum e_lexer_type_token
