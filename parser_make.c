@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 12:11:00 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:56:11 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,43 +38,6 @@ static t_splcmd *__init_splcmd_node(t_splcmd **head, t_splcmd *runner)
 	return (new_node);
 }
 
-int	__parse_cmd_token(t_cmd *cmd, t_lexer_token *word)
-{
-	char *arg;
-	char *tmp;
-
-	arg = ft_calloc(sizeof(char), word->length + 1);
-	if (!arg)
-		return (-1);
-	cmd->size += 1;
-	tmp = word->start;
-	while (tmp != word->end)
-		*(arg++) = *(tmp++);
-	*(arg)= '\0';
-	arg -= word->length;
-	ft_lstadd_back(&(cmd->cmd_lst), ft_lstnew(arg));
-	return (0);
-}
-
-int __init_cmd(t_cmd *cmd, t_llist *lexer)
-{
-	//cmd->size = 0;
-	while (lexer)
-	{
-		if (lexer && ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_REDIRECT)
-			lexer = lexer->next->next;
-		if (lexer && ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_WORD)
-		{
-			if (__parse_cmd_token(cmd, ((t_lexer_token *)lexer->content)) == -1)
-				return (-1);
-			lexer = lexer->next;
-		}
-		if (lexer && ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_LOGICAL)
-			break ;
-	}
-	return (0);
-}
-
 t_splcmd	*__parser(t_llist *lexer)
 {
 	t_splcmd	*runner;
@@ -93,8 +56,5 @@ t_splcmd	*__parser(t_llist *lexer)
 		}
 		lexer = __lexer_mover(lexer, TYPE_LEXER_OPERATOR_LOGICAL);
 	}
-	// if (head)
-	// 	__visual_print_splcmd(head);
 	return (head);
 }
-

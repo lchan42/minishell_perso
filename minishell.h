@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 15:16:18 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:57:41 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@
 
 # define AND_IF "&&"				// if left true, do right
 # define OR_IF "||"					// if left faulse do right
-
-
-/*
-# define LESS "<"`					//in redirection
-# define GREAT ">"					//out redirection
-# define DLESS "<<"					//redirection heredoc
-# define DGREAT ">>"				//redirect exit in append mode
-*/
 
 
 # define SQUOTE '\''			//meta char in simple quote should be interpreted as normal char
@@ -89,6 +81,10 @@
 // tgoto,
 // tputs
 //void	__make_token (char *str, const char delim);
+
+
+
+/**********************************lexer struct*****************************************/
 
 enum e_lexer_error
 {
@@ -167,29 +163,15 @@ typedef struct s_splcmd
 }	t_splcmd;
 
 
-
-
-
-
-
-
-
-
-
-/***************************BROUILLON utile ?? ****************************/
+/*************************** main struct ****************************/
 typedef struct s_data
 {
-	char			*user_input;
 	int				env_size;
 	char			**env;
+	char			*user_input;
 	t_llist			*lexer;
 	t_splcmd		*parser;
 }t_data;
-
-
-
-
-
 
 
 
@@ -209,15 +191,14 @@ t_llist	*lexer(char *usr_input);
 
 void	lexer_free(t_llist **lexer);
 void	t_llist_free(t_llist **lexer);
-//void	lexer_data_free(t_llist **lexer);
-
-
 
 /*************** parser *********************/
 t_splcmd	*__parser(t_llist *lexer);
-//void __init_in(t_io **in, t_llist *lexer);
-//void __init_io(t_io **in, t_io **out, t_llist *lexer);
-int __init_io(t_io *in, t_io *out, t_llist *lexer);
+int			__init_io(t_io *in, t_io *out, t_llist *lexer);
+t_list		*__get_stock(t_io *io, int type);
+int 		__init_cmd(t_cmd *cmd, t_llist *lexer);
+
+
 
 
 			/**free**/

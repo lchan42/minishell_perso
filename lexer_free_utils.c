@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:10:54 by luc_chan          #+#    #+#             */
-/*   Updated: 2022/07/20 15:16:22 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:28:34 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	lexer_free(t_llist **lexer)
 {
 	t_llist *tmp;
 
-	if (*lexer)
-		free (((t_lexer_token *)((*lexer)->content))->start);
+	//if (*lexer)
+	//	free (((t_lexer_token *)((*lexer)->content))->start);
 	while (*lexer)
 	{
 		tmp = *lexer;

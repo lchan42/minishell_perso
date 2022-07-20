@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:13:14 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 15:18:41 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 15:28:11 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 		//expander
 		//redirection
 		//executor
+		if (msh_data.user_input)
+			ft_free_char(&msh_data.user_input);
 		if (msh_data.lexer)
 		{
 			//__visual_print_lexer(msh_data.lexer_data->lexer);

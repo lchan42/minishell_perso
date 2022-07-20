@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
+#    By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/19 17:17:48 by lchan            ###   ########.fr        #
+#    Updated: 2022/07/20 15:55:33 by slahlou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ SRCS	=	lexer_main.c\
 			lexer_free_utils.c\
 			lexer_add_history.c\
 			parser_make.c\
+			parser_io.c\
+			parser_io_save.c\
+			parser_cmd.c\
 			parser_free.c\
-			parser_init_io.c\
 			minishell_main.c\
 			minishell_visual.c
 
