@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 17:11:57 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:56:43 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ typedef struct s_splcmd
 /*************************** main struct ****************************/
 typedef struct s_data
 {
-	int				env_size;
 	char			**env;
 	char			*user_input;
 	t_llist			*lexer;
