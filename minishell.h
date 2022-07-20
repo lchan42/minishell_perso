@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 17:32:46 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:31:29 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef struct s_cmd
 	int		type; //builtin or not
 	int		size; //len of cmd_words (number of lines)
 	char	**cmd_words; //contains 0 path (path + cmd ex: /usr/bin/cat) followed by one arg per line
+	t_list	*cmd_lst;
 }				t_cmd;
 
 typedef struct s_splcmd

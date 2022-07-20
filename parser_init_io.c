@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_init_io.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/19 17:22:38 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/20 11:06:43 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,6 @@ static char *__get_arg(t_lexer_token *word, int type)
 	if (!arg)
 		return (NULL);
 	tmp = word->start;
-	if (type != HERE_D && word->length > 255)
-		return (0); // add error return message "filename too long"
 	while (tmp != word->end)
 		*(arg++) = *(tmp++);
 	*(arg)= '\0';
@@ -158,8 +156,6 @@ int __init_io(t_io *in, t_io *out, t_llist *lexer)
 {
 	int res;
 
-	//*in = ft_calloc(1, sizeof(t_io));
-	//*out = ft_calloc(1, sizeof(t_io));
 	if (lexer->prev)
 		__pars_io_pipe(in, ((t_lexer_token *)lexer->prev->content), PIPE_IN);
 	while (lexer)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_make.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/19 17:12:00 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/20 12:11:00 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,43 @@ static t_splcmd *__init_splcmd_node(t_splcmd **head, t_splcmd *runner)
 	return (new_node);
 }
 
+int	__parse_cmd_token(t_cmd *cmd, t_lexer_token *word)
+{
+	char *arg;
+	char *tmp;
+
+	arg = ft_calloc(sizeof(char), word->length + 1);
+	if (!arg)
+		return (-1);
+	cmd->size += 1;
+	tmp = word->start;
+	while (tmp != word->end)
+		*(arg++) = *(tmp++);
+	*(arg)= '\0';
+	arg -= word->length;
+	ft_lstadd_back(&(cmd->cmd_lst), ft_lstnew(arg));
+	return (0);
+}
+
+int __init_cmd(t_cmd *cmd, t_llist *lexer)
+{
+	//cmd->size = 0;
+	while (lexer)
+	{
+		if (lexer && ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_REDIRECT)
+			lexer = lexer->next->next;
+		if (lexer && ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_WORD)
+		{
+			if (__parse_cmd_token(cmd, ((t_lexer_token *)lexer->content)) == -1)
+				return (-1);
+			lexer = lexer->next;
+		}
+		if (lexer && ((t_lexer_token *)lexer->content)->type == TYPE_LEXER_OPERATOR_LOGICAL)
+			break ;
+	}
+	return (0);
+}
+
 t_splcmd	*__parser(t_llist *lexer)
 {
 	t_splcmd	*runner;
@@ -48,7 +85,8 @@ t_splcmd	*__parser(t_llist *lexer)
 	while (lexer)
 	{
 		runner = __init_splcmd_node(&head, runner);
-		if (__init_io(&(runner->in), &(runner->out), lexer) == -1)
+		if ((__init_io(&(runner->in), &(runner->out), lexer) == -1) \
+		|| __init_cmd(&(runner->cmd), lexer) == -1)
 		{
 			__free_parse(&head);
 			break ;
