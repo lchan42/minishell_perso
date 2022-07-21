@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/21 18:35:51 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/21 21:10:40 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,3 +228,8 @@ void	__visual_print_splcmd(t_splcmd *head);
 // for lldb	//print ((t_lexer_token *)(lexer->content))->start
 //test >>1 <<2 | >>3 <<4 test5
 //<infile1 <infile2 <infile3 >outfile1 >outfile2 > outfile3| >>3 <<2 test5
+
+
+/*************test a check*************/
+//<<| / <<<
+//<<

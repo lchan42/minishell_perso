@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:55:50 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/21 19:34:09 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/21 21:05:29 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	__save_io_arg(t_io *io)
 	ft_lstadd_back(&(io->stock), ft_lstnew(io->arg));
 }
 
+/* old version */
 /*
 static void	__save_here_d(t_io *io)
 {
@@ -42,7 +43,8 @@ static void	__save_here_d(t_io *io)
 }
 */
 
-static void	__here_d_parse_lim(t_io *io)
+
+static void	__here_d_parse_lim(t_io *io)/******chgmt 21/07, a valider avec Sacha*******/
 {
 	char	*tmp;
 	int		quote_flag;
@@ -66,9 +68,10 @@ static void	__here_d_parse_lim(t_io *io)
 		free(tmp);
 		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup("no_expand\n")));
 	}
+	printf("limiteur = [%s]\n", io->arg);
 }
 
-static void	__save_here_d(t_io *io)
+static void	__save_here_d(t_io *io)/******chgmt 21/07, a valider avec Sacha*******/
 {
 	char	*limit;
 	char	buf[BUFFER_S];
@@ -83,9 +86,11 @@ static void	__save_here_d(t_io *io)
 	{
 		write(1, "> ", 2);
 		read_ret = read(0, buf, BUFFER_S);
+		buf[read_ret - 1] = '\0';
 		buf[read_ret] = '\0';
-		if (!(ft_strncmp(buf, limit, read_ret - 1)))
+		if (!(ft_strncmp(buf, limit, read_ret)))
 			break ;
+		buf[read_ret - 1] = '\n';
 		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup(buf)));
 	}
 	free(io->arg);

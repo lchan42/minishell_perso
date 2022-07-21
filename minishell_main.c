@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:13:14 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 18:03:36 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/21 20:58:55 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 //	t_lexer_data	*lexer_data;
 
 	//initminishell
-//	while (1)
-//	{
+	while (1)
+	{
 		msh_data.user_input = ft_readline_add_history(FIRST_PROMPT);
 		msh_data.lexer = lexer(msh_data.user_input);
 		msh_data.parser = __parser(msh_data.lexer);
@@ -60,5 +60,5 @@ int	main (int ac, char **av, char **envp) //simulation of what should minishell 
 			__visual_print_splcmd(msh_data.parser);
 			__free_parse(&(msh_data.parser));
 		}
-//	}
+	}
 }

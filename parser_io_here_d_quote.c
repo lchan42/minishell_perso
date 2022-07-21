@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:34:47 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/21 18:41:06 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/21 21:03:52 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	__get_dollar_cnt(char *arg, int dollar_cnt)
 {
-	if (dollar_cnt < 0)
+	if (dollar_cnt)
 		dollar_cnt = 0;
 	if (*arg != '$')
 		dollar_cnt = 0;
@@ -46,6 +46,13 @@ static void	__quote_content_cpy(char **src, char **dst)
 	}
 }
 
+static int	__is_odd_nbr(int nbr)
+{
+	if ((nbr == 1 || nbr == -1) || (nbr % 2 != 0))
+		return (1);
+	return (0);
+}
+
 char *__here_d_unquote_limit(char *arg)
 {
 	int		dollar_cnt;
@@ -62,15 +69,14 @@ char *__here_d_unquote_limit(char *arg)
 		if (*arg == '$')
 		{
 			dollar_cnt = __get_dollar_cnt(arg, dollar_cnt );
-			if (dollar_cnt == 1 && (!ft_strncmp("$\"", arg, 2)
-			|| !ft_strncmp("$\'", arg, 2)))
-				arg++;
-			else
-				while (*arg && dollar_cnt--)
-					*(limit++) = *(arg++);
+			while (*arg && *arg == '$')
+				*(limit++) = *(arg++);
+			if (__is_odd_nbr(dollar_cnt) && ft_strchr_b("\"\'", *arg))
+				limit--;
 		}
 		if (*arg && ft_strchr_b("\"\'", *arg))
 			__quote_content_cpy(&arg, &limit);
 	}
+	*limit = '\0';
 	return (start_limit);
 }
