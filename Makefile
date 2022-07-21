@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+         #
+#    By: lchan <lchan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/02 20:57:58 by lchan             #+#    #+#              #
-#    Updated: 2022/07/20 15:55:33 by slahlou          ###   ########.fr        #
+#    Updated: 2022/07/21 18:36:26 by lchan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	=	lexer_main.c\
 			parser_io_save.c\
 			parser_cmd.c\
 			parser_free.c\
+			parser_io_here_d_quote.c\
 			minishell_main.c\
 			minishell_visual.c
 

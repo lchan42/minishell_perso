@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 17:56:43 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/21 18:35:51 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ t_splcmd	*__parser(t_llist *lexer);
 int			__init_io(t_io *in, t_io *out, t_llist *lexer);
 t_list		*__get_stock(t_io *io, int type);
 int 		__init_cmd(t_cmd *cmd, t_llist *lexer);
+char		*__here_d_unquote_limit(char *arg);
 
 
 

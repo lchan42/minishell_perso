@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_visual.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 12:14:08 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/21 19:37:32 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,43 +116,49 @@ void	__visial_parser_print_type(int type)
 
 void	__visual_print_splcmd(t_splcmd *head)
 {
+	int block_ind = 0;
 
 	while (head)
 	{
-		int block_ind = 0;
-		// t_list *tmp_in_st = head->in.stock, *tmp_out_st = head->out.stock, *tmp_here_d = head->in.here_buffer;
-		printf("\t\t\t****************splcmd [%d]****************\n 		in_addr --> [%p] out_addr --> [%p] cmd_addr --> [%p]\n", block_ind++,
-		&(head->in), &(head->out), &(head->cmd));
-		// __visial_parser_print_type(head->in.type);
-		// printf("\t \t");
-		// __visial_parser_print_type(head->out.type);
+		t_list	*tmp_in_st = head->in.stock,
+		*tmp_out_st = head->out.stock,
+		*tmp_here_d = head->in.here_buffer;
 
-		// printf("\n\n		-----IN_STOCK -->\n");
-		// printf("\t\t");
-		// for (int i = 0;(tmp_in_st);i++)
-		// {
-		// 	printf("arg[%d] --> %s  |  ", i, (char *)(tmp_in_st->content));
-		// 	tmp_in_st = tmp_in_st->next;
-		// }
-		// printf("\n\t\t");
-		// for (int i = 0;(tmp_here_d);i++)
-		// {
-		// 	printf("here_d[%d] --> %s  |  ", i, (char *)(tmp_here_d->content));
-		// 	tmp_here_d = tmp_here_d->next;
-		// }
-		// printf("\n\n		----OUT_STOCK -->\n");
-		// printf("\t\t");
-		// for (int i = 0;(tmp_out_st);i++)
-		// {
-		// 	printf("arg[%d] --> %s  |  ", i, (char *)(tmp_out_st->content));
-		// 	tmp_out_st = tmp_out_st->next;
-		// }
+		printf("\t*********************************splcmd [%d]*********************************\n", block_ind++);
+		printf("\t\tin_addr: [%p] out_addr: [%p] cmd_addr: [%p]\n",
+		&(head->in), &(head->out), &(head->cmd));
+		__visial_parser_print_type(head->in.type); printf("\t \t");
+		__visial_parser_print_type(head->out.type);
+
+
+		printf("\n\n		-----IN_STOCK -->\n");
+		if (tmp_in_st){printf("\t\t");} for (int i = 0;(tmp_in_st);i++)
+		{
+			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_in_st->content));
+			tmp_in_st = tmp_in_st->next;
+		}
+		for (int i = 0;(tmp_here_d);i++)
+		{
+			printf("\t\t"); printf("here_d[%d] --> %s", i, (char *)(tmp_here_d->content));
+			tmp_here_d = tmp_here_d->next;
+		}
+
+
+		printf("\n\n		----OUT_STOCK -->\n");
+		printf("\t\t"); for (int i = 0;(tmp_out_st);i++)
+		{
+			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_out_st->content));
+			tmp_out_st = tmp_out_st->next;
+		}
+
 
 		t_list *tmp_cmd = head->cmd.cmd_lst;
 		int size = head->cmd.size;
-		printf("size = %d\n", size);
-		for (int i = 0;i < size;i++)
+		printf("\n\n		----CMD_STOCK -->\n");
+		printf("\t\t"); printf("size = %d\n", size);
+		printf("\t\t");for (int i = 0; i < size;i++)
 		{
+
 			printf("cmd_lst[%d] --> %s  |  ", i + 1,(char *)(tmp_cmd->content));
 			tmp_cmd = tmp_cmd->next;
 		}
