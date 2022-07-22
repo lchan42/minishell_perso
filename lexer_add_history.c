@@ -6,13 +6,13 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 19:07:17 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:51:30 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 18:57:02 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int lexer_t_llist_strlen(t_llist *read_lst, int *nbr_space)
+static int	lexer_t_llist_strlen(t_llist *read_lst, int *nbr_space)
 {
 	int	joined_len;
 	int	separator;
@@ -30,7 +30,7 @@ static int lexer_t_llist_strlen(t_llist *read_lst, int *nbr_space)
 	return (joined_len + separator);
 }
 
-static char *lexer_t_llist_join(t_llist *read_lst, char sep)
+static char	*lexer_t_llist_join(t_llist *read_lst, char sep)
 {
 	int		len;
 	int		nbr_space;

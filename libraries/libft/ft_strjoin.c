@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 18:11:28 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/08 18:07:05 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 18:55:16 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 /**
- * @brief	modified strjoin. Uses ft_strlen_p. will segfault gets NULL in parameters
+ * @brief	modified strjoin. Uses ft_strlen_p.
+ * will segfault gets NULL in parameters
  *
  * @param s1
  * @param s2
@@ -144,7 +145,8 @@ char	*ft_strjoin_free_s2(char **s1, char **s2)
 }
 
 /**
- * @brief strjoin but with a separator. Segfault if NULL parameter. OK if *s = NULL
+ * @brief strjoin but with a separator.
+ * Segfault if NULL parameter. OK if *s = NULL
  *
  * @param s1
  * @param s2

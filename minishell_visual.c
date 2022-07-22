@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 13:09:09 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 18:28:21 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,32 @@ void	__reverse_visual_print_lexer(t_llist *lst)
 	}
 }
 */
+void	__visual_print_input(t_llist **runner)
+{
+	if (*runner)
+	{
+		if (((t_lexer_token *)((*runner)->content))->type == TYPE_LEXER_OPERATOR_LOGICAL)
+		{
+			printf("[%.*s] ",
+			((int)((t_lexer_token *)((*runner)->content))->length),
+			((t_lexer_token *)((*runner)->content))->start);
+			*runner = (*runner)->next;
+		}
+		while ( *runner && ((t_lexer_token *)((*runner)->content))->type != TYPE_LEXER_OPERATOR_LOGICAL)
+		{
+			printf("[%.*s] ",
+			((int)((t_lexer_token *)((*runner)->content))->length),
+			((t_lexer_token *)((*runner)->content))->start);
+			*runner = (*runner)->next;
+		}
+		if (*runner && ((t_lexer_token *)((*runner)->content))->type == TYPE_LEXER_OPERATOR_LOGICAL)
+			{
+				printf("[%.*s] ",
+				((int)((t_lexer_token *)((*runner)->content))->length),
+				((t_lexer_token *)((*runner)->content))->start);
+			}
+	}
+}
 
 /******************PARSER VISUAL***************************/
 
@@ -126,7 +152,7 @@ void	__vparser_print_type_cmd(int type)
 	printf("	>>>type = %s(%d)<<<\n", type_str[type], type);
 }
 
-void	__visual_print_splcmd(t_splcmd *head)
+void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer)
 {
 	int block_ind = 0;
 	char	*star = "*********************************************";
@@ -140,6 +166,7 @@ void	__visual_print_splcmd(t_splcmd *head)
 		printf("\t*********************************splcmd [%d]*********************************%s\n", block_ind++, star);
 		printf("\t\tin_addr: [%p] out_addr: [%p] cmd_addr: [%p]\n",
 		&(head->in), &(head->out), &(head->cmd));
+		printf("\t\tlexer: "); __visual_print_input(&lexer);
 
 		printf("\n\n		----IN_STOCK ------------>"); __vparser_print_type_io(head->in.type);
 		if (tmp_in_st){printf("\t\t");} for (int i = 0;(tmp_in_st);i++)
@@ -161,7 +188,7 @@ void	__visual_print_splcmd(t_splcmd *head)
 		}
 
 		t_list *tmp_cmd = head->cmd.cmd_lst; int size = head->cmd.size;
-		printf("\n\n		----CMD_STOCK------------>"); __vparser_print_type_cmd(head->cmd.type);
+		printf("\n\n		----CMD_STOCK ----------->"); __vparser_print_type_cmd(head->cmd.type);
 		printf("\t\t"); printf("size = %d\n", size);
 		printf("\t\t");for (int i = 0; i < size;i++)
 		{

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:32:57 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/15 12:55:28 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 19:53:18 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static char	*find_end_operator(char *start, char *str_end)
 	end = start;
 	first_meta = start;
 	while (end != str_end && ft_strchr_b(METACHAR, *end))
-		if (*++end != *first_meta || end - first_meta >= 2)
+		if (*++end != *first_meta
+			|| (end - first_meta >= 2)
+			|| (*end == '|'))
 			break ;
 	return (end);
 }
@@ -95,7 +97,7 @@ static char	*set_ptrs_end(char *start, char *str_end)
  */
 int	lexer_set_ptrs(char **start, char **end)
 {
-	char *str_end;
+	char	*str_end;
 
 	str_end = *start + ft_strlen(*start);
 	*start = set_ptrs_start(*start, str_end);

@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 12:49:49 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 19:58:29 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@
 
 
 /**********************************lexer struct*****************************************/
-
 enum e_lexer_error
 {
 	ERR_SET_PTR = 1,
@@ -110,15 +109,6 @@ typedef struct s_lexer_token
 	char			*end;
 	size_t			length;
 }				t_lexer_token;
-
-/*
-typedef struct s_lexer_data
-{
-	t_llist *lexer;
-	t_llist *read_lst;
-}			t_lexer_data;
-*/
-
 
 /**********************************parsing struct*****************************************/
 enum	e_parser_io_type
@@ -177,21 +167,18 @@ typedef struct s_data
 
 
 
-
-
-
-
-
-int				lexer_set_ptrs(char **start, char **end);
-void			lexer_make(t_llist **lexer, char *str);
-int				lexer_error(int error_id, t_lexer_token *current);
-int				lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
+/*************************** function proto ****************************/
+/*************** lexer *********************/
+int			lexer_set_ptrs(char **start, char **end);
+void		lexer_make(t_llist **lexer, char *str);
+int			lexer_error(int error_id, t_lexer_token *current);
+int			lexer_type_checker(t_llist **lexer_head, t_lexer_token *tmp_nod);
 
 //void			lexer_add_history(t_llist *read_lst);
 t_llist	*lexer(char *usr_input);
 
-void	lexer_free(t_llist **lexer);
-void	t_llist_free(t_llist **lexer);
+void		lexer_free(t_llist **lexer);
+void		t_llist_free(t_llist **lexer);
 
 /*************** parser *********************/
 t_splcmd	*__parser(t_llist *lexer);
@@ -201,51 +188,50 @@ int 		__pars_cmd(t_cmd *cmd, t_llist *lexer);
 char		*__here_d_unquote_limit(char *arg);
 
 
-
-
-			/**free**/
-void	__t_list_free(t_list **lst);
-void __free_parse(t_splcmd **head);
+/*************** free *********************/
+void		__t_list_free(t_list **lst);
+void		__free_parse(t_splcmd **head);
 
 /************* visual functions ****************/
 void	__visual_print_tab(char **tab);
 void	__visual_print_lexer(t_llist *lst);
 void	__visual_print_read_lst(t_llist *usr_input);
 void	__reverse_visual_print_lexer(t_llist *lst);
-void	__visual_print_splcmd(t_splcmd *head);
+//void	__visual_print_splcmd(t_splcmd *head);
+void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer);
 
 #endif
 
 
 
+
+
+
+
+
+
 //test1 | test2 | test 4 | test
-
 //<<LIMIT test1 | test2 | test 4 | test
-
-
 //<<LIMIT <<a <<b test1 >LIMIT2 | <a <c test2 | test 4 >>g | test >>s
-
-
 //<<LIMIT <<a <<b test1 >OUT1 | <a <c test2 >OUT2
 // for lldb	//print ((t_lexer_token *)(lexer->content))->start
 //test >>1 <<2 | >>3 <<4 test5
 //<infile1 <infile2 <infile3 >outfile1 >outfile2 > outfile3| >>3 <<2 test5
-
-
-/*************test a check*************/
 //<<| / <<<
 //<<
 
 
 /********21/07*******
  * parser limiteur heredoc (cas $"EOF")
- * modif de la fonction __save_here_d (cat du [/n/0]);
- * mofif du visuel parser. 
+ * modif dans parser_io_save de la fonction __save_here_d (cas du [/n/0]);
+ * mofif du visuel parser.
  *
  * ******22/07*******
  * io_in doit avpor un type STDIN et un type STDOUT par defaut
  * ajout ligne 38 dans __init_splcmd_node (fichier parser_make.c) du type par defaut de out.
  * ajout ligne 126 type STDIN et STDOUT dans .h ---> enum e_parser_io_type
+ * ajout ligne 68 dans parser_io.c pour ne pas ouvrir heredoc quand word = syntax_error (<<| / <<<)
+ * correction du double pipe accepte test || test
  * */
 
 /********Observation

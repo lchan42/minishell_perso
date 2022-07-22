@@ -6,13 +6,14 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:25:32 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 11:51:21 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 20:03:09 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	lexer_syntax_checker(t_lexer_token *current_nod, t_lexer_token *previous_nod)
+static int	lexer_syntax_checker(
+	t_lexer_token *current_nod, t_lexer_token *previous_nod)
 {
 	if ((!previous_nod && current_nod->type == TYPE_LEXER_OPERATOR_LOGICAL))
 	{
@@ -20,7 +21,8 @@ static int	lexer_syntax_checker(t_lexer_token *current_nod, t_lexer_token *previ
 		return (ERR_SYNTAX);
 	}
 	else if (previous_nod
-		&& previous_nod->type != TYPE_LEXER_WORD && current_nod->type != TYPE_LEXER_WORD
+		&& previous_nod->type != TYPE_LEXER_WORD
+		&& current_nod->type != TYPE_LEXER_WORD
 		&& previous_nod->type - current_nod->type != -1)
 	{
 		current_nod->type = TYPE_LEXER_SYNTAX_ERR;
@@ -51,7 +53,7 @@ static int	lexer_set_nod(t_lexer_token *tmp_nod)
 	return (0);
 }
 
-static t_lexer_token	*lexer_add_nod (t_llist **lexer, char *str)
+static t_lexer_token	*lexer_add_nod(t_llist **lexer, char *str)
 {
 	t_lexer_token	*new_token;
 
@@ -82,10 +84,10 @@ int	lexer_error(int error_id, t_lexer_token *current)
 	else
 	{
 		if (error_id == ERR_SOLO_QUOTE)
-		 	printf("minishell: our project does not accept unclosed quotation\n");
+			printf("minishell: unclosed quotation not supported\n");
 		if (error_id == ERR_SYNTAX)
 			printf("minishell: syntax error near unexpected token '%.*s'\n",
-			(int)(current->length) , current->start);
+				(int)(current->length), current->start);
 	}
 	return (error_id);
 }
@@ -102,7 +104,8 @@ void	lexer_make(t_llist **lexer, char *str)
 		current_nod = (lexer_add_nod(lexer, str));
 		if (!current_nod)
 			return ;
-		if (lexer_error(lexer_syntax_checker(current_nod, previous_nod), current_nod))
+		if (lexer_error
+			(lexer_syntax_checker(current_nod, previous_nod), current_nod))
 			return ;
 		previous_nod = current_nod;
 		str = previous_nod->end;

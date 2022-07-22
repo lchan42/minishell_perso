@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/22 12:35:13 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 17:40:29 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static int	__pars_io_token(t_io *io, t_llist *redir, t_llist *word)
 {
 	if (word)
 	{
+		if (((t_lexer_token *)(word->content))->type == TYPE_LEXER_SYNTAX_ERR)
+			return (-1);
 		(io)->type = __get_redir_type((t_lexer_token *)(redir->content));
 		(io)->arg = __get_arg((t_lexer_token *)(word->content), (io)->type);
 		(io)->fd = ((io)->type > 3);

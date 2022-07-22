@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:34:47 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 11:31:15 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 18:51:10 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	__is_odd_nbr(int nbr)
 	return (0);
 }
 
-char *__here_d_unquote_limit(char *arg)
+char	*__here_d_unquote_limit(char *arg)
 {
 	int		dollar_cnt;
 	char	*limit;
@@ -68,7 +68,7 @@ char *__here_d_unquote_limit(char *arg)
 			*(limit++) = *(arg++);
 		if (*arg == '$')
 		{
-			dollar_cnt = __get_dollar_cnt(arg, dollar_cnt );
+			dollar_cnt = __get_dollar_cnt(arg, dollar_cnt);
 			while (*arg && *arg == '$')
 				*(limit++) = *(arg++);
 			if (__is_odd_nbr(dollar_cnt) && ft_strchr_b("\"\'", *arg))
@@ -80,4 +80,3 @@ char *__here_d_unquote_limit(char *arg)
 	*limit = '\0';
 	return (start_limit);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:12:02 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/20 11:54:13 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/22 19:09:05 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	__free_parse(t_splcmd **head)
 	{
 		while (runner)
 		{
-			__free_io(runner->in);  // add ft_free_in to free what is inside in_struct
-			__free_io(runner->out); // add ft_free_out to free what is inside out_struct
-			__free_cmd(runner->cmd); // add ft_free_cmd to free what is inside cmd_struct
+			__free_io(runner->in);
+			__free_io(runner->out);
+			__free_cmd(runner->cmd);
 			runner = runner->next;
 			free(*head);
 			*head = runner;

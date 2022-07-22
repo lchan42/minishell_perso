@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 19:22:14 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/16 14:08:02 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 18:55:42 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ size_t	ft_strlen_p(const char *s)
 
 int	ft_strtablen(char **tab)
 {
-	char **tmp;
+	char	**tmp;
 
 	if (tab)
 	{
