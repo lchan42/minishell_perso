@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:49:21 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/20 15:49:58 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/22 12:35:39 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	__parse_cmd_token(t_cmd *cmd, t_lexer_token *word)
 	return (0);
 }
 
-int __init_cmd(t_cmd *cmd, t_llist *lexer)
+int __pars_cmd(t_cmd *cmd, t_llist *lexer)
 {
 	while (lexer)
 	{

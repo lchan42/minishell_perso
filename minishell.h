@@ -6,7 +6,7 @@
 /*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/21 21:10:40 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/22 12:49:49 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,9 @@ typedef struct s_lexer_data
 /**********************************parsing struct*****************************************/
 enum	e_parser_io_type
 {
-	IN_D = 1, // basic infile redirect
+	STDIN,
+	STDOUT,
+	IN_D, // basic infile redirect
 	HERE_D, // here_doc
 	PIPE_IN,
 	OUT_D, // basic outfile redirect
@@ -133,8 +135,8 @@ enum	e_parser_io_type
 
 enum	e_parser_cmd_type
 {
-	BUILTIN,
-	BUILTOUT
+	BUILTOUT = 1,
+	BUILTIN
 };
 
 typedef struct s_io
@@ -193,9 +195,9 @@ void	t_llist_free(t_llist **lexer);
 
 /*************** parser *********************/
 t_splcmd	*__parser(t_llist *lexer);
-int			__init_io(t_io *in, t_io *out, t_llist *lexer);
+int			__pars_io(t_io *in, t_io *out, t_llist *lexer);
 t_list		*__get_stock(t_io *io, int type);
-int 		__init_cmd(t_cmd *cmd, t_llist *lexer);
+int 		__pars_cmd(t_cmd *cmd, t_llist *lexer);
 char		*__here_d_unquote_limit(char *arg);
 
 
@@ -233,3 +235,19 @@ void	__visual_print_splcmd(t_splcmd *head);
 /*************test a check*************/
 //<<| / <<<
 //<<
+
+
+/********21/07*******
+ * parser limiteur heredoc (cas $"EOF")
+ * modif de la fonction __save_here_d (cat du [/n/0]);
+ * mofif du visuel parser. 
+ *
+ * ******22/07*******
+ * io_in doit avpor un type STDIN et un type STDOUT par defaut
+ * ajout ligne 38 dans __init_splcmd_node (fichier parser_make.c) du type par defaut de out.
+ * ajout ligne 126 type STDIN et STDOUT dans .h ---> enum e_parser_io_type
+ * */
+
+/********Observation
+ * les messages d'erreur doivent etre imprime sur la sortie standard
+ * */

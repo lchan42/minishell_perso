@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_make.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/20 15:56:11 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/22 12:39:26 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_splcmd *__init_splcmd_node(t_splcmd **head, t_splcmd *runner)
 		*head = new_node;
 	else
 		runner->next = new_node;
+	new_node->out.type = 1;
 	return (new_node);
 }
 
@@ -48,8 +49,8 @@ t_splcmd	*__parser(t_llist *lexer)
 	while (lexer)
 	{
 		runner = __init_splcmd_node(&head, runner);
-		if ((__init_io(&(runner->in), &(runner->out), lexer) == -1) \
-		|| __init_cmd(&(runner->cmd), lexer) == -1)
+		if ((__pars_io(&(runner->in), &(runner->out), lexer) == -1) \
+		|| __pars_cmd(&(runner->cmd), lexer) == -1)
 		{
 			__free_parse(&head);
 			break ;

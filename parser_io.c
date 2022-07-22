@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/20 17:22:28 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/22 12:35:13 by lchan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	__pars_io_token(t_io *io, t_llist *redir, t_llist *word)
 	}
 }
 
-int __init_io(t_io *in, t_io *out, t_llist *lexer)
+int __pars_io(t_io *in, t_io *out, t_llist *lexer)
 {
 	int res;
 
