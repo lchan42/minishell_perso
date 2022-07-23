@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/23 10:55:43 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/23 17:04:05 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ enum	e_parser_io_type
 {
 	//STDIN,
 	//STDOUT,
-	IN_D, // basic infile redirect
+	IN_D = 1, // basic infile redirect
 	HERE_D, // here_doc
 	PIPE_IN,
 	OUT_D, // basic outfile redirect
@@ -160,6 +160,7 @@ typedef struct s_data
 {
 	int				log_fd; //journal d erreur
 	char			**env;
+	char			**exp;
 	char			*user_input;
 	t_llist			*lexer;
 	t_splcmd		*parser;

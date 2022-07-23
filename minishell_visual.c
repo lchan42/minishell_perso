@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/23 11:10:41 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/23 15:57:09 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void	__vparser_print_type_io(int type)
 	const char	*type_str [] = {
 	//"STDIN",
 	//"STDOUT",
+	NULL,
 	"IN _D",
 	"HERE_D",
 	"PIPE_IN",
@@ -185,7 +186,7 @@ void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer)
 		printf("\t\tfd = %d\n", head->out.fd);
 		printf("\t\t"); for (int i = 0;(tmp_out_st);i++)
 		{
-			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_out_st->content));
+			printf("arg[%d] --> %s ~ [%c]  |  ", i, (char *)(tmp_out_st->content), ((char *)(tmp_out_st->content))[ft_strlen((char *)(tmp_out_st->content)) + 1]);
 			tmp_out_st = tmp_out_st->next;
 		}
 

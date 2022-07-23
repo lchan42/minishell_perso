@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/23 10:53:29 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/23 15:48:41 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static int __pars_io_pipe(t_io *i_o, t_lexer_token *token, int pipe_io)
 {
 	if (token->type == TYPE_LEXER_OPERATOR_LOGICAL)
 	{
-		i_o->type = pipe_io;
+		if (!i_o->arg)
+			i_o->type = pipe_io;
 		i_o->fd = (i_o->type > 3);
 		return (1);
 	}
