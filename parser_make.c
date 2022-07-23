@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_make.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/16 18:05:05 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 12:39:26 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/23 10:49:27 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_splcmd *__init_splcmd_node(t_splcmd **head, t_splcmd *runner)
 		*head = new_node;
 	else
 		runner->next = new_node;
-	new_node->out.type = 1;
+	//new_node->out.type = STDOUT;
 	return (new_node);
 }
 

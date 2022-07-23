@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_io_save.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:55:50 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/22 18:50:12 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/23 10:43:00 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	__save_here_d(t_io *io)
 }
 */
 
-static void	__here_d_parse_lim(t_io *io)/******chgmt 21/07, a valider avec Sacha*******/
+static void	__here_d_parse_lim(t_io *io)
 {
 	char	*tmp;
 	int		quote_flag;
@@ -70,7 +70,7 @@ static void	__here_d_parse_lim(t_io *io)/******chgmt 21/07, a valider avec Sacha
 	printf("limiteur = [%s]\n", io->arg);
 }
 
-static void	__save_here_d(t_io *io)/******chgmt 21/07, a valider avec Sacha*******/
+static void	__save_here_d(t_io *io)
 {
 	char	*limit;
 	char	buf[BUFFER_S];

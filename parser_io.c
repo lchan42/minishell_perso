@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:35:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/22 17:40:29 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/23 10:53:29 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	__pars_io_token(t_io *io, t_llist *redir, t_llist *word)
 			return (-1);
 		(io)->type = __get_redir_type((t_lexer_token *)(redir->content));
 		(io)->arg = __get_arg((t_lexer_token *)(word->content), (io)->type);
-		(io)->fd = ((io)->type > 3);
+		(io)->fd = ((io)->type > PIPE_IN);
 		(io)->stock = __get_stock(io, (io)->type);
 		return (1);
 	}

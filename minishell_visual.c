@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_visual.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 18:28:21 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/23 11:10:41 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ void	__visual_print_input(t_llist **runner)
 void	__vparser_print_type_io(int type)
 {
 	const char	*type_str [] = {
-	"STDIN",
-	"STDOUT",
+	//"STDIN",
+	//"STDOUT",
 	"IN _D",
 	"HERE_D",
 	"PIPE_IN",
@@ -169,6 +169,7 @@ void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer)
 		printf("\t\tlexer: "); __visual_print_input(&lexer);
 
 		printf("\n\n		----IN_STOCK ------------>"); __vparser_print_type_io(head->in.type);
+		printf("\t\tfd = %d\n", head->in.fd);
 		if (tmp_in_st){printf("\t\t");} for (int i = 0;(tmp_in_st);i++)
 		{
 			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_in_st->content));
@@ -181,6 +182,7 @@ void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer)
 		}
 
 		printf("\n\n		----OUT_STOCK ----------->"); __vparser_print_type_io(head->out.type);
+		printf("\t\tfd = %d\n", head->out.fd);
 		printf("\t\t"); for (int i = 0;(tmp_out_st);i++)
 		{
 			printf("arg[%d] --> %s  |  ", i, (char *)(tmp_out_st->content));

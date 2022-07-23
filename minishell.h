@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lchan <lchan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/22 20:07:05 by lchan            ###   ########.fr       */
+/*   Updated: 2022/07/23 10:55:43 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ typedef struct s_lexer_token
 /**********************************parsing struct*****************************************/
 enum	e_parser_io_type
 {
-	STDIN,
-	STDOUT,
+	//STDIN,
+	//STDOUT,
 	IN_D, // basic infile redirect
 	HERE_D, // here_doc
 	PIPE_IN,
@@ -158,6 +158,7 @@ typedef struct s_splcmd
 /*************************** main struct ****************************/
 typedef struct s_data
 {
+	int				log_fd; //journal d erreur
 	char			**env;
 	char			*user_input;
 	t_llist			*lexer;
@@ -221,19 +222,7 @@ void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer);
 //<<
 
 
-/********21/07*******
- * parser limiteur heredoc (cas $"EOF")
- * modif dans parser_io_save de la fonction __save_here_d (cas du [/n/0]);
- * mofif du visuel parser.
- *
- * ******22/07*******
- * io_in doit avpor un type STDIN et un type STDOUT par defaut
- * ajout ligne 38 dans __init_splcmd_node (fichier parser_make.c) du type par defaut de out.
- * ajout ligne 126 type STDIN et STDOUT dans .h ---> enum e_parser_io_type
- * ajout ligne 68 dans parser_io.c pour ne pas ouvrir heredoc quand word = syntax_error (<<| / <<<)
- * correction du double pipe accepte test || test
- * */
-
 /********Observation
- * les messages d'erreur doivent etre imprime sur la sortie standard
+ * les messages d'erreur doivent etre imprime sur la sortie erreur
+ * exit imprime exit sur sortie erreur
  * */
