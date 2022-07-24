@@ -25,8 +25,7 @@ char	*__is_expandable(char *str)
 			quote_flag = 0;
 		if ((quote_flag == '\"' || quote_flag == 0) && *str = '$')
 			return (str);
-		str++
-		} 
+		str++;
 	}
 	return (NULL);
 }
@@ -35,11 +34,10 @@ void	__expand_t_list(t_list *lst)
 {
 	char *expand_start;
 
-	expand_start = (char *)lst->content;
 	while (lst)
 	{
+		expand_start = (char *)lst->content;
 		expand_start = __is_expandable(expand_start);
-
 		lst = lst->next;
 	}
 }
