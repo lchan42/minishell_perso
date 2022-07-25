@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/23 17:04:05 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/25 13:31:30 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ t_list		*__get_stock(t_io *io, int type);
 int 		__pars_cmd(t_cmd *cmd, t_llist *lexer);
 char		*__here_d_unquote_limit(char *arg);
 
+/*************** expander *******************/
+t_splcmd	*__expand(t_splcmd *parser, char **env);
 
 /*************** free *********************/
 void		__t_list_free(t_list **lst);
