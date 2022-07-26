@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:55:50 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/23 10:43:00 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/26 11:07:51 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ static void	__here_d_parse_lim(t_io *io)
 		}
 	}
 	if (!quote_flag)
-		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup("expand\n")));
+		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup(HD_EXP)));
 	else
 	{
 		tmp = io->arg;
 		io->arg = __here_d_unquote_limit(io->arg);
 		free(tmp);
-		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup("no_expand\n")));
+		ft_lstadd_back(&(io->here_buffer), ft_lstnew(ft_strdup(HD_NOT_EXP)));
 	}
 	printf("limiteur = [%s]\n", io->arg);
 }

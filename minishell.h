@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:43:36 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/25 13:31:30 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/26 11:07:53 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define METACHAR "|<>" 		//dont need to interpreat';'
 # define LOG_META "|&"
 # define RED_META "<>"
+# define HD_EXP "1\n"
+# define HD_NOT_EXP "0\n"
+
+
 
 # define AND_IF "&&"				// if left true, do right
 # define OR_IF "||"					// if left faulse do right
