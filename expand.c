@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 11:12:12 by slahlou           #+#    #+#             */
-/*   Updated: 2022/07/26 11:28:38 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:45:00 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ char	*__is_expandable(char *str)
 // $"$'USER" -->input
 // $'USER -->bash output
 // $'USER -->  minishell output //seems OK
+// $2USER
+// $2USER$2USER
+// $2USER'$2USER'
+
 
 char	*__get_expand(char *start, int len, char **env)
 {
@@ -134,6 +138,8 @@ char	*__expand_string(char *str, char **env, int opt)
 	return (str);
 }
 
+
+
 void	__expand_t_list(t_list *lst, char **env, int opt)
 {
 	if (lst)
@@ -145,6 +151,7 @@ void	__expand_t_list(t_list *lst, char **env, int opt)
 		while (lst)
 		{
 			lst->content = __expand_string((char *)lst->content, env, opt);
+			lst->content = __remove_quote((char *)lst->content);
 			lst = lst->next;
 		}
 	}

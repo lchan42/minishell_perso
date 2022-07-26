@@ -6,7 +6,7 @@
 /*   By: slahlou <slahlou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 17:01:10 by lchan             #+#    #+#             */
-/*   Updated: 2022/07/23 15:57:09 by slahlou          ###   ########.fr       */
+/*   Updated: 2022/07/26 12:08:33 by slahlou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	__visual_print_splcmd(t_splcmd *head, t_llist *lexer)
 		printf("\t\t"); printf("size = %d\n", size);
 		printf("\t\t");for (int i = 0; i < size;i++)
 		{
-			printf("cmd_lst[%d] --> %s  |  ", i + 1,(char *)(tmp_cmd->content));
+			printf("cmd_lst[%d] --> %s\n", i + 1,(char *)(tmp_cmd->content));
 			tmp_cmd = tmp_cmd->next;
 		}
 		head = head->next;

@@ -25,6 +25,21 @@
 // 	return (__is_expandable(str + 1));
 // }
 
+int	ft_strchr_b(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (unsigned char) c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+
 char	*__is_expandable(char *str)
 {
 	static char quote_flag1 = 0;
@@ -40,16 +55,35 @@ char	*__is_expandable(char *str)
 	return (__is_expandable(str + 1));
 }
 
+
+
+char	*__expand_string(char *str)
+{
+	char	quote_flag;
+	int		i;
+	char	*start;
+
+	quote_flag = 0;
+	i = 0;
+	start = str;
+	while (*str)
+	{
+		if ((quote_flag == 0 || quote_flag == *(str + i)) && ft_strchr_b("\'\"", *(str + i) && ++i))
+			quote_flag ^= ((*(str + i) == '\'') * '\'') + ((*(str + i) == '\"') * '\"');
+		*str = *(str + i);
+		str++;
+	}
+	*str = '\0';
+	printf("%s\n", start);
+	//printf("*str = %c --> quote_flag = %d\n", *str, quote_flag);
+	return (NULL);
+}
+
 int main(void)
 {
-	// char *str = "kldsjglkd\"esn\'ffld$ft\'d\"fj\'$vb\'jdkdgfdgheriokg$";
-	// while ((str = __is_expandable(str)))
-	// {
-	// 	printf("%s\n", str);
-	// 	str++;
-	// }
-	char *str = "\'\" ;";
-	printf("%s\n", str);
+	char str[] = "je\"sui\'sacha\"fgfgd";
+	__expand_string(str);
+	//printf("%s\n", );
 	return (0);
 }
 
